@@ -10,6 +10,6 @@ Route::get('/user', function (Request $request) {
 
 Route::controller(RegisterController::class)->group(function(){
     Route::post('register', 'register');
-    Route::post('login', 'login');
+    Route::post('verify', 'verify');
     Route::get('logout', 'logout')->middleware('auth:sanctum');
 });

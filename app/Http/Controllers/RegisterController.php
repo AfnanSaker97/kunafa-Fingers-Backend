@@ -68,4 +68,60 @@ class RegisterController extends BaseController
     }
 }
 
+
+
+public function verify(Request $request)
+{
+    try {
+    // Validate the request input
+    $validated = Validator::make($request->all(), [
+        'email' => 'required|email|exists:users,email',
+        'verification_code' => 'required|string',
+    ]);
+
+    // Check if validation fails
+    if ($validated->fails()) {
+        return ApiResponseClass::validateResponse($validated->errors()->all());
+    }
+
+    // Retrieve the user by email and check the verification code
+    $user = User::where('email', $request->email)
+                ->where('code', $request->verification_code)
+                ->first();
+
+    // If user does not exist or code is incorrect, return an error response
+    if (!$user) {
+        return $this->sendError('Invalid email or verification code!');
+    }
+      
+        // Update user's email verification timestamp
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+
+        // Create a new API token for the user
+        $data['token'] = $user->createToken($request->email)->plainTextToken;
+        $data['user'] = $user;
+
+        return $this->sendResponse($data,'User is logged in successfully.');
+    } catch (\Throwable $th) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $th->getMessage()
+        ], 500);
+    }
+}
+
+
+
+public function logout(Request $request)
+{
+    $user = auth()->user();
+    $user->tokens()->delete();
+    $user->mySession()->delete();
+    $success['user'] =  $user;
+    return $this->sendResponse($success, 'User is logged out successfully.');
+
+} 
+
+
 }
