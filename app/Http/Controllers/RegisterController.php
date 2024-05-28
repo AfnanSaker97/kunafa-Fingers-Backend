@@ -12,6 +12,8 @@ use App\Models\MySession;
 use Carbon\Carbon;
 use App\Http\Controllers\BaseController as BaseController;
 use Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerificationCodeMail;
 class RegisterController extends BaseController
 {
     public function register(Request $request): JsonResponse
@@ -45,6 +47,7 @@ class RegisterController extends BaseController
                 'last_activity' => time(),
             ]);
             $success['user'] =  $user;
+            Mail::to($user->email)->send(new VerificationCodeMail($email_verification_code));
            }
            else{
             $existingUser->code =$email_verification_code;
@@ -57,8 +60,10 @@ class RegisterController extends BaseController
                 'last_activity' => time(),
             ]);
             $success['user'] =  $existingUser;
+            Mail::to($existingUser->email)->send(new VerificationCodeMail($email_verification_code));
            }
-        return $this->sendResponse($success,'Email verification code sent.');
+          
+        return $this->sendResponse($success,'Verification code sent to your email.');
   
     }catch (\Throwable $th) {
         return response()->json([
@@ -91,7 +96,7 @@ public function verify(Request $request)
 
     // If user does not exist or code is incorrect, return an error response
     if (!$user) {
-        return $this->sendError('Invalid email or verification code!');
+        return $this->sendError('Invalid verification code!');
     }
       
         // Update user's email verification timestamp
@@ -102,7 +107,7 @@ public function verify(Request $request)
         $data['token'] = $user->createToken($request->email)->plainTextToken;
         $data['user'] = $user;
 
-        return $this->sendResponse($data,'User is logged in successfully.');
+        return $this->sendResponse($data,'Email verified successfully.');
     } catch (\Throwable $th) {
         return response()->json([
             'status' => 'error',
