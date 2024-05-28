@@ -98,7 +98,7 @@ public function verify(Request $request)
 
     // If user does not exist or code is incorrect, return an error response
     if (!$user) {
-        return $this->sendError('Invalid verification code!');
+        return $this->sendError('Validation Error.',['Invalid verification code!']);
     }
       
         // Update user's email verification timestamp
