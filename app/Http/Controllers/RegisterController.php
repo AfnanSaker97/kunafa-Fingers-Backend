@@ -60,7 +60,6 @@ class RegisterController extends BaseController
                 'last_activity' => time(),
             ]);
             $success['user'] =  $existingUser;
-   
             Mail::to($existingUser->email)->send(new VerificationCodeMail($email_verification_code));
            }
           
