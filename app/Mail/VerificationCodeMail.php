@@ -23,8 +23,7 @@ class VerificationCodeMail extends Mailable
 
     public function build()
     {
-        return $this->from("info@tecrek.com")
-                    ->view('emails.verification_code')
+        return $this->view('emails.verification_code')
                     ->with(['code' => $this->code]);
     }
 

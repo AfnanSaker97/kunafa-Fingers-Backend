@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationCodeMail;
 class RegisterController extends BaseController
 {
-    public function register(Request $request): JsonResponse
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|min:3',
@@ -60,7 +60,7 @@ class RegisterController extends BaseController
                 'last_activity' => time(),
             ]);
             $success['user'] =  $existingUser;
-       
+       return $email_verification_code;
             Mail::to($existingUser->email)->send(new VerificationCodeMail($email_verification_code));
            }
           
@@ -86,8 +86,9 @@ public function verify(Request $request)
     ]);
 
     // Check if validation fails
-    if ($validated->fails()) {
-        return ApiResponseClass::validateResponse($validated->errors()->all());
+  
+    if($validator->fails()){
+        return $this->sendError('Validation Error.', $validator->errors()->all());       
     }
 
     // Retrieve the user by email and check the verification code
