@@ -80,7 +80,7 @@ public function verify(Request $request)
 {
     try {
     // Validate the request input
-    $validated = Validator::make($request->all(), [
+    $validator = Validator::make($request->all(), [
         'email' => 'required|email|exists:users,email',
         'verification_code' => 'required|string',
     ]);
