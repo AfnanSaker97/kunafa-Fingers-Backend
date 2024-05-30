@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
-class ProductController extends Controller
+use App\Http\Controllers\BaseController as BaseController;
+use Validator;
+use Illuminate\Support\Facades\Cache;
+class ProductController extends BaseController
 {
     /**
      * Display a listing of the resource.
