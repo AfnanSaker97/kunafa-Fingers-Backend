@@ -103,22 +103,20 @@ class ProductController extends BaseController
             $categoryId = $request->input('category_id');
             $cacheKey = 'products_' . $languageId . '_' . $categoryId;
     
-            // Retrieve products with caching
-            $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
-                try {
-                    return Product::with(['category' => function ($query) {
-                        $query->select('id', 'name'); // Ensure only necessary columns are selected
-                    }])
-                    ->where('language_id', $languageId)
-                    ->where('category_id', $categoryId)
-                    ->select('id', 'name', 'description', 'price', 'tags', 'code', 'category_id')
-                    ->get();
+           // Retrieve products with caching
+       $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
+        try {
+            return Product::with(['category','productsMedia'])
+            ->where('language_id', $languageId)
+            ->where('category_id', $categoryId)
+            ->select('id', 'name', 'description', 'price', 'tags', 'code','category_id')
+            ->get();
                 } catch (\Exception $e) {
                     \Log::error('Error fetching products: ' . $e->getMessage());
                     return collect(); // Return an empty collection on error
                 }
             });
-    
+    return  $products ;
             // Assuming $this->sendResponse() method is defined elsewhere
             return $this->sendResponse($products, 'Products fetched successfully.');
         
