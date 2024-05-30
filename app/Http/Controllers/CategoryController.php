@@ -29,7 +29,7 @@ class CategoryController extends BaseController
                 // Select only necessary columns
                 return Category::where('language_id', $languageId)
                     ->select('name', 'image')
-                    ->paginate(12);
+                    ->get();
             } catch (\Exception $e) {
                 // Log error and return empty array
                 \Log::error('Error fetching categories: ' . $e->getMessage());

@@ -29,7 +29,7 @@ class ProductController extends BaseController
                 // Select only necessary columns
                 return Product::where('language_id', $languageId)
                     ->select('name', 'description','price','tags','code')
-                    ->paginate(12);
+                    ->get();
             } catch (\Exception $e) {
                 // Log error and return empty array
                 \Log::error('Error fetching products: ' . $e->getMessage());
@@ -86,9 +86,39 @@ class ProductController extends BaseController
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
-    {
-        //
+   
+        public function show(Request $request)
+        {
+            // Validate the request
+            $validator = Validator::make($request->all(), [
+                'language_id' => 'required|exists:languages,id',
+                'category_id' => 'required|exists:categories,id',
+            ]);
+    
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->all());
+            }
+    
+            $languageId = $request->input('language_id');
+            $categoryId = $request->input('category_id');
+            $cacheKey = 'products_' . $languageId . '_' . $categoryId;
+    
+            // Retrieve products with caching
+            $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
+                try {
+                    return Product::where('language_id', $languageId)
+                        ->where('category_id', $categoryId)
+                        ->select('name', 'description', 'price', 'tags', 'code')
+                        ->get();
+                } catch (\Exception $e) {
+                    \Log::error('Error fetching products: ' . $e->getMessage());
+                    return collect(); // Return an empty collection on error
+                }
+            });
+    
+            // Assuming $this->sendResponse() method is defined elsewhere
+            return $this->sendResponse($products, 'Products fetched successfully.');
+        
     }
 
     /**

@@ -27,6 +27,6 @@ Route::controller(CategoryController::class)->group(function(){
 Route::controller(ProductController::class)->group(function(){
     Route::post('Product', 'store');
     Route::get('Products', 'index');
-  
+    Route::get('ProductsByCategory', 'show');
 });
 
