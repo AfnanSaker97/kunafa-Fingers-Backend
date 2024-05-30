@@ -12,8 +12,9 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(['name' => 'Arabic', 'language_id' => '1']);
-        Category::create(['name' => 'Chinese', 'language_id' => '1']);
-        Category::create(['name' => 'Malay', 'language_id' => '1']);
+        Category::create(['name' => 'أطباق كنافة', 'language_id' => '1']);
+        Category::create(['name' => 'كنافة كراون', 'language_id' => '1']);
+        Category::create(['name' => 'اصابع كنافة', 'language_id' => '1']);
+        Category::create(['name' => 'البقلاوة' , 'language_id' => '1']);
     }
 }

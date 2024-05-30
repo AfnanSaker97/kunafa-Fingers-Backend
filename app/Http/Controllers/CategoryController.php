@@ -24,10 +24,10 @@ class CategoryController extends BaseController
     
         // Retrieve categories data
         $languageId = $request->language_id;
-        $categories = Cache::remember('categories_' . $languageId, 60, function () use ($languageId) {
+      //  $categories = Cache::remember('categories_' . $languageId, 60, function () use ($languageId) {
             try {
                 // Select only necessary columns
-                return Category::where('language_id', $languageId)
+                $categories= Category::where('language_id', $languageId)
                     ->select('name', 'image')
                     ->get();
             } catch (\Exception $e) {
@@ -35,7 +35,7 @@ class CategoryController extends BaseController
                 \Log::error('Error fetching categories: ' . $e->getMessage());
                 return [];
             }
-        });
+   //     });
         // Assuming $this->sendResponse() method is defined elsewhere
         return $this->sendResponse($categories, 'Categories fetched successfully.');
     }
