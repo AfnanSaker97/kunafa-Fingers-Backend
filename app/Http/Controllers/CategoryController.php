@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use App\Models\Category;
 use Validator;
+use Illuminate\Support\Facades\Cache;
 class CategoryController extends BaseController
 {
    /**
@@ -46,8 +47,8 @@ class CategoryController extends BaseController
     {
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation for an image upload
+            'name' => 'required|string|max:255|unique:categories',
+           // 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation for an image upload
             'language_id' => 'required|exists:languages,id',
         ]);
 
@@ -55,15 +56,23 @@ class CategoryController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors()->all());       
         }
-        // Create the category
-        $category = new Category();
-        $category->name = $request->name;
-        $category->image = $request->file('image')->store('category_images'); // Example of storing uploaded image
-        $category->language_id = $request->language_id;
-        $category->save();
+   /* $image = $request->file('image');
+    $imageName = time().'.'.$image->getClientOriginalExtension();
 
+    // Save the image to the public disk
+    Storage::disk('public')->put($imageName, file_get_contents($image));
+
+    // Get the URL of the uploaded image
+    $imageUrl = Storage::disk('public')->url($imageName);
+*/
+      // Save the image URL to the database
+    $category = Category::create([
+        'name' => $request->name, // or any other relevant data
+        'language_id'=>$request->language_id,
+      //  'image' => $imageUrl,
+    ]);
         // Return success response
-        return $this->sendResponse($data,'Category created successfully.');
+        return $this->sendResponse($category,'Category created successfully.');
     }
     
 }

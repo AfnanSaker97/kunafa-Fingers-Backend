@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\Language;
 class LanguageSeeder extends Seeder
 {
     /**
@@ -13,8 +13,8 @@ class LanguageSeeder extends Seeder
     public function run(): void
     {
        // Create records for Chinese, Arabic, and Malay languages
-     Lang::create(['name' => 'Arabic', 'code' => 'ar']);
-     Lang::create(['name' => 'Chinese', 'code' => 'zh']);
-     Lang::create(['name' => 'Malay', 'code' => 'ms']);
+       Language::create(['name' => 'Arabic', 'code' => 'ar']);
+       Language::create(['name' => 'Chinese', 'code' => 'zh']);
+       Language::create(['name' => 'Malay', 'code' => 'ms']);
     }
 }
