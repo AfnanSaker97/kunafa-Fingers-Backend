@@ -27,9 +27,10 @@ class ProductController extends BaseController
         $products = Cache::remember('products' . $languageId, 60, function () use ($languageId) {
             try {
                 // Select only necessary columns
-                return Product::where('language_id', $languageId)
-                    ->select('name', 'description','price','tags','code')
-                    ->get();
+                return Product::with(['category','productsMedia'])
+                ->where('language_id', $languageId)
+                ->select('id', 'name', 'description', 'price', 'tags', 'code','category_id')
+                ->get();
             } catch (\Exception $e) {
                 // Log error and return empty array
                 \Log::error('Error fetching products: ' . $e->getMessage());
@@ -116,11 +117,45 @@ class ProductController extends BaseController
                     return collect(); // Return an empty collection on error
                 }
             });
-    return  $products ;
+
             // Assuming $this->sendResponse() method is defined elsewhere
             return $this->sendResponse($products, 'Products fetched successfully.');
         
     }
+
+    public function ProductByID(Request $request)
+    {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'language_id' => 'required|exists:languages,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
+    
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());
+        }
+    
+        $languageId = $request->input('language_id');
+        $productId = $request->input('product_id');
+        $cacheKey = 'product_' . $languageId . '_' . $productId;
+    
+        // Retrieve product with caching
+        $product = Cache::remember($cacheKey, 60, function () use ($languageId, $productId) {
+            try {
+                return Product::with(['category', 'productsMedia'])
+                    ->where('language_id', $languageId)
+                    ->where('id', $productId)
+                    ->select('id', 'name', 'description', 'price', 'tags', 'code','category_id')
+                    ->first();
+            } catch (\Exception $e) {
+                \Log::error('Error fetching product: ' . $e->getMessage());
+                return null; // Return null on error
+            }
+        });
+    
+        return $this->sendResponse($product, 'Product fetched successfully.');
+    }
+
 
     /**
      * Show the form for editing the specified resource.
