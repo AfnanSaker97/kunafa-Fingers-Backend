@@ -49,15 +49,13 @@ class ProductMediaController extends BaseController
           // Handle the file upload
         if ($request->hasFile('url_media')) {
             $imageName = time() . '.' . $request->url_media->extension();
-            $request->url_media->storeAs("ProductMedia/", $imageName);
-            $path = URL::asset("kunafa-Fingers-Backend/storage/app/ProductMedia/");
-            $url = $path . '/' . $imageName;
+            $path =$request->url_media->move(public_path('ProductMedia'), $imageName);
+         
         }
         
-
             $productMedia =ProductMedia::create([
             'product_id' => $request->product_id,
-            'url_media' => $url,
+            'url_media' => $path,
         ]);
           // Commit the transaction
           DB::commit();
