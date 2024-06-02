@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductMediaController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -28,5 +29,10 @@ Route::controller(ProductController::class)->group(function(){
     Route::post('Product', 'store');
     Route::get('Products', 'index');
     Route::get('ProductsByCategory', 'show');
+});
+
+
+Route::controller(ProductMediaController::class)->group(function(){
+    Route::post('ProductMedia', 'store');
 });
 
