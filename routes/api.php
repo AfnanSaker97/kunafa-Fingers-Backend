@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductMediaController;
+use App\Http\Controllers\FavoriteProductController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -36,3 +37,8 @@ Route::controller(ProductMediaController::class)->group(function(){
     Route::post('ProductMedia', 'store');
 });
 
+
+Route::controller(FavoriteProductController::class)->group(function(){
+    Route::post('FavoriteProduct', 'store')->middleware('auth:sanctum');
+    Route::get('FavoriteProduct', 'index')->middleware('auth:sanctum');
+});
