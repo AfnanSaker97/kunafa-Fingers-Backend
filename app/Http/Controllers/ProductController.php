@@ -180,4 +180,16 @@ class ProductController extends BaseController
     {
         //
     }
+
+
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+                           ->orWhere('description', 'LIKE', "%{$query}%")
+                           ->paginate(10);
+
+      return $this->sendResponse($products, 'Product fetched successfully.');
+    }
 }

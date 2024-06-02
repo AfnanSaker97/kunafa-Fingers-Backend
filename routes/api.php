@@ -31,7 +31,7 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('Products', 'index');
     Route::get('ProductsByCategory', 'show');
     Route::get('ProductByID', 'ProductByID');
-  
+    Route::get('search', 'search');
 });
 
 
