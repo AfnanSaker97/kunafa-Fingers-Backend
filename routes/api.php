@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductMediaController;
 use App\Http\Controllers\FavoriteProductController;
+use App\Http\Controllers\CartItemController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -40,7 +41,12 @@ Route::controller(ProductMediaController::class)->group(function(){
 });
 
 
-Route::controller(FavoriteProductController::class)->group(function(){
-    Route::post('FavoriteProduct', 'store')->middleware('auth:sanctum');
-    Route::get('FavoriteProduct', 'index')->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post('favorite-products', [FavoriteProductController::class, 'store']);
+    Route::get('favorite-products', [FavoriteProductController::class, 'index']);
+});
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post('addCartItem', [CartItemController::class, 'store']);
+    //Route::get('favorite-products', [CartItemController::class, 'index']);
 });

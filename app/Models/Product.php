@@ -14,6 +14,7 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'new_price',
         'isActive',
         'tags',
         'code',

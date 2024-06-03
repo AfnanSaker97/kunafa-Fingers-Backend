@@ -14,6 +14,7 @@ use App\Http\Controllers\BaseController as BaseController;
 use Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationCodeMail;
+use Illuminate\Support\Facades\DB;
 class RegisterController extends BaseController
 {
     public function register(Request $request)

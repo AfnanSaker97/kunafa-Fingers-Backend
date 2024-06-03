@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Validator;
 use Auth;
+use Illuminate\Support\Facades\DB;
 class FavoriteProductController extends BaseController
 {
     /**

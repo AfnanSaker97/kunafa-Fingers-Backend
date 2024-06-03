@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Validator;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 class ProductController extends BaseController
 {
     /**
@@ -29,12 +30,12 @@ class ProductController extends BaseController
                 // Select only necessary columns
                 return Product::with(['category','productsMedia'])
                 ->where('language_id', $languageId)
-                ->select('id', 'name', 'description', 'price', 'tags', 'code','category_id')
+                ->select('id', 'name', 'description', 'price', 'new_price','tags', 'code','category_id')
                 ->get();
             } catch (\Exception $e) {
                 // Log error and return empty array
-                \Log::error('Error fetching products: ' . $e->getMessage());
-                return [];
+                return response()->json(['error' =>  $e->getMessage()], 500);
+              
             }
         });
         // Assuming $this->sendResponse() method is defined elsewhere
@@ -58,6 +59,7 @@ class ProductController extends BaseController
             'name' => 'required|string|max:255|unique:products',
             'description' => 'required|string',
             'price' => 'required|string',
+            'new_price' => 'nullable|string',
             'tags' => 'required|string',
             'code' => 'required|string',
             'category_id' => 'required|exists:categories,id',
@@ -74,6 +76,7 @@ class ProductController extends BaseController
         'language_id'=>$request->language_id,
         'description' => $request->description,
         'price' => $request->price,
+        'new_price' => $request->new_price?? '0',
         'tags' => $request->tags,
         'code' => $request->code,
         'category_id' => $request->category_id,
@@ -110,7 +113,7 @@ class ProductController extends BaseController
             return Product::with(['category','productsMedia'])
             ->where('language_id', $languageId)
             ->where('category_id', $categoryId)
-            ->select('id', 'name', 'description', 'price', 'tags', 'code','category_id')
+            ->select('id', 'name', 'description', 'price','new_price', 'tags', 'code','category_id')
             ->get();
                 } catch (\Exception $e) {
                     \Log::error('Error fetching products: ' . $e->getMessage());
@@ -145,11 +148,11 @@ class ProductController extends BaseController
                 return Product::with(['category', 'productsMedia'])
                     ->where('language_id', $languageId)
                     ->where('id', $productId)
-                    ->select('id', 'name', 'description', 'price', 'tags', 'code','category_id')
+                    ->select('id', 'name', 'description', 'price', 'new_price', 'tags', 'code','category_id')
                     ->first();
             } catch (\Exception $e) {
-                \Log::error('Error fetching product: ' . $e->getMessage());
-                return null; // Return null on error
+                DB::rollBack();
+                return response()->json(['error' => $e->getMessage()], 500);
             }
         });
     

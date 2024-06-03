@@ -62,11 +62,8 @@ class ProductMediaController extends BaseController
           DB::commit();
         return $this->sendResponse($productMedia, 'Photo uploaded successfully.');
     } catch (\Exception $e) {
-        // Rollback the transaction on error
         DB::rollBack();
-        // Return error response
-        return response()->json(['error' => 'Failed to upload photo', 'message' => $e->getMessage()], 500);
-    }
+        return response()->json(['error' => $e->getMessage()], 500); }
     }
 
     /**
