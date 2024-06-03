@@ -19,7 +19,10 @@ class CartItemController extends BaseController
         $userId = Auth::id();   
          // Retrieve paginated cart items for the authenticated user
         $cartItems = CartItem::with('product.productsMedia')->where('user_id', $userId)->paginate(10);
-      
+       // Retrieve the sum of the sub_total_price of unchecked cart items for the user
+        $cartItemsTotal = CartItem::where('isChecked', 0)
+       ->where('user_id', $userId)
+       ->sum('sub_total_price');
      // Format the response to include product name and image
       $formattedCartItems = $cartItems->map(function ($cartItem) {
         $product = $cartItem->product;
@@ -41,6 +44,7 @@ class CartItemController extends BaseController
      // Return paginated response
      return $this->sendResponse([
         'data' => $formattedCartItems,
+        'total_sub_total_price' => $cartItemsTotal,
         'current_page' => $cartItems->currentPage(),
         'last_page' => $cartItems->lastPage(),
         'per_page' => $cartItems->perPage(),
@@ -169,16 +173,57 @@ class CartItemController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CartItem $cartItem)
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'quantity' => 'nullable|numeric',
+            'id' => 'required|exists:cart_items',
+            'note' => 'string|nullable',
+            ]);
+           
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->all());       
+            }
+            
+          
+        $cartItem = CartItem::find($request->id);
+        if (isset($request->quantity)) {
+            if ($request->quantity == 0) {
+                $cartItem->delete();
+                return $this->sendResponse([], 'CartItem removed successfully.');
+            }
+
+           $product = Product::find($cartItem->product_id);
+        if (!$product) {
+            return $this->sendError('Product not found.', []);
+        }
+        $cartItem->quantity = $request->quantity;
+        $cartItem->price = $product->new_price ?: $product->price;
+        $cartItem->sub_total_price = $cartItem->quantity * $cartItem->price;
     }
 
+      if ($request->has('note')) {
+        $cartItem->note = $request->note ??  $cartItem->note;
+      }
+      $cartItem->save();
+      return $this->sendResponse($cartItem, 'CartItem updated successfully.');
+
+    }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CartItem $cartItem)
-    {
-        //
+    public function destroy(Request $request)
+    {  
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:cart_items',
+            ]);
+           
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->all());       
+            }
+            
+            $cartItem = CartItem::find($request->id);
+            $cartItem->delete();
+            return $this->sendResponse($cartItem, 'CartItem deleted successfully.');
     }
 }
