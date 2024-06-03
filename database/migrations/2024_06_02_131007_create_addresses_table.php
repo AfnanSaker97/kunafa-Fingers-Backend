@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('city')->default('0');
             $table->string('postcode')->default('0');
             $table->string('contact_number')->default('0');
-            $table->point('geo_location')->nullable()->default(null);
+          //  $table->point('geo_location')->nullable()->default(null);
             $table->string('full_name')->default('0');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
