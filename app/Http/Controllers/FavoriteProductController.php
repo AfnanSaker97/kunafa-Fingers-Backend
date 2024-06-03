@@ -35,7 +35,7 @@ class FavoriteProductController extends BaseController
                 // Validate the request
     $validator = Validator::make($request->all(), [
         'product_id' => 'required|exists:products,id',
-    ]);
+    ]); 
 
     if ($validator->fails()) {
         return response()->json(['error' => 'Validation Error', 'messages' => $validator->errors()->all()], 422);

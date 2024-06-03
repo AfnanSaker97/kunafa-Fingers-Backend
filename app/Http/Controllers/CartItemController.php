@@ -16,7 +16,9 @@ class CartItemController extends BaseController
      */
     public function index()
     {
-        //
+        $cartItems = CartItem::paginate(10);
+      
+        return $this->sendResponse($cartItems, 'CartItem fetched successfully.');
     }
 
     /**
@@ -70,8 +72,9 @@ class CartItemController extends BaseController
                 DB::commit();
                 return $this->sendResponse($existingCartItem, 'Product removed from cart successfully.');
             }
-            $existingCartItem->price =$price * $existingCartItem->quantity;
+            $existingCartItem->price =$price;
             $existingCartItem->note = $request->note ?? $existingCartItem->note;
+            $existingCartItem->sub_total_price =$price * $existingCartItem->quantity;
             $existingCartItem->save();
 
             $cartItem = $existingCartItem;
@@ -82,15 +85,13 @@ class CartItemController extends BaseController
                 'user_id' => $userId,
                 'product_id' => $request->product_id,
                 'price' => $price,
+                'sub_total_price' =>$price * $request->quantity,
                 'note' => $request->note?? '0',
             ]);
-        //    $cartItem['totalpriceforItem'] = $cartItem->price * $cartItem->quantity;
+    
         }
 
-        // Retrieve the count of unchecked cart items for the user
-     //   $cartItem->cart_items_count = CartItem::where('isChecked', 0)
-     //       ->where('user_id', $userId)
-     //       ->count();
+   
 
         DB::commit();
 

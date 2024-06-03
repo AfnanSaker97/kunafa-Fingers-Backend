@@ -9,7 +9,7 @@ class CartItem extends Model
 {
     use HasFactory;
     protected $table ='cart_items';
-    protected $fillable = ['user_id', 'product_id','quantity','price','isChecked','note','order_id'];
+    protected $fillable = ['user_id', 'product_id','quantity','price','sub_total_price','isChecked','note','order_id'];
 
 
     public function order(): BelongsTo

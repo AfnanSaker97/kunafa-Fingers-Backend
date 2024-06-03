@@ -48,5 +48,5 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('addCartItem', [CartItemController::class, 'store']);
-    //Route::get('favorite-products', [CartItemController::class, 'index']);
+    Route::get('CartItem', [CartItemController::class, 'index']);
 });
