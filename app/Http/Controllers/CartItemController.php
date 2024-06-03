@@ -16,9 +16,57 @@ class CartItemController extends BaseController
      */
     public function index()
     {
-        $cartItems = CartItem::paginate(10);
+        $userId = Auth::id();   
+         // Retrieve paginated cart items for the authenticated user
+        $cartItems = CartItem::with('product.productsMedia')->where('user_id', $userId)->paginate(10);
       
-        return $this->sendResponse($cartItems, 'CartItem fetched successfully.');
+     // Format the response to include product name and image
+      $formattedCartItems = $cartItems->map(function ($cartItem) {
+        $product = $cartItem->product;
+        $productMedia = $product->productsMedia->first(); // Assuming you want the first media item
+
+        return [
+            'id' => $cartItem->id,
+            'product_id' => $cartItem->product_id,
+            'product_name' => $product ? $product->name : null,
+            'product_image' => $productMedia ? $productMedia->url_media : null, // Adjust according to your image field
+            'quantity' => $cartItem->quantity,
+            'price' => $cartItem->price,
+            'sub_total_price' => $cartItem->sub_total_price,
+            'note' => $cartItem->note,
+      
+        ];
+    });
+
+     // Return paginated response
+     return $this->sendResponse([
+        'data' => $formattedCartItems,
+        'current_page' => $cartItems->currentPage(),
+        'last_page' => $cartItems->lastPage(),
+        'per_page' => $cartItems->perPage(),
+        'total' => $cartItems->total(),
+    ], 'Cart items fetched successfully.');
+}
+    public function TotalCart()
+    {
+        $userId = Auth::id();
+
+        // Retrieve the count of unchecked cart items for the user
+        $cartItemsCount = CartItem::where('isChecked', 0)
+            ->where('user_id', $userId)
+            ->count();
+    
+        // Retrieve the sum of the sub_total_price of unchecked cart items for the user
+        $cartItemsTotal = CartItem::where('isChecked', 0)
+            ->where('user_id', $userId)
+            ->sum('sub_total_price');
+    
+        $result = [
+            'total_items' => $cartItemsCount,
+            'total_price' => $cartItemsTotal
+        ];
+    
+        return $this->sendResponse($result, 'Cart totals fetched successfully.');
     }
 
     /**
