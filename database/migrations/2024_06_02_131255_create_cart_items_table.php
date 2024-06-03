@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('quantity');
             $table->string('price');
-            $table->boolean('isChecked')->default(1);
+            $table->boolean('isChecked')->default(0);
             $table->string('note')->default('0');
-            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+          //  $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

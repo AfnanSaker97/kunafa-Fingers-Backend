@@ -64,9 +64,14 @@ class CartItemController extends BaseController
         if ($existingCartItem) {
             // Update the existing cart item
             $existingCartItem->quantity +=  $request->quantity;
-            $existingCartItem->price = $price;
+             // Check if the quantity is zero or less
+             if ($existingCartItem->quantity <= 0) {
+                $existingCartItem->delete();
+                DB::commit();
+                return $this->sendResponse($existingCartItem, 'Product removed from cart successfully.');
+            }
+            $existingCartItem->price =$price * $existingCartItem->quantity;
             $existingCartItem->note = $request->note ?? $existingCartItem->note;
-            $existingCartItem->totalpriceforItem = $existingCartItem->price * $existingCartItem->quantity;
             $existingCartItem->save();
 
             $cartItem = $existingCartItem;
@@ -79,13 +84,13 @@ class CartItemController extends BaseController
                 'price' => $price,
                 'note' => $request->note?? '0',
             ]);
-            $cartItem->totalpriceforItem = $cartItem->price * $cartItem->quantity;
+        //    $cartItem['totalpriceforItem'] = $cartItem->price * $cartItem->quantity;
         }
 
         // Retrieve the count of unchecked cart items for the user
-        $cartItem->cart_items_count = CartItem::where('isChecked', 0)
-            ->where('user_id', $userId)
-            ->count();
+     //   $cartItem->cart_items_count = CartItem::where('isChecked', 0)
+     //       ->where('user_id', $userId)
+     //       ->count();
 
         DB::commit();
 
