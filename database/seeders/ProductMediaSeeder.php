@@ -12,11 +12,19 @@ class ProductMediaSeeder extends Seeder
      */
     public function run(): void
     {
-        ProductMedia::create(['product_id' => '1', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327216.jpg']);
-        ProductMedia::create(['product_id' => '2', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327339.jpg']);
-        ProductMedia::create(['product_id' => '3', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327351.jpg']);
-        ProductMedia::create(['product_id' => '4', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327363.jpg']);
-        ProductMedia::create(['product_id' => '5', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327772.jpg']);
-       // ProductMedia::create(['product_id' => '3', 'url_media' => 'ms']);
+      //  ProductMedia::create(['product_id' => '1', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327216.jpg']);
+      ProductMedia::create(['product_id' => '1', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327351.jpg']);
+      //  ProductMedia::create(['product_id' => '2', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327339.jpg']);
+      //  ProductMedia::create(['product_id' => '3', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327351.jpg']);
+      //  ProductMedia::create(['product_id' => '4', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327351.jpg']);
+       // ProductMedia::create(['product_id' => '5', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327363.jpg']);
+      //  ProductMedia::create(['product_id' => '6', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327772.jpg']);
+       // ProductMedia::create(['product_id' => '7', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327216.jpg']);
+       // ProductMedia::create(['product_id' => '8', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327351.jpg']);
+     //  ProductMedia::create(['product_id' => '9', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327351.jpg']);
+    // ProductMedia::create(['product_id' => '10', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717502673.jpg']);
+  //   ProductMedia::create(['product_id' => '11', 'url_media' => 'https://kunafa-fingers-backend.tecrek.com/public/ProductMedia/1717327351.jpg']);
+  
+   
     }
 }

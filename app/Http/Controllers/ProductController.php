@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductLog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Validator;
+use Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 class ProductController extends BaseController
@@ -193,6 +195,54 @@ class ProductController extends BaseController
                            ->orWhere('description', 'LIKE', "%{$query}%")
                            ->paginate(10);
 
+       // Check if only one product is found
+   
+   
+    /*    $productId = $products->first()->id;
+
+        // Log the search query and product ID
+        ProductLog::create([
+            'user_id' => Auth::id(), 
+            'product_id' => $productId,
+        ]);
+
+        */
+   
       return $this->sendResponse($products, 'Product fetched successfully.');
     }
+
+
+
+
+    
+public function RandomProduct(Request $request)
+{
+    // Validate the request
+    $validator = Validator::make($request->all(), [
+        'language_id' => 'required|exists:languages,id',
+    ]);
+
+    if ($validator->fails()) {
+        return $this->sendError('Validation Error.', $validator->errors()->all());
+    }
+
+    // Retrieve categories data
+    $languageId = $request->language_id;
+    $products = Cache::remember('products_random_' . $languageId, 60, function () use ($languageId) {
+        try {
+            // Select only necessary columns and order randomly
+            return Product::with(['category', 'productsMedia'])
+                ->where('language_id', $languageId)
+                ->inRandomOrder() // Fetch products in random order
+                ->select('id', 'name', 'description', 'price', 'new_price', 'tags', 'code', 'category_id')
+                ->get();
+        } catch (\Exception $e) {
+            // Log error and return empty array
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    });
+
+    // Assuming $this->sendResponse() method is defined elsewhere
+    return $this->sendResponse($products, 'Products fetched successfully.');
+}
 }

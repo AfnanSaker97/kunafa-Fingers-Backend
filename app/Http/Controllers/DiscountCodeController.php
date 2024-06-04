@@ -44,7 +44,6 @@ class DiscountCodeController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors()->all());       
         }
-
     
       $discountCode = DiscountCode::create([
         'code' => $request->code,

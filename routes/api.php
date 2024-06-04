@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductMediaController;
 use App\Http\Controllers\FavoriteProductController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ProductLogController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -34,6 +35,8 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('ProductsByCategory', 'show');
     Route::get('ProductByID', 'ProductByID');
     Route::get('search', 'search');
+    Route::get('RandomProduct', 'RandomProduct');
+   
 });
 
 
@@ -70,4 +73,9 @@ Route::middleware('auth:sanctum')->group(function() {
    // Route::get('Address', [DiscountCodeController::class, 'index']);
   //  Route::get('AddressById', [DiscountCodeController::class, 'show']);
 
+});
+
+Route::controller(ProductLogController::class)->group(function(){
+    Route::get('logs', 'index');
+  
 });
