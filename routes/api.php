@@ -41,6 +41,16 @@ Route::controller(ProductController::class)->group(function(){
 });
 
 
+Route::middleware('auth:sanctum')->group(function() {
+    Route::get('getProductsUser', [ProductController::class, 'getProductsUser']);
+    
+    Route::get('TotalCart', [ProductController::class, 'TotalCart']);
+    Route::post('updateCartItem', [ProductController::class, 'update']);
+    Route::delete('deleteCartItem', [ProductController::class, 'destroy']);
+});
+
+
+
 Route::controller(ProductMediaController::class)->group(function(){
     Route::post('ProductMedia', 'store');
 });

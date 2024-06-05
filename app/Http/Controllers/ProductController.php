@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductLog;
+use App\Models\FavoriteProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Validator;
 use Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+
 class ProductController extends BaseController
 {
     /**
@@ -43,6 +45,37 @@ class ProductController extends BaseController
         // Assuming $this->sendResponse() method is defined elsewhere
         return $this->sendResponse($products, 'Products fetched successfully.');
     }
+
+
+    public function getProductsUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'language_id' => 'required|exists:languages,id',
+        ]);
+       
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());       
+        }
+    
+        // Retrieve categories data
+        $languageId = $request->language_id;
+     $products = Cache::remember('productsUser' . $languageId, 60, function () use ($languageId) {
+        try {
+            // Select only necessary columns
+         return Product::with(['category','productsMedia','FavoriteProduct'])
+                ->where('language_id', $languageId)
+                ->select('id', 'name', 'description', 'price', 'new_price','tags', 'code','category_id')
+                ->get();
+            } catch (\Exception $e) {
+                // Log error and return empty array
+                return response()->json(['error' =>  $e->getMessage()], 500);
+              
+            }
+       });
+        // Assuming $this->sendResponse() method is defined elsewhere
+        return $this->sendResponse($products, 'Products fetched successfully.');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

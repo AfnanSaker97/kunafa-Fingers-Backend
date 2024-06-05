@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->boolean('is_favorite')->default(1);
+            $table->boolean('is_favorite')->default(true);
             $table->timestamps();
         });
     }

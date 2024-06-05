@@ -60,7 +60,7 @@ class FavoriteProductController extends BaseController
         ]);
         $message = 'Product added to favorites.';
     }
-
+    Cache::forget('productsUser');
     return $this->sendResponse($favoriteProduct, $message);
     }
 
