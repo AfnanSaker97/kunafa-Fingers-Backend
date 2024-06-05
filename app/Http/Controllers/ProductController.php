@@ -190,10 +190,18 @@ class ProductController extends BaseController
 
     public function search(Request $request)
     {
-        $query = $request->input('query');
-        $products = Product::where('name', 'LIKE', "%{$query}%")
-                           ->orWhere('description', 'LIKE', "%{$query}%")
-                           ->paginate(10);
+
+      $query = $request->input('query');
+      $categoryId = $request->input('category_id'); //  // Add category to the request
+ 
+      $products = Product::where(function($q) use ($query) {
+        $q->where('name', 'LIKE', "%{$query}%")
+          ->orWhere('description', 'LIKE', "%{$query}%");
+    })
+    ->when($categoryId, function($q) use ($categoryId) {
+        $q->where('category_id', $categoryId);
+    })
+    ->paginate(10);
 
        // Check if only one product is found
    
