@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
+use App\Models\CategoryTranslations;
 class CategorySeeder extends Seeder
 {
     /**
@@ -12,7 +13,18 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        Category::create();
+        Category::create();
+        Category::create();
+        Category::create();
+        Category::create();
+        Category::create();
+        Category::create();
+        Category::create();
+    
+
         CategoryTranslations::create(['category_id'=>'1','name' => 'Popular', 'language_id' => '1']);
+        
         CategoryTranslations::create(['category_id'=>'2','name' => 'Kunafa Plates', 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'3','name' => 'Kunafa Crown', 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'4','name' => 'Kunafa Fingers' , 'language_id' => '1']);
@@ -20,5 +32,6 @@ class CategorySeeder extends Seeder
         CategoryTranslations::create(['category_id'=>'6','name' => 'Cake' , 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'7','name' => 'Turkish Delights' , 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'8','name' => 'Ice Cream' , 'language_id' => '1']);
-    }
+    
+ }
 }

@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class productTranslations extends Model
 {
     use HasFactory;
-    protected $table ='product_translations';
-    protected $fillable = [
-        'name',
-        'description',
-        'category_id',
-        'product_id'
-   
-    ];
+    protected $fillable = ['product_id', 'language_id', 'name', 'description'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

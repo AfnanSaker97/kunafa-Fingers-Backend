@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductLog;
 use App\Models\FavoriteProduct;
+use App\Models\productTranslations;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Validator;
@@ -19,32 +20,53 @@ class ProductController extends BaseController
      */
     public function index(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'language_id' => 'required|exists:languages,id',
-        ]);
-       
-        if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors()->all());       
-        }
-    
-        // Retrieve categories data
-        $languageId = $request->language_id;
-        $products = Cache::remember('products' . $languageId, 60, function () use ($languageId) {
-            try {
-                // Select only necessary columns
-                return Product::with(['category','productsMedia'])
-                ->where('language_id', $languageId)
-                ->select('id', 'name', 'description', 'price', 'new_price','tags', 'code','category_id')
-                ->get();
-            } catch (\Exception $e) {
-                // Log error and return empty array
-                return response()->json(['error' =>  $e->getMessage()], 500);
-              
+            $validator = Validator::make($request->all(), [
+                'language_id' => 'required|exists:languages,id',
+            ]);
+        
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->all());       
             }
-        });
-        // Assuming $this->sendResponse() method is defined elsewhere
-        return $this->sendResponse($products, 'Products fetched successfully.');
-    }
+        
+            $languageId = $request->language_id;
+        
+            $products = Cache::remember('products' . $languageId, 60, function () use ($languageId) {
+                try {
+                    $products = Product::with([
+                        'translations' => function ($query) use ($languageId) {
+                            $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+                        },
+                        'category.translations' => function ($query) use ($languageId) {
+                            $query->select('category_id', 'name')->where('language_id', $languageId);
+                        },
+                        'productsMedia:url_media,product_id', // Select only necessary columns for products media
+                    ])->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+                    ->get();
+        
+                   // Format the products
+            return $products->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->translations->first()->name ?? '0',
+                    'description' => $product->translations->first()->description ?? '0',
+                    'price' => $product->price,
+                    'new_price' => $product->new_price,
+                    'tags' => $product->tags,
+                    'code' => $product->code,
+                    'category' => $product->category->translations->first()->name ?? '0',
+                    'productsMedia' => $product->productsMedia,
+                ];
+            });
+                } catch (\Exception $e) {
+                    // Log error and return empty array
+                    return response()->json(['error' =>  $e->getMessage()], 500);
+                }
+            });
+        
+            return $this->sendResponse($products, 'Products fetched successfully.');
+        }
+
+
 
 
     public function getProductsUser(Request $request)
@@ -59,13 +81,36 @@ class ProductController extends BaseController
     
         // Retrieve categories data
         $languageId = $request->language_id;
-     $products = Cache::remember('productsUser' . $languageId, 60, function () use ($languageId) {
+        $products = Cache::remember('productsUser' . $languageId, 60, function () use ($languageId) {
         try {
-            // Select only necessary columns
-         return Product::with(['category','productsMedia','FavoriteProduct'])
-                ->where('language_id', $languageId)
-                ->select('id', 'name', 'description', 'price', 'new_price','tags', 'code','category_id')
+            $products = Product::with([
+                'translations' => function ($query) use ($languageId) {
+                    $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+                },
+                'category.translations' => function ($query) use ($languageId) {
+                    $query->select('category_id', 'name')->where('language_id', $languageId);
+                },
+                'productsMedia:url_media,product_id', // Select only necessary columns for products media
+                'FavoriteProduct:is_favorite,product_id',
+                ])->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
                 ->get();
+                return $products->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->translations->first()->name ?? '0',
+                        'description' => $product->translations->first()->description ??'0' ,
+                        'price' => $product->price,
+                        'new_price' => $product->new_price,
+                        'tags' => $product->tags,
+                        'code' => $product->code,
+                        'category' => $product->category->translations->first()->name ?? '0',
+                        'is_favorite' => $product->FavoriteProduct->first()->is_favorite?? '0',
+                        'productsMedia' => $product->productsMedia,
+                       
+                    ];
+                });
+
+
             } catch (\Exception $e) {
                 // Log error and return empty array
                 return response()->json(['error' =>  $e->getMessage()], 500);
@@ -91,14 +136,19 @@ class ProductController extends BaseController
     {
            // Validate the request data
            $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:products',
-            'description' => 'required|string',
+            'name_en' => 'required|string|max:255',
+            'name_zh' => 'required|string|max:255',
+            'name_ms' => 'required|string|max:255',
+
+            'description_en' => 'required|string',
+            'description_zh' => 'required|string',
+            'description_ms' => 'required|string',
             'price' => 'required|string',
             'new_price' => 'nullable|string',
             'tags' => 'required|string',
             'code' => 'required|string',
             'category_id' => 'required|exists:categories,id',
-            'language_id' => 'required|exists:languages,id',
+           
         ]);
 
         // If validation fails, return error response
@@ -107,22 +157,31 @@ class ProductController extends BaseController
         }
       // Save the image URL to the database
     $product = Product::create([
-        'name' => $request->name, // or any other relevant data
-        'language_id'=>$request->language_id,
-        'description' => $request->description,
+      //   // or any other relevant data
         'price' => $request->price,
         'new_price' => $request->new_price?? '0',
         'tags' => $request->tags,
         'code' => $request->code,
         'category_id' => $request->category_id,
     ]);
+
+      // Create the product translations
+      $translations = [
+        ['language_id' =>1, 'name' => $request->name_en, 'description' => $request->description_en],
+        ['language_id' => 2, 'name' => $request->name_zh, 'description' => $request->description_zh],
+        ['language_id' => 3, 'name' => $request->name_ms, 'description' => $request->description_ms],
+    ];
+
+    foreach ($translations as $translation) {
+        $product->translations()->create($translation);
+    }
+
       Cache::forget('productsUser');
       Cache::forget('products');
 
         // Return success response
         return $this->sendResponse($product,'Product created successfully.');
-    
-    
+
     }
 
     /**
