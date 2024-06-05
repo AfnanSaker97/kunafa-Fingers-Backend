@@ -10,6 +10,7 @@ use App\Http\Controllers\FavoriteProductController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProductLogController;
+use App\Http\Controllers\DiscountCodeController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

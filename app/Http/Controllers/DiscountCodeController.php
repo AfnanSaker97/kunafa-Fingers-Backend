@@ -50,7 +50,7 @@ class DiscountCodeController extends BaseController
         'user_id'=>$request->user_id,
         'discount_percentage'=>$request->discount_percentage,
         'expire'=>$request->expire,
-        'remark'=>$request->remark,
+        'remark'=>$request->remark?? '0',
     ]);
     // Return success response
     return $this->sendResponse($discountCode,'Discount Code created successfully.');

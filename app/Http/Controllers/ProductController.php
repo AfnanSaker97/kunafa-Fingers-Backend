@@ -190,16 +190,29 @@ class ProductController extends BaseController
 
     public function search(Request $request)
     {
+  // Validate the request
+  $validator = Validator::make($request->all(), [
+    'language_id' => 'required|exists:languages,id',
+   
+]);
+
+if ($validator->fails()) {
+    return $this->sendError('Validation Error.', $validator->errors()->all());
+}
 
       $query = $request->input('query');
       $categoryId = $request->input('category_id'); //  // Add category to the request
- 
+      $languageId = $request->input('language_id'); // Add language to the request
+
       $products = Product::where(function($q) use ($query) {
         $q->where('name', 'LIKE', "%{$query}%")
           ->orWhere('description', 'LIKE', "%{$query}%");
     })
     ->when($categoryId, function($q) use ($categoryId) {
         $q->where('category_id', $categoryId);
+    })
+    ->when($languageId, function($q) use ($languageId) {
+        $q->where('language_id', $languageId);
     })
     ->paginate(10);
 
