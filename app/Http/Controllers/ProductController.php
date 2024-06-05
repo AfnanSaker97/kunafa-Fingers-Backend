@@ -116,6 +116,9 @@ class ProductController extends BaseController
         'code' => $request->code,
         'category_id' => $request->category_id,
     ]);
+      Cache::forget('productsUser');
+      Cache::forget('products');
+
         // Return success response
         return $this->sendResponse($product,'Product created successfully.');
     
@@ -160,6 +163,42 @@ class ProductController extends BaseController
             return $this->sendResponse($products, 'Products fetched successfully.');
         
     }
+
+    public function getProductByCategory(Request $request)
+    {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'language_id' => 'required|exists:languages,id',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());
+        }
+
+        $languageId = $request->input('language_id');
+        $categoryId = $request->input('category_id');
+        $cacheKey = 'productsUser_' . $languageId . '_' . $categoryId;
+
+       // Retrieve products with caching
+   $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
+    try {
+        return Product::with(['category','productsMedia','FavoriteProduct'])
+        ->where('language_id', $languageId)
+        ->where('category_id', $categoryId)
+        ->select('id', 'name', 'description', 'price','new_price', 'tags', 'code','category_id')
+        ->get();
+            } catch (\Exception $e) {
+                \Log::error('Error fetching products: ' . $e->getMessage());
+                return collect(); // Return an empty collection on error
+            }
+        });
+
+        // Assuming $this->sendResponse() method is defined elsewhere
+        return $this->sendResponse($products, 'Products fetched successfully.');
+    
+}
+
 
     public function ProductByID(Request $request)
     {
