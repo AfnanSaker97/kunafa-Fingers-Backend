@@ -44,8 +44,7 @@ Route::controller(ProductController::class)->group(function(){
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('getProductsUser', [ProductController::class, 'getProductsUser']); 
     Route::get('getProductByCategory', [ProductController::class, 'getProductByCategory']);
-    Route::post('updateCartItem', [ProductController::class, 'update']);
-    Route::delete('deleteCartItem', [ProductController::class, 'destroy']);
+
 });
 
 
@@ -58,6 +57,8 @@ Route::controller(ProductMediaController::class)->group(function(){
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('favorite-products', [FavoriteProductController::class, 'store']);
     Route::get('favorite-products', [FavoriteProductController::class, 'index']);
+    Route::get('getFavoriteProductCount', [FavoriteProductController::class, 'getFavoriteProductCount']);
+    
 });
 
 Route::middleware('auth:sanctum')->group(function() {

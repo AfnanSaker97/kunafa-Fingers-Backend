@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
+         
             $table->string('price');
             $table->string('new_price')->default('0');
             $table->boolean('isActive')->default(1);
@@ -22,9 +21,7 @@ return new class extends Migration
             $table->string('code')->default('0');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id') ->references('id')->on('categories')->onDelete('cascade');
-          //  $table->unsignedBigInteger('language_id');
-          //  $table->foreign('language_id') ->references('id')->on('languages')->onDelete('cascade');
-            $table->timestamps();
+           $table->timestamps();
         });
     }
 

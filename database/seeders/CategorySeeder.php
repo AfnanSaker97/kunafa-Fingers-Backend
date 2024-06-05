@@ -12,13 +12,13 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(['name' => 'Popular', 'language_id' => '1']);
-        Category::create(['name' => 'Kunafa Plates', 'language_id' => '1']);
-        Category::create(['name' => 'Kunafa Crown', 'language_id' => '1']);
-        Category::create(['name' => 'Kunafa Fingers' , 'language_id' => '1']);
-         Category::create(['name' => 'Baklava' , 'language_id' => '1']);
-         Category::create(['name' => 'Cake' , 'language_id' => '1']);
-         Category::create(['name' => 'Turkish Delights' , 'language_id' => '1']);
-         Category::create(['name' => 'Ice Cream' , 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'1','name' => 'Popular', 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'2','name' => 'Kunafa Plates', 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'3','name' => 'Kunafa Crown', 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'4','name' => 'Kunafa Fingers' , 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'5','name' => 'Baklava' , 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'6','name' => 'Cake' , 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'7','name' => 'Turkish Delights' , 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'8','name' => 'Ice Cream' , 'language_id' => '1']);
     }
 }

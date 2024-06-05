@@ -20,6 +20,18 @@ class FavoriteProductController extends BaseController
             return $this->sendResponse($favorites,'Favorite Product fetched successfully.');
     }
 
+
+    public function getFavoriteProductCount()
+    {   
+        // Retrieve the count of favorite products for the authenticated user
+        $favoritesCount = FavoriteProduct::where('user_id', Auth::id())
+                                          ->where('is_favorite', true)
+                                          ->count();
+    
+        // Assuming $this->sendResponse() method is defined elsewhere
+        return $this->sendResponse($favoritesCount, 'Favorite products count fetched successfully.');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use App\Models\Category;
+use App\Models\CategoryTranslations;
 use Validator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -28,8 +29,8 @@ class CategoryController extends BaseController
         $categories = Cache::remember('categories_' . $languageId, 60, function () use ($languageId) {
             try {
                 // Select only necessary columns
-                return Category::where('language_id', $languageId)
-                    ->select('name', 'image')
+                return CategoryTranslations::where('language_id', $languageId)
+                    ->select('name')
                     ->get();
             } catch (\Exception $e) {
                 DB::rollBack();

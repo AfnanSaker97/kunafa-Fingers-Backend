@@ -8,14 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory;
-    protected $table ='categories';
-    protected $fillable = [
-        'name',
-        'parent_id',
-        'image',
-        'language_id'
    
-    ];
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');
