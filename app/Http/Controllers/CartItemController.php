@@ -14,11 +14,24 @@ class CartItemController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+            $validator = Validator::make($request->all(), [
+                'language_id' => 'required|exists:languages,id',
+            ]);
+        
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->all());       
+            }
+        
+        $languageId = $request->language_id;
         $userId = Auth::id();   
          // Retrieve paginated cart items for the authenticated user
-        $cartItems = CartItem::with('product.productsMedia')->where('user_id', $userId)->paginate(10);
+        $cartItems = CartItem::with(['product.productsMedia',
+        'product.translations' => function ($query) use ($languageId) {
+            $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+        },]
+        )->where('user_id', $userId)->paginate(10);
        // Retrieve the sum of the sub_total_price of unchecked cart items for the user
         $cartItemsTotal = CartItem::where('isChecked', 0)
        ->where('user_id', $userId)
@@ -31,8 +44,8 @@ class CartItemController extends BaseController
         return [
             'id' => $cartItem->id,
             'product_id' => $cartItem->product_id,
-            'product_name' => $product ? $product->name : null,
-            'product_image' => $productMedia ? $productMedia->url_media : null, // Adjust according to your image field
+            'product_name' => $product->translations->first()->name ?? '0',
+            'product_image' => $productMedia ? $productMedia->url_media : '0', // Adjust according to your image field
             'quantity' => $cartItem->quantity,
             'price' => $cartItem->price,
             'sub_total_price' => $cartItem->sub_total_price,
@@ -43,7 +56,7 @@ class CartItemController extends BaseController
 
      // Return paginated response
      return $this->sendResponse([
-        'data' => $formattedCartItems,
+        'Items' => $formattedCartItems,
         'total_sub_total_price' => $cartItemsTotal,
         'current_page' => $cartItems->currentPage(),
         'last_page' => $cartItems->lastPage(),
@@ -51,6 +64,8 @@ class CartItemController extends BaseController
         'total' => $cartItems->total(),
     ], 'Cart items fetched successfully.');
 }
+
+
     public function TotalCart()
     {
         $userId = Auth::id();
