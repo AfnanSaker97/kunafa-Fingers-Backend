@@ -8,6 +8,7 @@ use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
+use Carbon\Carbon;
 class DiscountCodeController extends BaseController
 {
     /**
@@ -88,4 +89,40 @@ class DiscountCodeController extends BaseController
     {
         //
     }
+
+
+        
+     public function verfiyCode(Request $request)
+       { 
+        try { 
+            $validated = Validator::make($request->all(), [    
+            'code' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());       
+        }
+        $userId = Auth::id();
+        $date = Carbon::now()->format('Y-m-d');   
+        $discount = DiscountCode::where([
+                ['code', $request->code],
+                ['user_id', $userId],
+                ['valid', 1],
+                ['expire', '>', $date]
+            ])->first();
+
+            if(!$discount)
+            {
+                return $this->sendError([],'The code is invalid.'); 
+                return ApiResponseClass::errorResponse('The code is invalid.');
+            }
+            
+            return ApiResponseClass::successResponse( $discount);    
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+}
+
 }

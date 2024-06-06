@@ -35,7 +35,8 @@ class FavoriteProductController extends BaseController
         },
         'product.category.translations' => function ($query) use ($languageId) {
             $query->select('category_id', 'name')->where('language_id', $languageId);
-        }
+        },
+        'product.productsMedia:url_media,product_id',
       ])
       ->get();
 
@@ -53,6 +54,7 @@ class FavoriteProductController extends BaseController
             'is_favorite' => $favorite->first()->is_favorite ?? '0',
             'category' => optional($product->category->translations->first())->name ?? '0',
             'category_id' => optional($product->category->first())->id,
+            'productsMedia' => $product->productsMedia,
         ];
     });
             return $this->sendResponse($favorites,'Favorite Product fetched successfully.');
