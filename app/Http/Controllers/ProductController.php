@@ -401,18 +401,40 @@ if ($validator->fails()) {
       $query = $request->input('query');
       $categoryId = $request->input('category_id'); //  // Add category to the request
       $languageId = $request->input('language_id'); // Add language to the request
+        try {
+            $products = Product::with([
+                'translations' => function ($query) use ($languageId) {
+                    $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+                },
+                'category.translations' => function ($query) use ($languageId) {
+                    $query->select('category_id', 'name')->where('language_id', $languageId);
+                },
+            ])
+            ->whereHas('translations', function ($q) use ($query, $languageId) {
+                $q->where('language_id', $languageId)
+                  ->where(function ($q) use ($query) {
+                      $q->where('name', 'LIKE', "%{$query}%")
+                        ->orWhere('description', 'LIKE', "%{$query}%");
+                  });
+            })
+            ->when($categoryId, function ($q) use ($categoryId) {
+                $q->where('category_id', $categoryId);
+            })
+            ->paginate(10);
+    
+            $products = $products->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => optional($product->translations->first())->name ?? '0',
+                    'description' => optional($product->translations->first())->description ?? '0',
+                    'price' => $product->price,
+                    'new_price' => $product->new_price,
+                    'tags' => $product->tags,
+                    'code' => $product->code,
+                    'category' => $product->category->translations,
+                ];
+            });
 
-      $products = Product::where(function($q) use ($query) {
-        $q->where('name', 'LIKE', "%{$query}%")
-          ->orWhere('description', 'LIKE', "%{$query}%");
-    })
-    ->when($categoryId, function($q) use ($categoryId) {
-        $q->where('category_id', $categoryId);
-    })
-    ->when($languageId, function($q) use ($languageId) {
-        $q->where('language_id', $languageId);
-    })
-    ->paginate(10);
 
        // Check if only one product is found
    
@@ -428,6 +450,9 @@ if ($validator->fails()) {
         */
    
       return $this->sendResponse($products, 'Product fetched successfully.');
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }
 
 
@@ -449,12 +474,34 @@ public function RandomProduct(Request $request)
     $languageId = $request->language_id;
     $products = Cache::remember('products_random_' . $languageId, 60, function () use ($languageId) {
         try {
-            // Select only necessary columns and order randomly
-            return Product::with(['category', 'productsMedia'])
-                ->where('language_id', $languageId)
-                ->inRandomOrder() // Fetch products in random order
-                ->select('id', 'name', 'description', 'price', 'new_price', 'tags', 'code', 'category_id')
-                ->get();
+
+            $products = Product::with([
+                'translations' => function ($query) use ($languageId) {
+                    $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+                },
+                'category.translations' => function ($query) use ($languageId) {
+                    $query->select('category_id', 'name')->where('language_id', $languageId);
+                },
+                'productsMedia:url_media,product_id', // Select only necessary columns for products media
+            ])
+            ->inRandomOrder()
+            ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+            ->get();
+
+            return $products->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->translations->first()->name ?? '0',
+                    'description' => $product->translations->first()->description ??'0' ,
+                    'price' => $product->price,
+                    'new_price' => $product->new_price,
+                    'tags' => $product->tags,
+                    'code' => $product->code,
+                    'category' => $product->category->translations,
+                   
+                ];
+            });
+           
         } catch (\Exception $e) {
             // Log error and return empty array
             return response()->json(['error' => $e->getMessage()], 500);

@@ -58,8 +58,9 @@ class CategoryController extends BaseController
     {
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:categories',
-           'language_id' => 'required|exists:languages,id',
+            'name_en' => 'required|string|max:255|unique:category_translations,name',
+            'name_zh' => 'required|string|max:255|unique:category_translations,name',
+            'name_ms' => 'required|string|max:255|unique:category_translations,name',
         ]);
 
         // If validation fails, return error response
@@ -68,10 +69,18 @@ class CategoryController extends BaseController
         }
 
       // Save the image URL to the database
-    $category = Category::create([
-        'name' => $request->name, // or any other relevant data
-        'language_id'=>$request->language_id,
-    ]);
+    $category = Category::create();
+
+        // Create the product translations
+        $translations = [
+            ['language_id' =>1, 'name' => $request->name_en],
+            ['language_id' => 2,'name' => $request->name_zh],
+            ['language_id' => 3, 'name' => $request->name_ms],
+        ];
+    
+        foreach ($translations as $translation) {
+            $category->translations()->create($translation);
+        }
         // Return success response
         return $this->sendResponse($category,'Category created successfully.');
     }

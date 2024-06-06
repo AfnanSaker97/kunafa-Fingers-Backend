@@ -12,7 +12,6 @@ class Product extends Model
     use HasFactory;
     protected $table ='products';
     protected $fillable = [
-       
         'price',
         'new_price',
         'isActive',
