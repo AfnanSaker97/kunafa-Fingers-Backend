@@ -14,9 +14,47 @@ class FavoriteProductController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {   
-            $favorites = FavoriteProduct::where([['user_id', Auth::id()],['is_favorite',true]])->with('product')->get();
+          // Validate the request
+      $validator = Validator::make($request->all(), [
+        'language_id' => 'required|exists:languages,id',
+       
+          ]);
+    
+        if ($validator->fails()) {
+        return $this->sendError('Validation Error.', $validator->errors()->all());
+          }
+          $languageId = $request->input('language_id');
+            // Fetch favorite products with the necessary translations
+       $favorites = FavoriteProduct::where('user_id', Auth::id())
+       ->where('is_favorite', true)
+       ->with([
+        'product.translations' => function ($query) use ($languageId) {
+            $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+        },
+        'product.category.translations' => function ($query) use ($languageId) {
+            $query->select('category_id', 'name')->where('language_id', $languageId);
+        }
+      ])
+      ->get();
+
+       // Transform the favorite products
+       $favorites = $favorites->map(function ($favorite) {
+        $product = $favorite->product;
+        return [
+            'id' => $product->id,
+            'name' => optional($product->translations->first())->name ?? '0',
+            'description' => optional($product->translations->first())->description ?? '0',
+            'price' => $product->price,
+            'new_price' => $product->new_price,
+            'tags' => $product->tags,
+            'code' => $product->code,
+            'is_favorite' => $favorite->first()->is_favorite ?? '0',
+            'category' => optional($product->category->translations->first())->name ?? '0',
+            'category_id' => optional($product->category->first())->id,
+        ];
+    });
             return $this->sendResponse($favorites,'Favorite Product fetched successfully.');
     }
 

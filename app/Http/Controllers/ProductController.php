@@ -388,15 +388,15 @@ class ProductController extends BaseController
 
     public function search(Request $request)
     {
-  // Validate the request
-  $validator = Validator::make($request->all(), [
+    // Validate the request
+    $validator = Validator::make($request->all(), [
     'language_id' => 'required|exists:languages,id',
    
-]);
+      ]);
 
-if ($validator->fails()) {
+    if ($validator->fails()) {
     return $this->sendError('Validation Error.', $validator->errors()->all());
-}
+      }
 
       $query = $request->input('query');
       $categoryId = $request->input('category_id'); //  // Add category to the request
@@ -474,7 +474,6 @@ public function RandomProduct(Request $request)
     $languageId = $request->language_id;
     $products = Cache::remember('products_random_' . $languageId, 60, function () use ($languageId) {
         try {
-
             $products = Product::with([
                 'translations' => function ($query) use ($languageId) {
                     $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
