@@ -401,6 +401,8 @@ class ProductController extends BaseController
       $query = $request->input('query');
       $categoryId = $request->input('category_id'); //  // Add category to the request
       $languageId = $request->input('language_id'); // Add language to the request
+      $userId = Auth::guard('sanctum')->user()->id ?? null;
+   
         try {
             $products = Product::with([
                 'translations' => function ($query) use ($languageId) {
@@ -438,16 +440,13 @@ class ProductController extends BaseController
 
        // Check if only one product is found
    
-   
-    /*    $productId = $products->first()->id;
-
-        // Log the search query and product ID
+       if ($userId && $products->isNotEmpty()) {
+        $productId = $products->first()['id']; // Access the 'id' directly
         ProductLog::create([
-            'user_id' => Auth::id(), 
+            'user_id' => $userId, 
             'product_id' => $productId,
         ]);
-
-        */
+    }
    
       return $this->sendResponse($products, 'Product fetched successfully.');
     } catch (\Exception $e) {
