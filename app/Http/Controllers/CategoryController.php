@@ -28,10 +28,20 @@ class CategoryController extends BaseController
         $languageId = $request->language_id;
         $categories = Cache::remember('categories_' . $languageId, 60, function () use ($languageId) {
             try {
-                // Select only necessary columns
-                return CategoryTranslations::where('language_id', $languageId)
-                    ->select('name')
-                    ->get();
+                $categories = Category::with([
+                    'translations' => function ($query) use ($languageId) {
+                        $query->where('language_id', $languageId)
+                              ->select('category_id', 'name'); // Ensure the correct columns are selected
+                    }
+                ])->get();
+    
+                // Format the categories data if needed
+                return $categories->map(function ($category) {
+                    return [
+                        'id' => $category->id,
+                        'name' => optional($category->translations->first())->name ?? '0',
+                    ];
+                });
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json(['error' => $e->getMessage()], 500);

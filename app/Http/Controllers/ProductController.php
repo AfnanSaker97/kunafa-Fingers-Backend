@@ -104,7 +104,7 @@ class ProductController extends BaseController
                         'tags' => $product->tags,
                         'code' => $product->code,
                         'category' => $product->category->translations->first()->name ?? '0',
-                        'is_favorite' => $product->FavoriteProduct->first()->is_favorite?? '0',
+                        'FavoriteProduct' => $product->FavoriteProduct,
                         'productsMedia' => $product->productsMedia,
                        
                     ];
@@ -205,13 +205,36 @@ class ProductController extends BaseController
             $cacheKey = 'products_' . $languageId . '_' . $categoryId;
     
            // Retrieve products with caching
-       $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
+         $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
         try {
-            return Product::with(['category','productsMedia'])
-            ->where('language_id', $languageId)
-            ->where('category_id', $categoryId)
-            ->select('id', 'name', 'description', 'price','new_price', 'tags', 'code','category_id')
-            ->get();
+            $products = Product::with([
+                'translations' => function ($query) use ($languageId) {
+                    $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+                },
+                'category.translations' => function ($query) use ($languageId) {
+                    $query->select('category_id', 'name')->where('language_id', $languageId);
+                },
+                'productsMedia:url_media,product_id', // Select only necessary columns for products media
+                ]) ->where('category_id', $categoryId)
+                ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+                ->get();
+
+                return $products->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'name' => $product->translations->first()->name ?? '0',
+                        'description' => $product->translations->first()->description ??'0' ,
+                        'price' => $product->price,
+                        'new_price' => $product->new_price,
+                        'tags' => $product->tags,
+                        'code' => $product->code,
+                        'category' => $product->category->translations->first()->name ?? '0',
+                        'productsMedia' => $product->productsMedia,
+                       
+                    ];
+                });
+
+    
                 } catch (\Exception $e) {
                     \Log::error('Error fetching products: ' . $e->getMessage());
                     return collect(); // Return an empty collection on error
@@ -225,8 +248,8 @@ class ProductController extends BaseController
 
     public function getProductByCategory(Request $request)
     {
-        // Validate the request
-        $validator = Validator::make($request->all(), [
+         // Validate the request
+         $validator = Validator::make($request->all(), [
             'language_id' => 'required|exists:languages,id',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -237,16 +260,41 @@ class ProductController extends BaseController
 
         $languageId = $request->input('language_id');
         $categoryId = $request->input('category_id');
-        $cacheKey = 'productsUser_' . $languageId . '_' . $categoryId;
+        $cacheKey = 'products_' . $languageId . '_' . $categoryId;
 
        // Retrieve products with caching
-   $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
+     $products = Cache::remember($cacheKey, 60, function () use ($languageId, $categoryId) {
     try {
-        return Product::with(['category','productsMedia','FavoriteProduct'])
-        ->where('language_id', $languageId)
-        ->where('category_id', $categoryId)
-        ->select('id', 'name', 'description', 'price','new_price', 'tags', 'code','category_id')
-        ->get();
+        $products = Product::with([
+            'translations' => function ($query) use ($languageId) {
+                $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+            },
+            'category.translations' => function ($query) use ($languageId) {
+                $query->select('category_id', 'name')->where('language_id', $languageId);
+            },
+            'productsMedia:url_media,product_id', // Select only necessary columns for products media
+            'FavoriteProduct:is_favorite,product_id',
+            ]) ->where('category_id', $categoryId)
+            ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+            ->get();
+
+            return $products->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'name' => $product->translations->first()->name ?? '0',
+                    'description' => $product->translations->first()->description ??'0' ,
+                    'price' => $product->price,
+                    'new_price' => $product->new_price,
+                    'tags' => $product->tags,
+                    'code' => $product->code,
+                    'category' => $product->category->translations->first()->name ?? '0',
+                   'FavoriteProduct' => $product->FavoriteProduct,
+                    'productsMedia' => $product->productsMedia,
+                   
+                ];
+            });
+
+
             } catch (\Exception $e) {
                 \Log::error('Error fetching products: ' . $e->getMessage());
                 return collect(); // Return an empty collection on error
@@ -254,8 +302,7 @@ class ProductController extends BaseController
         });
 
         // Assuming $this->sendResponse() method is defined elsewhere
-        return $this->sendResponse($products, 'Products fetched successfully.');
-    
+        return $this->sendResponse($products, 'Products fetched successfully.');  
 }
 
 
@@ -275,19 +322,40 @@ class ProductController extends BaseController
         $productId = $request->input('product_id');
         $cacheKey = 'product_' . $languageId . '_' . $productId;
     
-        // Retrieve product with caching
-        $product = Cache::remember($cacheKey, 60, function () use ($languageId, $productId) {
-            try {
-                return Product::with(['category', 'productsMedia'])
-                    ->where('language_id', $languageId)
-                    ->where('id', $productId)
-                    ->select('id', 'name', 'description', 'price', 'new_price', 'tags', 'code','category_id')
-                    ->first();
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return response()->json(['error' => $e->getMessage()], 500);
-            }
-        });
+         // Retrieve product with caching
+     $product = Cache::remember($cacheKey, 60, function () use ($languageId, $productId) {
+        try {
+            $product = Product::with([
+                'translations' => function ($query) use ($languageId) {
+                    $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+                },
+                'category.translations' => function ($query) use ($languageId) {
+                    $query->select('category_id', 'name')->where('language_id', $languageId);
+                },
+                'productsMedia' => function ($query) {
+                    $query->select('url_media', 'product_id'); // Select only necessary columns for products media
+                },
+            ])
+            ->where('id', $productId)
+            ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+            ->firstOrFail(); // Use firstOrFail to handle missing product
+
+            return [
+                'id' => $product->id,
+                'name' => optional($product->translations->first())->name ?? '0',
+                'description' => optional($product->translations->first())->description ?? '0',
+                'price' => $product->price,
+                'new_price' => $product->new_price,
+                'tags' => $product->tags,
+                'code' => $product->code,
+                'category' => optional($product->category->translations->first())->name ?? '0',
+                'productsMedia' => $product->productsMedia,
+            ];
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    });
+            
     
         return $this->sendResponse($product, 'Product fetched successfully.');
     }

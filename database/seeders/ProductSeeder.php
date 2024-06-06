@@ -12,9 +12,9 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-      //  Product::create(['price'=>'22.9','tags'=>'200g,Kunafa','code'=>'2222','category_id' => '1']);
+        Product::create(['price'=>'22.9','tags'=>'200g,Kunafa','code'=>'2222','category_id' => '1']);
     
-       // Product::create(['price'=>'22.9','tags'=>'200g,Kunafa','code'=>'2222','category_id' => '1']);
+        Product::create(['price'=>'22.9','tags'=>'200g,Kunafa','code'=>'2222','category_id' => '1']);
     
         Product::create(['price'=>'22.9','tags'=>'200g,Kunafa','code'=>'2222','category_id' => '1']);
     
