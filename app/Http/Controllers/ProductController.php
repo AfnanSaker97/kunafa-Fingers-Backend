@@ -53,7 +53,7 @@ class ProductController extends BaseController
                     'new_price' => $product->new_price,
                     'tags' => $product->tags,
                     'code' => $product->code,
-                    'category' => $product->category->translations->first()->name ?? '0',
+                    'category' => $product->category->translations,
                     'productsMedia' => $product->productsMedia,
                 ];
             });
@@ -103,7 +103,7 @@ class ProductController extends BaseController
                         'new_price' => $product->new_price,
                         'tags' => $product->tags,
                         'code' => $product->code,
-                        'category' => $product->category->translations->first()->name ?? '0',
+                        'category' => $product->category->translations,
                         'FavoriteProduct' => $product->FavoriteProduct,
                         'productsMedia' => $product->productsMedia,
                        
@@ -228,7 +228,7 @@ class ProductController extends BaseController
                         'new_price' => $product->new_price,
                         'tags' => $product->tags,
                         'code' => $product->code,
-                        'category' => $product->category->translations->first()->name ?? '0',
+                        'category' => $product->category->translations,
                         'productsMedia' => $product->productsMedia,
                        
                     ];
@@ -287,7 +287,7 @@ class ProductController extends BaseController
                     'new_price' => $product->new_price,
                     'tags' => $product->tags,
                     'code' => $product->code,
-                    'category' => $product->category->translations->first()->name ?? '0',
+                    'category' => $product->category->translations,
                    'FavoriteProduct' => $product->FavoriteProduct,
                     'productsMedia' => $product->productsMedia,
                    
@@ -348,15 +348,14 @@ class ProductController extends BaseController
                 'new_price' => $product->new_price,
                 'tags' => $product->tags,
                 'code' => $product->code,
-                'category' => optional($product->category->translations->first())->name ?? '0',
+                'category' =>$product->category->translations,
                 'productsMedia' => $product->productsMedia,
             ];
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     });
-            
-    
+        
         return $this->sendResponse($product, 'Product fetched successfully.');
     }
 
