@@ -114,10 +114,8 @@ class DiscountCodeController extends BaseController
             if(!$discount)
             {
                 return $this->sendError([],'The code is invalid.'); 
-                return ApiResponseClass::errorResponse('The code is invalid.');
             }
-            
-            return ApiResponseClass::successResponse( $discount);    
+            return ApiResponseClass::successResponse($discount);    
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);

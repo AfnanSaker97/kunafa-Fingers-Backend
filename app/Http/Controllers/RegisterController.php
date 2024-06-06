@@ -131,4 +131,13 @@ public function logout(Request $request)
 } 
 
 
+public function getUser(Request $request)
+{
+
+    $user =Auth::user();
+    return $this->sendResponse($user, 'User fetched successfully.');
+ 
+
+}
+
 }

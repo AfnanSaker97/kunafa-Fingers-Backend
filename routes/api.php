@@ -11,6 +11,7 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProductLogController;
 use App\Http\Controllers\DiscountCodeController;
+use App\Http\Controllers\UserInfoController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -19,6 +20,8 @@ Route::get('/user', function (Request $request) {
 Route::controller(RegisterController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('verify', 'verify');
+    Route::get('getUser', 'getUser')->middleware('auth:sanctum');
+    
     Route::get('logout', 'logout')->middleware('auth:sanctum');
 });
 
@@ -89,5 +92,11 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::controller(ProductLogController::class)->group(function(){
     Route::get('logs', 'index');
+  
+});
+
+
+Route::controller(UserInfoController::class)->group(function(){
+    Route::get('info', 'store');
   
 });

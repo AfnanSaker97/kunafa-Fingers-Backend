@@ -437,9 +437,7 @@ class ProductController extends BaseController
                 ];
             });
 
-
        // Check if only one product is found
-   
        if ($userId && $products->isNotEmpty()) {
         $productId = $products->first()['id']; // Access the 'id' directly
         ProductLog::create([
