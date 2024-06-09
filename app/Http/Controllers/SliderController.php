@@ -41,6 +41,7 @@ class SliderController extends BaseController
                         'id' => $slider->id,
                         'text1' => optional($slider->translations->first())->text1 ?? '0',
                         'text2' => optional($slider->translations->first())->text2 ?? '0',
+                        'url_media' => $slider->url_media,
                     ];
                 });
             } catch (\Exception $e) {
@@ -48,6 +49,9 @@ class SliderController extends BaseController
                 return response()->json(['error' => $e->getMessage()], 500);
             }
         });
+
+
+
         // Assuming $this->sendResponse() method is defined elsewhere
         return $this->sendResponse($sliders, 'Slider fetched successfully.');
     }
@@ -109,11 +113,11 @@ class SliderController extends BaseController
         ];
     
         foreach ($translations as $translation) {
-            $category->translations()->create($translation);
+            $slider->translations()->create($translation);
         }
               // Commit the transaction
               DB::commit();
-            return $this->sendResponse($productMedia, 'Slider uploaded successfully.');
+            return $this->sendResponse($slider, 'Slider uploaded successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500); }

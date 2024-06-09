@@ -106,7 +106,7 @@ Route::controller(UserInfoController::class)->group(function(){
 });
 
 Route::controller(SliderController::class)->group(function(){
-    Route::get('addSlider', 'store');
+    Route::post('addSlider', 'store');
     Route::get('Slider', 'index');
 });
 
