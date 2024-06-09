@@ -40,6 +40,7 @@ class CategoryController extends BaseController
                     return [
                         'id' => $category->id,
                         'name' => optional($category->translations->first())->name ?? '0',
+                        'url_media' => $category->url_media ,
                     ];
                 });
             } catch (\Exception $e) {

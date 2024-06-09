@@ -13,7 +13,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create();
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Slider/1717935105.jpg']);
         Category::create();
         Category::create();
         Category::create();
