@@ -14,6 +14,7 @@ class LanguageSeeder extends Seeder
     {
        // Create records for Chinese, Arabic, and Malay languages
        Language::create(['name' => 'English', 'code' => 'EN']);
+       Language::create(['name' => 'Arabic', 'code' => 'AR']);
        Language::create(['name' => 'Chinese', 'code' => 'zh']);
        Language::create(['name' => 'Malay', 'code' => 'ms']);
     }

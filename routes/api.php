@@ -12,9 +12,11 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProductLogController;
 use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\UserInfoController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationCodeMail;
 use Illuminate\Support\Facades\Log;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -102,6 +104,12 @@ Route::controller(UserInfoController::class)->group(function(){
     Route::get('info', 'store');
   
 });
+
+Route::controller(SliderController::class)->group(function(){
+    Route::get('addSlider', 'store');
+    Route::get('Slider', 'index');
+});
+
 
 
 Route::get('/test-email', function () {

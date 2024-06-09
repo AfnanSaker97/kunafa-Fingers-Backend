@@ -413,6 +413,7 @@ class ProductController extends BaseController
                 'category.translations' => function ($query) use ($languageId) {
                     $query->select('category_id', 'name')->where('language_id', $languageId);
                 },
+                'productsMedia:url_media,product_id', 
             ])
             ->whereHas('translations', function ($q) use ($query, $languageId) {
                 $q->where('language_id', $languageId)
@@ -437,6 +438,7 @@ class ProductController extends BaseController
                     'tags' => $product->tags,
                     'code' => $product->code,
                     'category' => $product->category->translations,
+                    'productsMedia' => $product->productsMedia,
                 ];
             });
 
@@ -497,6 +499,7 @@ public function RandomProduct(Request $request)
                     'tags' => $product->tags,
                     'code' => $product->code,
                     'category' => $product->category->translations,
+                    'productsMedia' => $product->productsMedia,
                    
                 ];
             });
