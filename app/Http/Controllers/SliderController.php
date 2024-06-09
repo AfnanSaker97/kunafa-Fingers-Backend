@@ -80,7 +80,7 @@ class SliderController extends BaseController
                 'text2_ar' => 'nullable|string|max:255',
                 'text2_zh' => 'nullable|string|max:255',
                 'text2_ms' => 'nullable|string|max:255',
-                'url_media' => 'required',
+                'url_media' => 'required|file',
 
             ]);
     
@@ -106,10 +106,11 @@ class SliderController extends BaseController
         ]);
 
         $translations = [
-            ['language_id' =>1, 'text1' => $request->text1_en,'text2' => $request->text2_en],
-            ['language_id' =>2, 'text1' => $request->text1_ar,'text2' => $request->text2_ar],
-            ['language_id' =>3,'text1' => $request->text1_zh,'text2' => $request->text2_zh],
-            ['language_id' =>4, 'text1' => $request->text1_ms,'text2' =>$request->text2_ms],
+            ['language_id' => 1, 'text1' => $request->input('text1_en', '0'), 'text2' => $request->input('text2_en', '0')],
+            ['language_id' => 2, 'text1' => $request->input('text1_ar', '0'), 'text2' => $request->input('text2_ar', '0')],
+            ['language_id' => 3, 'text1' => $request->input('text1_zh', '0'), 'text2' => $request->input('text2_zh', '0')],
+            ['language_id' => 4, 'text1' => $request->input('text1_ms', '0'), 'text2' => $request->input('text2_ms', '0')],
+
         ];
     
         foreach ($translations as $translation) {
