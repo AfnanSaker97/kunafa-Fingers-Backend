@@ -36,7 +36,7 @@ class UserInfoController extends BaseController
           // Get IP information
        $IpInfo = $request->ip();
        $currentUserInfo = Location::get($IpInfo);
-      
+    
       // Define a mapping of country codes to languages
       $countryLanguageMap = [
         'SY' => 'Arabic',

@@ -12,6 +12,9 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ProductLogController;
 use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\UserInfoController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerificationCodeMail;
+use Illuminate\Support\Facades\Log;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -21,7 +24,6 @@ Route::controller(RegisterController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('verify', 'verify');
     Route::get('getUser', 'getUser')->middleware('auth:sanctum');
-    
     Route::get('logout', 'logout')->middleware('auth:sanctum');
 });
 
@@ -99,4 +101,17 @@ Route::controller(ProductLogController::class)->group(function(){
 Route::controller(UserInfoController::class)->group(function(){
     Route::get('info', 'store');
   
+});
+
+
+Route::get('/test-email', function () {
+    try {
+        $email_verification_code = random_int(1000, 9999);
+        Mail::to('fofomsa1997@gmail.com')->send(new VerificationCodeMail($email_verification_code));
+        Log::info('Email sent to fofomsa1997@gmail.com with code: ' . $email_verification_code);
+        return 'Email sent successfully';
+    } catch (\Exception $e) {
+        Log::error('Failed to send email: ' . $e->getMessage());
+        return 'Failed to send email: ' ;
+    }
 });

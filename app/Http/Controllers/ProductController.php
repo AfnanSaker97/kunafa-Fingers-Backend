@@ -40,7 +40,7 @@ class ProductController extends BaseController
                             $query->select('category_id', 'name')->where('language_id', $languageId);
                         },
                         'productsMedia:url_media,product_id', // Select only necessary columns for products media
-                    ])->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+                    ])->where('isActive',1)->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
                     ->get();
         
                    // Format the products
@@ -92,7 +92,7 @@ class ProductController extends BaseController
                 },
                 'productsMedia:url_media,product_id', // Select only necessary columns for products media
                 'FavoriteProduct:is_favorite,product_id',
-                ])->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+                ])->where('isActive',1)->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
                 ->get();
                 return $products->map(function ($product) {
                     return [
@@ -216,6 +216,7 @@ class ProductController extends BaseController
                 },
                 'productsMedia:url_media,product_id', // Select only necessary columns for products media
                 ]) ->where('category_id', $categoryId)
+                ->where('isActive',1)
                 ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
                 ->get();
 
@@ -275,6 +276,7 @@ class ProductController extends BaseController
             'productsMedia:url_media,product_id', // Select only necessary columns for products media
             'FavoriteProduct:is_favorite,product_id',
             ]) ->where('category_id', $categoryId)
+            ->where('isActive',1)
             ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
             ->get();
 
@@ -422,6 +424,7 @@ class ProductController extends BaseController
             ->when($categoryId, function ($q) use ($categoryId) {
                 $q->where('category_id', $categoryId);
             })
+            ->where('isActive',1)
             ->paginate(10);
     
             $products = $products->map(function ($product) {
@@ -479,7 +482,7 @@ public function RandomProduct(Request $request)
                     $query->select('category_id', 'name')->where('language_id', $languageId);
                 },
                 'productsMedia:url_media,product_id', // Select only necessary columns for products media
-            ])
+            ])->where('isActive',1)
             ->inRandomOrder()
             ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
             ->get();

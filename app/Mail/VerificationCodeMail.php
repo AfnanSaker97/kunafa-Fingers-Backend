@@ -19,12 +19,16 @@ class VerificationCodeMail extends Mailable
     public function __construct($code)
     {
         $this->code = $code;
+       
     }
 
     public function build()
-    {
-        return $this->view('emails.verification_code')
-                    ->with(['code' => $this->code]);
+    { 
+        return $this->from("info@tecrek.com")
+        ->subject('Verification Code Mail')
+        ->view('emails.verification_code')
+        ->with('code', $this->code);
+                 
     }
 
     /**
