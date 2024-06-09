@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory;
-   
+    protected $fillable = [
+        'url_media'
+    ];
     public function translations()
     {
         return $this->hasMany(CategoryTranslations::class);

@@ -59,30 +59,71 @@ class CategoryController extends BaseController
         // Validate the request data
         $validator = Validator::make($request->all(), [
             'name_en' => 'required|string|max:255|unique:category_translations,name',
+            'name_ar' => 'required|string|max:255|unique:category_translations,name',
             'name_zh' => 'required|string|max:255|unique:category_translations,name',
             'name_ms' => 'required|string|max:255|unique:category_translations,name',
+            'url_media' => 'required|file',
         ]);
 
         // If validation fails, return error response
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors()->all());       
         }
-
-      // Save the image URL to the database
-    $category = Category::create();
-
+   // Handle the file upload
+            if ($request->hasFile('url_media')) {
+                $imageName = time() . '.' . $request->url_media->extension();
+                $request->url_media->move(public_path('Category'), $imageName);
+                $url = url('Category/' . $imageName);
+             
+            }
+            
+        // Save the image URL to the database
+        $Category = Category::create([
+          'url_media' => $url,
+        ]);
         // Create the product translations
         $translations = [
             ['language_id' =>1, 'name' => $request->name_en],
-            ['language_id' => 2,'name' => $request->name_zh],
-            ['language_id' => 3, 'name' => $request->name_ms],
+            ['language_id' =>2, 'name' => $request->name_ar],
+            ['language_id' => 3,'name' => $request->name_zh],
+            ['language_id' => 4, 'name' => $request->name_ms],
         ];
-    
         foreach ($translations as $translation) {
-            $category->translations()->create($translation);
+            $Category->translations()->create($translation);
         }
         // Return success response
-        return $this->sendResponse($category,'Category created successfully.');
+        return $this->sendResponse($Category,'Category created successfully.');
     }
+
+
+
+    public function update(Request $request)
+    {
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'category_id' => 'required|exists:categories,id',
+            'url_media' => 'required|file',
+        ]);
+
+        // If validation fails, return error response
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors()->all());       
+        }
+   // Handle the file upload
+            if ($request->hasFile('url_media')) {
+                $imageName = time() . '.' . $request->url_media->extension();
+                $request->url_media->move(public_path('Category'), $imageName);
+                $url = url('Category/' . $imageName);
+             
+            }
+            // Find the category by ID
+        $category = Category::find($request->category_id);
+        $category->update([
+            'url_media' => $url,
+        ]);
+        // Return success response
+        return $this->sendResponse($category,'Category updated  successfully.');
+    }
+
     
 }

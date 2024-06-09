@@ -34,7 +34,7 @@ Route::controller(RegisterController::class)->group(function(){
 Route::controller(CategoryController::class)->group(function(){
     Route::post('Category', 'store');
     Route::get('Categories', 'index');
-  
+    Route::post('Update-Category', 'update');
 });
 //
 Route::controller(ProductController::class)->group(function(){

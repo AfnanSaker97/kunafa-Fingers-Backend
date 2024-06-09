@@ -60,8 +60,8 @@ class productTranslationsSeeder extends Seeder
 
         ','product_id' => '10','language_id' => '1']);
     
-        productTranslations::create(['name' =>'Kunafa Mix','description' =>'The products are lovingly made from high quality ingredients by experienced master bakers.
+      /*  productTranslations::create(['name' =>'Kunafa Mix','description' =>'The products are lovingly made from high quality ingredients by experienced master bakers.
         ','product_id' => '11','language_id' => '1']);
-    
+    */
     }
 }
