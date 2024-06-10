@@ -13,18 +13,25 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Slider/1717935105.jpg']);
-        Category::create();
-        Category::create();
-        Category::create();
-        Category::create();
-        Category::create();
-        Category::create();
-        Category::create();
-    
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717940722.jpg']);
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717940769.png']);
+      
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717940813.jpg']);
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717940891.png']);
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717940939.png']);
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717940974.png']);
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717941003.png']);
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717941089.jpg']);
+      
+
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717941003.png']);
+        Category::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Category/1717941089.jpg']);
+      
+
+
+
 
         CategoryTranslations::create(['category_id'=>'1','name' => 'Popular', 'language_id' => '1']);
-        
         CategoryTranslations::create(['category_id'=>'2','name' => 'Kunafa Plates', 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'3','name' => 'Kunafa Crown', 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'4','name' => 'Kunafa Fingers' , 'language_id' => '1']);
@@ -32,6 +39,8 @@ class CategorySeeder extends Seeder
         CategoryTranslations::create(['category_id'=>'6','name' => 'Cake' , 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'7','name' => 'Turkish Delights' , 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'8','name' => 'Ice Cream' , 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'9','name' => 'Milkshake' , 'language_id' => '1']);
+        CategoryTranslations::create(['category_id'=>'10','name' => 'Beverage' , 'language_id' => '1']);
     
  }
 }

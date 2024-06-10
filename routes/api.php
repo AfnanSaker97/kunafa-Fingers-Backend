@@ -14,7 +14,7 @@ use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\VerificationCodeMail;
+use App\Mail\MailableName;
 use Illuminate\Support\Facades\Log;
 
 Route::get('/user', function (Request $request) {
@@ -112,14 +112,3 @@ Route::controller(SliderController::class)->group(function(){
 
 
 
-Route::get('/test-email', function () {
-    try {
-        $email_verification_code = random_int(1000, 9999);
-        Mail::to('fofomsa1997@gmail.com')->send(new VerificationCodeMail($email_verification_code));
-        Log::info('Email sent to fofomsa1997@gmail.com with code: ' . $email_verification_code);
-        return 'Email sent successfully';
-    } catch (\Exception $e) {
-        Log::error('Failed to send email: ' . $e->getMessage());
-        return 'Failed to send email: ' ;
-    }
-});
