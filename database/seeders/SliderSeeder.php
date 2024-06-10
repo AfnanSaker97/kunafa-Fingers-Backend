@@ -17,7 +17,7 @@ class SliderSeeder extends Seeder
         Slider::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Slider/1717935177.jpg']);
         Slider::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Slider/1717936003.webp']);
         Slider::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Slider/1717936133.jpg']);
-        Slider::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Slider/1717936353.jpg']);
+        Slider::create(['url_media'=>'https://kunafa-fingers-backend.tecrek.com/public/Slider/1717936133.jpg']);
   
         SliderTranslation::create(['slider_id'=>'1','text1' => 'Check the', 'text2' => 'new range of alkeir sweets','language_id' => '1']);
        

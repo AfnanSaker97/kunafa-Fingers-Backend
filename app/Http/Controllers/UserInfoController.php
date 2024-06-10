@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Stevebauman\Location\Facades\Location;
 use Validator;
 use Auth;
+use Jenssegers\Agent\Facades\Agent;
 class UserInfoController extends BaseController
 {
     /**
@@ -37,6 +38,10 @@ class UserInfoController extends BaseController
        $IpInfo = $request->ip();
        $currentUserInfo = Location::get($IpInfo);
     
+
+       // $browser = Agent::browser();
+       // $version = Agent::version($browser);
+       // return   $browser;
       // Define a mapping of country codes to languages
       $countryLanguageMap = [
         'SY' => 'Arabic',
