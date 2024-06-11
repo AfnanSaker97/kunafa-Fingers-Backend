@@ -96,6 +96,10 @@ class ProductController extends BaseController
                 },
                 'productsMedia:url_media,product_id', // Select only necessary columns for products media
                 'FavoriteProduct:is_favorite,product_id',
+                'calories' => function ($query) use ($languageId) {
+                    $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+                 },
+              
                 ])->where('isActive',1)->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
                 ->get();
                 return $products->map(function ($product) {
@@ -110,7 +114,7 @@ class ProductController extends BaseController
                         'category' => $product->category->translations,
                         'FavoriteProduct' => $product->FavoriteProduct,
                         'productsMedia' => $product->productsMedia,
-                       
+                        'calories' => $product->calories,
                     ];
                 });
 
@@ -219,6 +223,9 @@ class ProductController extends BaseController
                     $query->select('category_id', 'name')->where('language_id', $languageId);
                 },
                 'productsMedia:url_media,product_id', // Select only necessary columns for products media
+                'calories' => function ($query) use ($languageId) {
+                    $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+                 },
                 ]) ->where('category_id', $categoryId)
                 ->where('isActive',1)
                 ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
@@ -235,7 +242,7 @@ class ProductController extends BaseController
                         'code' => $product->code,
                         'category' => $product->category->translations,
                         'productsMedia' => $product->productsMedia,
-                       
+                        'calories' => $product->calories,
                     ];
                 });
 
@@ -279,6 +286,9 @@ class ProductController extends BaseController
             },
             'productsMedia:url_media,product_id', // Select only necessary columns for products media
             'FavoriteProduct:is_favorite,product_id',
+            'calories' => function ($query) use ($languageId) {
+                $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+             },
             ]) ->where('category_id', $categoryId)
             ->where('isActive',1)
             ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
@@ -296,7 +306,7 @@ class ProductController extends BaseController
                     'category' => $product->category->translations,
                    'FavoriteProduct' => $product->FavoriteProduct,
                     'productsMedia' => $product->productsMedia,
-                   
+                    'calories' => $product->calories,
                 ];
             });
 
@@ -341,6 +351,9 @@ class ProductController extends BaseController
                 'productsMedia' => function ($query) {
                     $query->select('url_media', 'product_id'); // Select only necessary columns for products media
                 },
+                'calories' => function ($query) use ($languageId) {
+                    $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+                 },
             ])
             ->where('id', $productId)
             ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
@@ -356,6 +369,7 @@ class ProductController extends BaseController
                 'code' => $product->code,
                 'category' =>$product->category->translations,
                 'productsMedia' => $product->productsMedia,
+                'calories' => $product->calories,
             ];
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -488,7 +502,10 @@ public function RandomProduct(Request $request)
                     $query->select('category_id', 'name')->where('language_id', $languageId);
                 },
                 'productsMedia:url_media,product_id', // Select only necessary columns for products media
-            ])->where('isActive',1)
+                'calories' => function ($query) use ($languageId) {
+                    $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+                 },
+                ])->where('isActive',1)
             ->inRandomOrder()
             ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
             ->get();
@@ -504,7 +521,7 @@ public function RandomProduct(Request $request)
                     'code' => $product->code,
                     'category' => $product->category->translations,
                     'productsMedia' => $product->productsMedia,
-                   
+                    'calories' => $product->calories,
                 ];
             });
            
