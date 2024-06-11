@@ -40,7 +40,10 @@ class ProductController extends BaseController
                             $query->select('category_id', 'name')->where('language_id', $languageId);
                         },
                         'productsMedia:url_media,product_id', // Select only necessary columns for products media
-                    ])->where('isActive',1)->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+                        'calories' => function ($query) use ($languageId) {
+                           $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+                        },
+                        ])->where('isActive',1)->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
                     ->get();
         
                    // Format the products
@@ -55,6 +58,7 @@ class ProductController extends BaseController
                     'code' => $product->code,
                     'category' => $product->category->translations,
                     'productsMedia' => $product->productsMedia,
+                    'calories' => $product->calories,
                 ];
             });
                 } catch (\Exception $e) {

@@ -45,4 +45,9 @@ class Product extends Model
     return $this->hasMany(FavoriteProduct::class)->where('user_id', Auth::id());
    }
  
+
+   public function calories()
+    {
+        return $this->hasMany(Calorie::class);
+    }
 }

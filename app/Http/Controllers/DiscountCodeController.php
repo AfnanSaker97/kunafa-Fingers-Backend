@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DiscountCode;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\DB;
@@ -95,7 +96,7 @@ class DiscountCodeController extends BaseController
      public function verfiyCode(Request $request)
        { 
         try { 
-            $validated = Validator::make($request->all(), [    
+            $validator = Validator::make($request->all(), [    
             'code' => 'required',
         ]);
         
@@ -113,14 +114,35 @@ class DiscountCodeController extends BaseController
 
             if(!$discount)
             {
-                return $this->sendError([],'The code is invalid.'); 
+                return $this->sendError('The code is invalid',[]); 
             }
-            return ApiResponseClass::successResponse($discount);    
+              // Calculate the cart total and the total after applying the discount
+              $cartItemsTotal = $this->calculateCartTotal($userId);
+              $totalAfterDiscount = $this->applyDiscount($cartItemsTotal, $discount->discount_percentage);
+  
+            return $this->sendResponse($totalAfterDiscount,'Discount applied successfully'); 
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
         }
 
 }
+
+
+
+  // Calculate the total of cart items
+  private function calculateCartTotal($userId)
+  {
+      return CartItem::where('isChecked', 0)
+          ->where('user_id', $userId)
+          ->sum('sub_total_price');
+  }
+
+  // Apply the discount to the cart total
+  private function applyDiscount($cartTotal, $discountPercentage)
+  {
+      $discountAmount = $cartTotal * ($discountPercentage / 100);
+      return $cartTotal - $discountAmount;
+  }
 
 }

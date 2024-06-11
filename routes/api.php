@@ -89,7 +89,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('addDiscountCode', [DiscountCodeController::class, 'store']);
-   // Route::get('Address', [DiscountCodeController::class, 'index']);
+    Route::post('verifyCode', [DiscountCodeController::class, 'verfiyCode']);
+ 
   //  Route::get('AddressById', [DiscountCodeController::class, 'show']);
 
 });

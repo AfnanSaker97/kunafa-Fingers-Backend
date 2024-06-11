@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('new_price')->default('0');
             $table->boolean('isActive')->default(1);
-            $table->string('tags');
+            $table->string('tags')->default('0');
             $table->string('code')->default('0');
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id') ->references('id')->on('categories')->onDelete('cascade');
