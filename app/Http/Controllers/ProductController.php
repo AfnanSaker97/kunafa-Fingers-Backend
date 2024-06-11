@@ -432,6 +432,9 @@ class ProductController extends BaseController
                     $query->select('category_id', 'name')->where('language_id', $languageId);
                 },
                 'productsMedia:url_media,product_id', 
+                'calories' => function ($query) use ($languageId) {
+                    $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+                 },
             ])
             ->whereHas('translations', function ($q) use ($query, $languageId) {
                 $q->where('language_id', $languageId)
@@ -457,6 +460,7 @@ class ProductController extends BaseController
                     'code' => $product->code,
                     'category' => $product->category->translations,
                     'productsMedia' => $product->productsMedia,
+                    'calories' => $product->calories,
                 ];
             });
 
