@@ -111,7 +111,8 @@ Route::controller(SliderController::class)->group(function(){
 });
 
 
-Route::controller(OrderController::class)->group(function(){
-    Route::post('checkOutOrder', 'store');
-    Route::get('Slider', 'index');
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post('checkOutOrder', [OrderController::class, 'store']);
+
+   // Route::get('Slider', 'index');
 });

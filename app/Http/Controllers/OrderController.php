@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\CartItem;
 use Illuminate\Http\Request;
-
-class OrderController extends Controller
+use App\Http\Controllers\BaseController as BaseController;
+use Illuminate\Support\Facades\DB;
+use App\Models\Product;
+use Validator;
+use Auth;
+use Carbon\Carbon;
+class OrderController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -40,16 +46,22 @@ class OrderController extends Controller
             }
 
             $date = Carbon::now()->format('Y-m-d H:i:s');
-            $user =Auth::user();
-            $cartItems = $user->CartItems->whereIn('product_id', $request->array_product_ids)->where('isChecked', 0);
+            $user = Auth::user();
+            $cartItems = $user->CartItems->whereIn('product_id', $request->array_product_ids)->where('isChecked', 0)->get();
+            return $cartItems;
             if ($cartItems->isEmpty()) {
                 $msg ='Nothing in the cart!';
                 return $this->sendResponse([],$msg);
              }
+
+             $cartItemsTotal = CartItem::where('isChecked', 0)->where('user_id', $user->id)
+            ->sum('sub_total_price');
             $order = new Order();
             $order->user_id = $user->id;
             $order->address_id = $request->address_id;
             $order->order_date = $date;
+            $order->total_price =  $cartItemsTotal;
+            $order->price_after_discount =  $cartItemsTotal;
             $order->save();
             foreach ($cartItems as $cartItem) 
             {
@@ -57,6 +69,7 @@ class OrderController extends Controller
 
             $cartItem->Save();
             }
+            return $this->sendResponse($order, 'order added successfully.');
         }
 
     /**
