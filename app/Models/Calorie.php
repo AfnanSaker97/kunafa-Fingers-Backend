@@ -12,8 +12,5 @@ class Calorie extends Model
         'key','value'
     ];
 
-    public function calories()
-    {
-        return $this->hasMany(Calorie::class);
-    }
+    
 }

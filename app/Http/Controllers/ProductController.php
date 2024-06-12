@@ -436,12 +436,14 @@ class ProductController extends BaseController
                     $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
                  },
             ])
-            ->whereHas('translations', function ($q) use ($query, $languageId) {
-                $q->where('language_id', $languageId)
-                  ->where(function ($q) use ($query) {
-                      $q->where('name', 'LIKE', "%{$query}%")
-                        ->orWhere('description', 'LIKE', "%{$query}%");
-                  });
+            ->when($query, function ($q) use ($query, $languageId) {
+                $q->whereHas('translations', function ($q) use ($query, $languageId) {
+                    $q->where('language_id', $languageId)
+                      ->where(function ($q) use ($query) {
+                          $q->where('name', 'LIKE', "%{$query}%")
+                            ->orWhere('description', 'LIKE', "%{$query}%");
+                      });
+                });
             })
             ->when($categoryId, function ($q) use ($categoryId) {
                 $q->where('category_id', $categoryId);
@@ -473,6 +475,11 @@ class ProductController extends BaseController
         ]);
     }
    
+     // If no search query is provided, return an empty array
+    if (!$query) {
+        return $this->sendResponse([], 'Product fetched successfully.');
+    }
+
       return $this->sendResponse($products, 'Product fetched successfully.');
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);

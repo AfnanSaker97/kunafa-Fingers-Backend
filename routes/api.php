@@ -13,9 +13,7 @@ use App\Http\Controllers\ProductLogController;
 use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\SliderController;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\MailableName;
-use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\OrderController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -26,6 +24,7 @@ Route::controller(RegisterController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('verify', 'verify');
     Route::get('getUser', 'getUser')->middleware('auth:sanctum');
+    Route::post('update-user', 'update')->middleware('auth:sanctum');
     Route::get('logout', 'logout')->middleware('auth:sanctum');
 });
 
@@ -112,4 +111,7 @@ Route::controller(SliderController::class)->group(function(){
 });
 
 
-
+Route::controller(OrderController::class)->group(function(){
+    Route::post('checkOutOrder', 'store');
+    Route::get('Slider', 'index');
+});

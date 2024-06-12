@@ -140,4 +140,17 @@ public function getUser(Request $request)
 
 }
 
+
+
+public function update(Request $request)
+{
+    $user =Auth::user();
+    if ($request->filled('name')) {
+        $user->update(['name' => $request->name]);
+    }
+    return $this->sendResponse($user, 'User updated successfully.');
+ 
+
+}
+
 }
