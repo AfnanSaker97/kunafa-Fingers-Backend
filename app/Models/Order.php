@@ -21,4 +21,16 @@ class Order extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+
+     // An order belongs to a user
+     public function user()
+     {
+         return $this->belongsTo(User::class);
+     }
+ 
+     // An order belongs to an address
+     public function address()
+     {
+         return $this->belongsTo(Address::class);
+     }
 }

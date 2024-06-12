@@ -93,8 +93,10 @@ Route::middleware('auth:sanctum')->group(function() {
 
     //order
     Route::post('checkOutOrder', [OrderController::class, 'store']);
-  //  Route::get('AddressById', [DiscountCodeController::class, 'show']);
+    Route::get('getAllOrderUser', [OrderController::class, 'getAllOrderUser']);
+    Route::get('OrderDetails', [OrderController::class, 'OrderDetails']);
 
+    
 });
 
 Route::controller(ProductLogController::class)->group(function(){

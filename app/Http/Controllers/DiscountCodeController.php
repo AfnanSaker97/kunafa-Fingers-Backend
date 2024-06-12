@@ -139,7 +139,7 @@ class DiscountCodeController extends BaseController
   }
 
   // Apply the discount to the cart total
-  private function applyDiscount($cartTotal, $discountPercentage)
+  public static function applyDiscount($cartTotal, $discountPercentage)
   {
       $discountAmount = $cartTotal * ($discountPercentage / 100);
       return $cartTotal - $discountAmount;

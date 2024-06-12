@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\CartItem;
+use App\Models\DiscountCode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ use App\Models\Product;
 use Validator;
 use Auth;
 use Carbon\Carbon;
+use App\Http\Controllers\DiscountCodeController;
 class OrderController extends BaseController
 {
     /**
@@ -57,12 +59,31 @@ class OrderController extends BaseController
 
              $cartItemsTotal = CartItem::where('isChecked', 0)->where('user_id', $user->id)
             ->sum('sub_total_price');
+
+             
+          
+            $discount = null;
+            $price_discount = $cartItemsTotal; // default to the total price
+        
+            if ($request->code) {
+                $discount = DiscountCode::where([
+                    ['code', $request->code],
+                    ['user_id', $user->id],
+                    ['valid', 1],
+                    ['expire', '>', $date]
+                ])->first();
+        
+                if ($discount) {
+                    $price_discount = DiscountCodeController::applyDiscount($cartItemsTotal, $discount->discount_percentage);
+                }
+            }
+  
             $order = new Order();
             $order->user_id = $user->id;
             $order->address_id = $request->address_id;
             $order->order_date = $date;
             $order->total_price =  $cartItemsTotal;
-            $order->price_after_discount =  $cartItemsTotal;
+            $order->price_after_discount = $price_discount;
             $order->save();
             foreach ($cartItems as $cartItem) 
             {
@@ -104,4 +125,41 @@ class OrderController extends BaseController
     {
         //
     }
+
+
+
+    public function getAllOrderUser(Request $request)
+    {
+
+        // Get the authenticated user
+        $user =Auth::user();
+
+    // Fetch orders with cart items for the user's cart and sort them by creation date
+    $orders = Order::with('CartItems')
+      ->where('user_id', $user->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    // Filter orders to only include those with cart items
+    $filteredOrders = $orders->filter(function ($order) {
+        return $order->cartItems->isNotEmpty();
+    });
+    return $this->sendResponse($filteredOrders, 'order fetched successfully.');
+      
+
+    }
+
+
+    public function OrderDetails(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required|exists:orders,id',  
+            ]);
+           
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors()->all());       
+            }
+            $order = Order::with(['user','address','CartItems'])->findOrFail($request->order_id);
+            return $this->sendResponse($order, 'order fetched successfully.');
+        }
 }
