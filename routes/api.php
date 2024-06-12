@@ -51,7 +51,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('getProductsUser', [ProductController::class, 'getProductsUser']); 
     Route::get('getProductByCategory', [ProductController::class, 'getProductByCategory']);
     Route::get('searchUser', [ProductController::class, 'search']);
-
+    Route::get('ProductByIDUser', [ProductController::class, 'ProductByIDUser']);
 });
 
 
@@ -90,6 +90,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('addDiscountCode', [DiscountCodeController::class, 'store']);
     Route::post('verifyCode', [DiscountCodeController::class, 'verfiyCode']);
  
+
+    //order
+    Route::post('checkOutOrder', [OrderController::class, 'store']);
   //  Route::get('AddressById', [DiscountCodeController::class, 'show']);
 
 });
@@ -111,8 +114,4 @@ Route::controller(SliderController::class)->group(function(){
 });
 
 
-Route::middleware('auth:sanctum')->group(function() {
-    Route::post('checkOutOrder', [OrderController::class, 'store']);
 
-   // Route::get('Slider', 'index');
-});

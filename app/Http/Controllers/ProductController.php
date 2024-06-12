@@ -380,6 +380,69 @@ class ProductController extends BaseController
     }
 
 
+
+
+    public function ProductByIDUser(Request $request)
+    {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'language_id' => 'required|exists:languages,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
+    
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());
+        }
+    
+        $languageId = $request->input('language_id');
+        $productId = $request->input('product_id');
+        $cacheKey = 'product_' . $languageId . '_' . $productId;
+    
+         // Retrieve product with caching
+     $product = Cache::remember($cacheKey, 60, function () use ($languageId, $productId) {
+        try {
+            $product = Product::with([
+                'translations' => function ($query) use ($languageId) {
+                    $query->select('product_id', 'name', 'description')->where('language_id', $languageId);
+                },
+                'category.translations' => function ($query) use ($languageId) {
+                    $query->select('category_id', 'name')->where('language_id', $languageId);
+                },
+                'productsMedia' => function ($query) {
+                    $query->select('url_media', 'product_id'); // Select only necessary columns for products media
+                },
+                'FavoriteProduct:is_favorite,product_id',
+                'calories' => function ($query) use ($languageId) {
+                    $query->select('id', 'key', 'value', 'product_id')->where('language_id', $languageId);
+                 },
+            ])
+            ->where('id', $productId)
+            ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
+            ->firstOrFail(); // Use firstOrFail to handle missing product
+
+            return [
+                'id' => $product->id,
+                'name' => optional($product->translations->first())->name ?? '0',
+                'description' => optional($product->translations->first())->description ?? '0',
+                'price' => $product->price,
+                'new_price' => $product->new_price,
+                'tags' => $product->tags,
+                'code' => $product->code,
+                'category' =>$product->category->translations,
+                'FavoriteProduct' => $product->FavoriteProduct,
+                'productsMedia' => $product->productsMedia,
+                'calories' => $product->calories,
+            ];
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    });
+        
+        return $this->sendResponse($product, 'Product fetched successfully.');
+    }
+
+
+
     /**
      * Show the form for editing the specified resource.
      */

@@ -20,7 +20,10 @@ return new class extends Migration
             $table->string('sub_total_price');
             $table->boolean('isChecked')->default(0);
             $table->string('note')->default('0');
-            $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
+          //  $table->unsignedBigInteger('order_id');
+        //    $table->foreign('order_id') ->references('id')->on('orders')->onDelete('cascade');
+         
+    
             $table->timestamps();
         });
     }

@@ -47,10 +47,11 @@ class OrderController extends BaseController
 
             $date = Carbon::now()->format('Y-m-d H:i:s');
             $user = Auth::user();
-            $cartItems = $user->CartItems->whereIn('product_id', $request->array_product_ids)->where('isChecked', 0)->get();
-            return $cartItems;
+         
+            $cartItems = $user->CartItems()->whereIn('product_id', $request->array_product_ids)->where('isChecked', 0)->get();
+       
             if ($cartItems->isEmpty()) {
-                $msg ='Nothing in the cart!';
+                $msg ='Nothing in the cart!'; 
                 return $this->sendResponse([],$msg);
              }
 
