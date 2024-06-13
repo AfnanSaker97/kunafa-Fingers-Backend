@@ -130,10 +130,8 @@ class OrderController extends BaseController
 
     public function getAllOrderUser(Request $request)
     {
-
         // Get the authenticated user
         $user =Auth::user();
-
     // Fetch orders with cart items for the user's cart and sort them by creation date
     $orders = Order::with('CartItems')
       ->where('user_id', $user->id)

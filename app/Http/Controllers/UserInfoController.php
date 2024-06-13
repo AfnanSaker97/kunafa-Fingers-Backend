@@ -36,12 +36,16 @@ class UserInfoController extends BaseController
     {
         try {
           // Get IP information
-       $IpInfo = $request->ip();
-       $currentUserInfo = Location::get($IpInfo);
+      $IpInfo = $request->ip();
+      $currentUserInfo = Location::get($IpInfo);
     
-       // $browser = Agent::browser();
-       // $version = Agent::version($browser);
-       // return   $browser;
+       $browser = Agent::browser();
+       $version = Agent::version($browser);
+
+      $platform = Agent::platform();
+      $platformVersion = Agent::version($platform);
+      $device = Agent::device();
+     
       // Define a mapping of country codes to languages
       $countryLanguageMap = [
         'SY' => 'Arabic',
@@ -151,17 +155,24 @@ class UserInfoController extends BaseController
        $deviceInfoData = [
            'ip_address' => $IpInfo,
            'language' => $language,
-           'user_agent' => $request->header('User-Agent'),
+           'browser' => $browser . '  ' . $version,
+           'platform' => $platform . '  ' . $platformVersion,
+           'device' => $device,
            'request_time' => now(),
            'countryName' => $currentUserInfo->countryName ?? '0',
            'regionName' => $currentUserInfo->regionName ?? '0',
            'cityName' => $currentUserInfo->cityName ?? '0',
+           
        ];
+   
 
         // Check if a matching record exists
         $existingDeviceInfo = UserInfo::where('ip_address', $deviceInfoData['ip_address'])
             ->where('language', $deviceInfoData['language'])
-            ->where('user_agent', $deviceInfoData['user_agent'])
+            ->where('browser', $deviceInfoData['browser'])
+            ->where('platform', $deviceInfoData['platform'])
+            ->where('device', $deviceInfoData['device'])
+
             ->where('countryName', $deviceInfoData['countryName'])
             ->where('regionName', $deviceInfoData['regionName'])
             ->where('cityName', $deviceInfoData['cityName'])

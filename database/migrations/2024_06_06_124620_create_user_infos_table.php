@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('ip_address', 45);
             $table->string('language');
-            $table->text('user_agent');
+            $table->string('browser')->default('0');
+            $table->string('platform')->default('0');
+            $table->string('device')->default('0');
             $table->timestamp('request_time');
             $table->string('countryName')->default('0');
             $table->string('regionName')->default('0');

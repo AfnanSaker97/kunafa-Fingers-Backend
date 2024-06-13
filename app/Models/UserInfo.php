@@ -11,7 +11,9 @@ class UserInfo extends Model
     protected $fillable = [
         'ip_address',
         'language',
-        'user_agent',
+        'browser',
+        'platform',
+        'device',
         'request_time',
         'countryName',
         'regionName',
