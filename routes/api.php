@@ -14,7 +14,7 @@ use App\Http\Controllers\DiscountCodeController;
 use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\ContactUsController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -116,4 +116,7 @@ Route::controller(SliderController::class)->group(function(){
 });
 
 
+Route::controller(ContactUsController::class)->group(function(){
+    Route::post('ContactUs', 'store');
+});
 
