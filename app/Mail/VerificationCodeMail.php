@@ -49,6 +49,7 @@ class VerificationCodeMail extends Mailable
         return new Content(
             view: 'emails.verification_code',
         );
+    
     }
 
     /**
