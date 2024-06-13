@@ -7,6 +7,7 @@
 </head>
 <body>
 
+
 Email: {{ $ContactUs->email }}<br>
 Message:
 {{ $ContactUs->subject }} <br>
