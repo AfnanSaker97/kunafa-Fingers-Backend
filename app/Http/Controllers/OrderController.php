@@ -160,4 +160,62 @@ class OrderController extends BaseController
             $order = Order::with(['user','address','CartItems'])->findOrFail($request->order_id);
             return $this->sendResponse($order, 'order fetched successfully.');
         }
+
+
+
+
+        
+
+    public function SortOrder(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'startDate' => 'required|date', // Assuming you want the start date to be a required date
+            'endDate' => 'required|date',
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());       
+        }
+        
+        $startDate = $request->startDate; // Get the start date from the request
+        $endDate = $request->endDate;  // Get the current date and format it
+        
+        $orders = Order::with(['user', 'address', 'CartItems'])
+                ->whereDate('created_at', '>=', $startDate)
+                ->whereDate('created_at', '<=', $endDate)
+                ->orderByDesc('created_at')
+                ->get();
+        
+      return $this->sendResponse($orders, 'order fetched successfully.');
+    }
+
+
+
+
+    public function filterOrder(Request $request)
+    {
+        $validated = Validator::make($request->all(), [
+            'status_id' => 'required|in:1,2,3,4,5,6', // Add validation for allowed status_id values
+        ]);
+        
+        if ($validated->fails()) {
+            return ApiResponseClass::validateResponse($validated->errors()->all());
+        }
+        
+        $status = [
+            1 => 'pending',
+            2 => 'Processing',
+            3 => 'confirmed',
+            4 => 'Shipped',
+            5 => 'Delivered',
+            6 => 'Cancelled',
+        ];
+        $orders = Order::with(['user', 'CartItems', 'address'])
+        ->where('status', $status[$request->status_id])
+        ->get();
+
+        return $this->sendResponse($orders, 'order fetched successfully.');
+    }
+
 }

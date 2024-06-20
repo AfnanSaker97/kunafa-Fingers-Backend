@@ -95,7 +95,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('checkOutOrder', [OrderController::class, 'store']);
     Route::get('getAllOrderUser', [OrderController::class, 'getAllOrderUser']);
     Route::get('OrderDetails', [OrderController::class, 'OrderDetails']);
-
+    Route::get('SortOrder', [OrderController::class, 'SortOrder']);
+    Route::get('filterOrder', [OrderController::class, 'filterOrder']);
     
 });
 
