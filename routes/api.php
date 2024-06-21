@@ -37,7 +37,7 @@ Route::controller(CategoryController::class)->group(function(){
 });
 //
 Route::controller(ProductController::class)->group(function(){
-    Route::post('Product', 'store');
+ 
     Route::get('Products', 'index');
     Route::get('ProductsByCategory', 'show');
     Route::get('ProductByID', 'ProductByID');
@@ -52,8 +52,17 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('getProductByCategory', [ProductController::class, 'getProductByCategory']);
     Route::get('searchUser', [ProductController::class, 'search']);
     Route::get('ProductByIDUser', [ProductController::class, 'ProductByIDUser']);
+
+
 });
 
+
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post('Product', [ProductController::class, 'store']); 
+    Route::post('update-Product', [ProductController::class, 'update']); 
+    Route::delete('delete-Product', [ProductController::class, 'destroy']); 
+});
 
 
 Route::controller(ProductMediaController::class)->group(function(){

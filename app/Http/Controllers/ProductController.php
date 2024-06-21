@@ -454,17 +454,70 @@ class ProductController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request)
     {
-        //
+          // Validate the request data
+    $validator = Validator::make($request->all(), [
+        'product_id' => 'required|exists:products,id',
+
+        'name_en' => 'nullable|string|max:255',
+        'name_zh' => 'nullable|string|max:255',
+        'name_ms' => 'nullable|string|max:255',
+
+        'description_en' => 'nullable|string',
+        'description_zh' => 'nullable|string',
+        'description_ms' => 'nullable|string',
+        'price' => 'nullable|string',
+        'new_price' => 'nullable|string',
+
+    ]);
+
+     // If validation fails, return error response
+     if ($validator->fails()) {
+        return $this->sendError('Validation Error.', $validator->errors()->all());
+    }
+    $product = Product::find($request->product_id);
+       // Update the product details
+       $product->update([
+        'price' => $request->price,
+        'new_price' => $request->new_price ?? $product->new_price,
+
+    ]);
+      // Update the product translations
+      $translations = [
+        ['language_id' => 1, 'name' => $request->name_en, 'description' => $request->description_en],
+        ['language_id' => 2, 'name' => $request->name_zh, 'description' => $request->description_zh],
+        ['language_id' => 3, 'name' => $request->name_ms, 'description' => $request->description_ms],
+    ];
+
+    foreach ($translations as $translation) {
+        $product->translations()->updateOrCreate(
+            ['language_id' => $translation['language_id']],
+            ['name' => $translation['name'], 'description' => $translation['description']]
+        );
+    }
+
+    return $this->sendResponse($product, 'Product updated successfully.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+           // Validate the request data
+           $validator = Validator::make($request->all(), [
+            'product_id' => 'required|exists:products,id',
+        ]);
+    
+         // If validation fails, return error response
+         if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());
+        }
+        $product = Product::find($request->product_id);
+        $product ->delete();
+        return $this->sendResponse($product, 'Product deleted successfully.');
     }
 
 
