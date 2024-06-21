@@ -85,6 +85,7 @@ Route::controller(SliderController::class)->group(function(){
     Route::delete('delete-Slider', 'destroy');
 });
 
+Route::get('userInfo', [UserInfoController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('addCartItem', [CartItemController::class, 'store']);

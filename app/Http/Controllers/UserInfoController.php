@@ -18,7 +18,8 @@ class UserInfoController extends BaseController
      */
     public function index()
     {
-        //
+        $userInfo = UserInfo::all();
+        return $this->sendResponse($userInfo, 'user Info fetched successfully.');
     }
 
     /**
