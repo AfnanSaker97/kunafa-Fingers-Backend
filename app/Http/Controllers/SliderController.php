@@ -143,16 +143,106 @@ class SliderController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request)
     {
-        //
+         // Validate the request data
+    $validator = Validator::make($request->all(), [
+        'text1_en' => 'nullable|string|max:255',
+        'text1_ar' => 'nullable|string|max:255',
+        'text1_zh' => 'nullable|string|max:255',
+        'text1_ms' => 'nullable|string|max:255',
+        'text2_en' => 'nullable|string|max:255',
+        'text2_ar' => 'nullable|string|max:255',
+        'text2_zh' => 'nullable|string|max:255',
+        'text2_ms' => 'nullable|string|max:255',
+        'url_media' => 'nullable|file',
+        'slider_id' => 'required|exists:sliders,id',
+    ]);
+
+    // If validation fails, return error response
+    if ($validator->fails()) {
+        return $this->sendError('Validation Error.', $validator->errors()->all());
+    }
+
+    try {
+        // Start the transaction
+        DB::beginTransaction();
+
+        // Find the existing slider
+        $slider = Slider::find($request->slider_id);
+         // Handle the file upload
+         if ($request->hasFile('url_media')) {
+            // Delete the old photo
+            $oldPhotoPath = public_path(parse_url($slider->url_media, PHP_URL_PATH));
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath);
+            }
+
+            // Upload the new photo
+            $imageName = time() . '.' . $request->url_media->extension();
+            $request->url_media->move(public_path('Slider'), $imageName);
+            $url = url('Slider/' . $imageName);
+
+            // Update the media URL
+            $slider->update(['url_media' => $url]);
+        }
+
+        // Update translations
+        $translations = [
+            ['language_id' => 1, 'text1' => $request->input('text1_en', '0'), 'text2' => $request->input('text2_en', '0')],
+            ['language_id' => 2, 'text1' => $request->input('text1_ar', '0'), 'text2' => $request->input('text2_ar', '0')],
+            ['language_id' => 3, 'text1' => $request->input('text1_zh', '0'), 'text2' => $request->input('text2_zh', '0')],
+            ['language_id' => 4, 'text1' => $request->input('text1_ms', '0'), 'text2' => $request->input('text2_ms', '0')],
+        ];
+
+        foreach ($translations as $translation) {
+            $slider->translations()->updateOrCreate(
+                ['language_id' => $translation['language_id']],
+                ['text1' => $translation['text1'], 'text2' => $translation['text2']]
+            );
+        }
+
+        // Commit the transaction
+        DB::commit();
+
+        // Clear the cache
+        Cache::forget('sliders');
+
+        // Return success response
+        return $this->sendResponse($slider, 'Slider updated successfully.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Slider $slider)
+    public function destroy(Request $request)
     {
-        //
+            // Validate the request data
+       $validator = Validator::make($request->all(), [
+           'slider_id' => 'required|exists:sliders,id',
+       ]);
+   
+       // If validation fails, return error response
+       if ($validator->fails()) {
+           return $this->sendError('Validation Error.', $validator->errors()->all());
+       }
+   
+           // Find the existing slider
+           $slider = Slider::find($request->slider_id);
+                // Delete the old photo
+                $oldPhotoPath = public_path(parse_url($slider->url_media, PHP_URL_PATH));
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+                $slider->delete();
+                   // Clear the cache
+        Cache::forget('sliders');
+
+        // Return success response
+        return $this->sendResponse($slider, 'Slider deleted successfully.');
     }
 }

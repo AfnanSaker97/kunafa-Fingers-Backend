@@ -79,6 +79,13 @@ Route::middleware('auth:sanctum')->group(function() {
     
 });
 
+
+Route::controller(SliderController::class)->group(function(){
+    Route::post('update-Slider', 'update');
+    Route::delete('delete-Slider', 'destroy');
+});
+
+
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('addCartItem', [CartItemController::class, 'store']);
     Route::get('CartItem', [CartItemController::class, 'index']);
