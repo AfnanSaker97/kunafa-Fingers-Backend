@@ -36,7 +36,6 @@ class ProductMediaController extends BaseController
     {
          // Validate the request
     $validator = Validator::make($request->all(), [
-        'product_id' => 'required|exists:products,id',
         'url_media' => 'required|image',
     ]);
 
@@ -85,16 +84,80 @@ class ProductMediaController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProductMedia $productMedia)
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+
+            'media_id' => 'required|exists:product_media,id',
+            'url_media' => 'nullable|image',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Validation Error', 'messages' => $validator->errors()->all()], 422);
+        }
+    
+        try {
+            // Start the transaction
+            DB::beginTransaction();
+    
+            // Find the existing media
+            $productMedia = ProductMedia::find($request->media_id);
+
+        // Handle the file upload
+        if ($request->hasFile('url_media')) {
+            // Delete the old photo
+            $oldPhotoPath = public_path(parse_url($productMedia->url_media, PHP_URL_PATH));
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath);
+            }
+
+            // Upload the new photo
+            $imageName = time() . '.' . $request->url_media->extension();
+            $request->url_media->move(public_path('ProductMedia'), $imageName);
+            $url = url('ProductMedia/' . $imageName);
+        }
+        // Update the media record
+        $productMedia->update([
+            'url_media' => $url,
+        ]);
+
+        // Commit the transaction
+        DB::commit();
+
+        // Clear the cache
+        Cache::forget('productsUser');
+        Cache::forget('products');
+        Cache::forget('product');
+        // Return success response
+        return $this->sendResponse($productMedia, 'Photo updated successfully.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['error' => $e->getMessage()], 500);
     }
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductMedia $productMedia)
+    public function destroy(request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+
+            'media_id' => 'required|exists:product_media,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Validation Error', 'messages' => $validator->errors()->all()], 422);
+        }
+    
+            // Find the existing media
+            $productMedia = ProductMedia::find($request->media_id);
+
+            $oldPhotoPath = public_path(parse_url($productMedia->url_media, PHP_URL_PATH));
+            if (file_exists($oldPhotoPath)) {
+                unlink($oldPhotoPath);
+            }
+            $productMedia->delete();
+            return $this->sendResponse($productMedia, 'Photo deleted successfully.');
     }
 }

@@ -67,6 +67,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::controller(ProductMediaController::class)->group(function(){
     Route::post('ProductMedia', 'store');
+    Route::post('update-productMedia', 'update');
+    Route::delete('delete-productMedia', 'destroy');
 });
 
 
