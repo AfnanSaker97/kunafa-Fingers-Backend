@@ -29,8 +29,9 @@ Route::controller(RegisterController::class)->group(function(){
     Route::get('logout', 'logout')->middleware('auth:sanctum');
 });
 
-
-Route::middleware(['isAdmin','auth:sanctum'])->controller(AdminController::class)->group(function(){
+Route::post('loginAdmin', [AdminController::class, 'loginAdmin']); 
+Route::post('forgetPassword', [AdminController::class, 'forgetPassword']); 
+Route::controller(AdminController::class)->group(function(){
     Route::post('registerAdmin', 'registerAdmin');
 });
 
