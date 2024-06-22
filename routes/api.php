@@ -15,6 +15,7 @@ use App\Http\Controllers\UserInfoController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\AdminController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -29,6 +30,9 @@ Route::controller(RegisterController::class)->group(function(){
 });
 
 
+Route::middleware(['isAdmin','auth:sanctum'])->controller(AdminController::class)->group(function(){
+    Route::post('registerAdmin', 'registerAdmin');
+});
 
 Route::controller(CategoryController::class)->group(function(){
     Route::post('Category', 'store');

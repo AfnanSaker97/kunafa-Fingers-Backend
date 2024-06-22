@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProductLog extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'product_id'];
+    protected $fillable = ['user_id', 'product_id','count'];
 
     public function product(): BelongsTo
     {

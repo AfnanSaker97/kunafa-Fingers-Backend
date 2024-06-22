@@ -324,6 +324,7 @@ class ProductController extends BaseController
 
     public function ProductByID(Request $request)
     {
+   
         // Validate the request
         $validator = Validator::make($request->all(), [
             'language_id' => 'required|exists:languages,id',
@@ -385,6 +386,7 @@ class ProductController extends BaseController
     public function ProductByIDUser(Request $request)
     {
         // Validate the request
+  
         $validator = Validator::make($request->all(), [
             'language_id' => 'required|exists:languages,id',
             'product_id' => 'required|exists:products,id',
@@ -393,7 +395,25 @@ class ProductController extends BaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors()->all());
         }
-    
+        $userId =Auth::id();
+
+            // Check if a matching record exists
+            $existingProduct = ProductLog::where('user_id',$userId)
+            ->where('product_id', $request->product_id)
+            ->first();
+            if ($existingProduct) {
+              // Increment the count field if the record exists
+              $existingProduct->count += 1;
+              $existingProduct->save();
+            }
+           else {
+              // Create a new record if it doesn't exist
+              $productId = $request->product_id; // Access the 'id' directly
+              ProductLog::create([
+                  'user_id' => $userId, 
+                  'product_id' => $productId,
+              ]);
+          }
         $languageId = $request->input('language_id');
         $productId = $request->input('product_id');
         $cacheKey = 'product_' . $languageId . '_' . $productId;
@@ -419,8 +439,11 @@ class ProductController extends BaseController
             ->where('id', $productId)
             ->select('id', 'category_id', 'price', 'new_price', 'tags', 'code')
             ->firstOrFail(); // Use firstOrFail to handle missing product
-
-            return [
+                 // Check if only one product is found
+   
+       
+    
+      return [
                 'id' => $product->id,
                 'name' => optional($product->translations->first())->name ?? '0',
                 'description' => optional($product->translations->first())->description ?? '0',
@@ -582,14 +605,7 @@ class ProductController extends BaseController
                 ];
             });
 
-       // Check if only one product is found
-       if ($userId && $products->isNotEmpty()) {
-        $productId = $products->first()['id']; // Access the 'id' directly
-        ProductLog::create([
-            'user_id' => $userId, 
-            'product_id' => $productId,
-        ]);
-    }
+  
    
      // If no search query is provided, return an empty array
     if (!$query) {
