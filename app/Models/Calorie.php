@@ -9,7 +9,7 @@ class Calorie extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'key','value'
+        'key','value','language_id','product_id'
     ];
 
     

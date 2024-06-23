@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Calorie;
 use Illuminate\Http\Request;
-
-class CalorieController extends Controller
+use App\Http\Controllers\BaseController as BaseController;
+use Validator;
+class CalorieController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +29,28 @@ class CalorieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          // Validate the request data
+          $validator = Validator::make($request->all(), [
+            'key' => 'required',
+            'value' => 'required',
+            'product_id' => 'required|exists:products,id',
+            'language_id' => 'required|exists:languages,id',
+        ]);
+
+        // If validation fails, return error response
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors()->all());       
+        }
+
+        $Calorie = Calorie::create([
+          'key' => $request->key,
+          'value' => $request->value,
+          'product_id' => $request->product_id,
+          'language_id' => $request->language_id,
+        ]);
+    
+        // Return success response
+        return $this->sendResponse($Calorie,'Calorie created successfully.');
     }
 
     /**
@@ -50,16 +72,47 @@ class CalorieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Calorie $calorie)
+    public function update(Request $request)
     {
-        //
-    }
+            // Validate the request data
+            $validator = Validator::make($request->all(), [
+                'calorie_id' => 'required|exists:calories,id',
+                'key' => 'nullable',
+                'value' => 'nullable',
+            ]);
+    
+            // If validation fails, return error response
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors()->all());       
+            }
+    
+                // Find the category by ID
+            $Calorie = Calorie::find($request->calorie_id);
+            $Calorie->update([
+                'key' => $request->key,
+                'value' => $request->value,
+            ]);
+            // Return success response
+            return $this->sendResponse($Calorie,'Calorie updated  successfully.');
+        }
+    
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Calorie $calorie)
+    public function destroy(Request $request)
     {
-        //
+           // Validate the request data
+           $validator = Validator::make($request->all(), [
+          'calorie_id' => 'required|exists:calories,id',
+        ]);
+    
+         // If validation fails, return error response
+         if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());
+        }
+        $calorie = calorie::find($request->calorie_id);
+        $calorie ->delete();
+        return $this->sendResponse($calorie, 'calorie deleted successfully.');
     }
 }

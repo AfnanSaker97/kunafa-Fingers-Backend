@@ -486,85 +486,76 @@ class productTranslationsSeeder extends Seeder
 
 
 
-      productTranslations::create(['name' =>'1 Piece Baklava Pistachio', 'description' =>'1 Piece Baklava Pistachio is a single serving of the classic Middle Eastern pastry, Baklava, filled with a delicious pistachio mixture, offering a delightful combination of crispy layers, sweet syrup, and nutty pistachios in every indulgent bite.
+      productTranslations::create(['name' =>'قطعة بقلاوة بالفستق', 'description' =>'قطعة واحدة من بقلاوة الفستق هي حصة فردية من الحلوى الكلاسيكية الشرق أوسطية، البقلاوة، المحشوة بمزيج لذيذ من الفستق، مما يقدم مزيجاً رائعاً من الطبقات المقرمشة، والشراب الحلو، والفستق الغني في كل لقمة شهية.
 
       ','product_id' => '36','language_id' => '2']);
 
 
       
-      productTranslations::create(['name' =>'1 Piece Baklava', 'description' =>'1 Piece Baklava is a single serving of the classic Middle Eastern pastry, Baklava, made with layers of phyllo dough, nuts, and sweet syrup, offering a delightful blend of crispy layers and sweet, nutty filling in every bite-sized piece.
-
-      ','product_id' => '37','language_id' => '2']);
-
-
-      productTranslations::create(['name' =>'Wild Berries Melty Cake', 'description' =>'Wild Berries Melty Cake is a delectable dessert featuring a warm, molten center of wild berry filling encased in a moist and fluffy cake exterior, offering a delightful explosion of berry flavor and velvety texture in every decadent bite.
-
-      ','product_id' => '38','language_id' => '2']);
+      productTranslations::create(['name' =>'قطعة واحدة من البقلاوة', 'description' =>'قطعة واحدة من البقلاوة هي حصة فردية من الحلوى الكلاسيكية الشرق أوسطية، البقلاوة، المصنوعة من طبقات من عجينة الفيلو والمكسرات والشراب الحلو، مما يقدم مزيجاً رائعاً من الطبقات المقرمشة والحشوة الحلوة والجوزية في كل قطعة صغيرة.'
+      ,'product_id' => '37','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Strawberry Melty Cake', 'description' =>'Strawberry Melty Cake is a delightful dessert featuring a warm, molten center of strawberry filling enveloped in a moist and fluffy cake exterior, offering a delightful burst of strawberry flavor and velvety texture in every indulgent bite.
+      productTranslations::create(['name' =>'كعكة تذوب بالتوت البري', 'description' =>'كعكة التوت البري المذابة هي حلوى شهية تتميز بمركز دافئ وسائل محشو بتوت بري بري، محاط بطبقة خارجية من الكعكة الرطبة والهشة، مما يقدم انفجارًا رائعًا من نكهة التوت وقوامًا ناعمًا في كل قضمة فاخرة',
+      'product_id' => '38','language_id' => '2']);
 
-      ','product_id' => '39','language_id' => '2']);
+
+      productTranslations::create(['name' =>'كعكة الفراولة المذابة', 'description' =>'كعكة الفراولة المذابة هي حلوى لذيذة تتميز بمركز دافئ وسائل محشو بحشوة الفراولة، محاطة بطبقة خارجية من الكعكة الرطبة والهشة، مما يقدم انفجارًا رائعًا من نكهة الفراولة وقوامًا ناعمًا في كل قضمة فاخرة.',
+      'product_id' => '39','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Caramel Melty Cake', 'description' =>'Caramel Melty Cake is a decadent dessert featuring a warm, gooey caramel center nestled within a moist and fluffy cake exterior, offering a delightful fusion of rich caramel flavor and velvety texture in every indulgent bite.
+      productTranslations::create(['name' =>'كيك الكراميل المذاب', 'description' =>'كعكة الكراميل المذابة هي حلوى فاخرة تتميز بمركز دافئ ولزج من الكراميل المتدفق داخل طبقة خارجية من الكعكة الرطبة والهشة، مما يقدم توافقًا رائعًا من نكهة الكراميل الغنية والقوام الناعم في كل قضمة فاخرة
 
       ','product_id' => '40','language_id' => '2']);
 
 
 
-      productTranslations::create(['name' =>'Turkish Delights', 'description' =>'Turkish Delights are sweet, chewy confections made from starch and sugar, often flavored with rosewater, citrus, or nuts, offering a delightful burst of flavor and a soft, jelly-like texture in each bite-sized piece.
-
+      productTranslations::create(['name' =>'الحلويات التركية', 'description' =>'الحلويات التركية هي حلوى لذيذة ومرنة مصنوعة من نشاء وسكر، غالباً ما تُنكّه بماء الورد أو الحمضيات أو المكسرات، مما يقدم انفجاراً رائعاً من النكهة وقواماً مثل الهلام في كل قطعة صغيرة
       ','product_id' => '41','language_id' => '2']);
 
 
 
-      productTranslations::create(['name' =>'Pistachio Ice Cream', 'description' =>'Pistachio Ice Cream is a creamy frozen dessert flavored with ground pistachios, offering a delightful blend of nutty richness and smooth texture in every scoop, perfect for a refreshing and indulgent treat.
+      productTranslations::create(['name' =>'آيس كريم الفستق', 'description' =>'آيس كريم الفستق هو حلوى مثلجة كريمية مُنكهة بالفستق المطحون، تقدم مزيجاً رائعاً من الغنى النوعي والقوام الناعم في كل مغرفة، مثالي لتحلية منعشة وفاخرة.
+
 
       ','product_id' => '42','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Yogurt Ice Cream', 'description' =>'Yogurt Ice Cream is a refreshing frozen dessert made from creamy yogurt, offering a tangy and creamy flavor profile with a smooth and velvety texture, perfect for a light and satisfying treat.
-
+      productTranslations::create(['name' =>'آيس كريم الزبادي', 'description' =>'آيس كريم الزبادي هو حلوى مجمدة منعشة مصنوعة من زبادي كريمي، تقدم نكهة حامضة وكريمية مع قوام ناعم ومخملي، مثالي لتحلية خفيفة ومرضية.
       ','product_id' => '43','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Chocolate MilkShake', 'description' =>'Chocolate Milkshake is a delicious beverage made by blending milk with rich chocolate syrup or cocoa powder, resulting in a creamy and indulgent treat with a decadent chocolate flavor, perfect for satisfying sweet cravings.
-
+      productTranslations::create(['name' =>'شيك الشوكولاتة', 'description' =>'الميلك شيك بالشوكولاتة هو مشروب لذيذ يتكون من خلط الحليب مع شراب الشوكولاتة الغني أو مسحوق الكاكاو، مما ينتج عنه حلوى كريمية ولذيذة بنكهة شوكولاتة غنية، مثالية لإشباع الرغبات في الحلوى.
       ','product_id' => '44','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Strawberry Milkshake', 'description' =>'Strawberry Milkshake is a refreshing beverage crafted by blending milk with fresh strawberries or strawberry syrup, creating a creamy and fruity delight with a sweet and tangy flavor, ideal for enjoying on warm days or as a tasty dessert option.
+      productTranslations::create(['name' =>'ميلك شيك الفراولة', 'description' =>'ميلك شيك الفراولة هو مشروب منعش يتم إعداده بخلط الحليب مع الفراولة الطازجة أو شراب الفراولة، مما ينتج عنه حلاً كريميًا وفاكهيًا بنكهة حلوة وحامضة، مثالي للاستمتاع به في الأيام الدافئة أو كخيار لذيذ للحلوى.
 
       ','product_id' => '45','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Pistachio Milkshake', 'description' =>'Pistachio Milkshake is a creamy beverage made by blending milk with pistachio nuts or pistachio-flavored syrup, offering a nutty and indulgent flavor profile with a smooth and velvety texture, perfect for a unique and satisfying treat.
+      productTranslations::create(['name' =>'ميلك شيك الفستق', 'description' =>'ميلك شيك الفستق هو مشروب كريمي يتم إعداده بخلط الحليب مع الفستق أو شراب نكهة الفستق، مما يقدم مذاقاً غنياً بالفستق ولذيذاً مع قوام ناعم ومخملي، مثالي لتحلية فريدة ومرضية.
 
       ','product_id' => '46','language_id' => '2']);
 
       
-      productTranslations::create(['name' =>'Mineral Water', 'description' =>'Mineral Water is a refreshing beverage sourced from natural springs or mineral-rich underground reservoirs, offering hydration with added minerals like calcium and magnesium, perfect for quenching thirst and maintaining overall health.
+      productTranslations::create(['name' =>'مياه معدنية', 'description' =>'المياه المعدنية هي مشروب منعش يأتي من ينابيع طبيعية أو خزانات تحتية غنية بالمعادن، توفر الترطيب بالمعادن المضافة مثل الكالسيوم والمغنيسيوم، مما يجعلها مثالية لرفع العطش وللحفاظ على الصحة العامة.
 
       ','product_id' => '47','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Barbican', 'description' =>'Barbican is a non-alcoholic malt beverage known for its fruity flavors and refreshing taste, making it a popular choice for those seeking a flavorful alternative to traditional soft drinks, perfect for enjoying on its own or as a mixer in mocktails
-
-      ','product_id' => '48','language_id' => '2']);
+      productTranslations::create(['name' =>'باربيكان', 'description' =>' هو مشروب شعير غير كحولي معروف بنكهاته الفاكهية وطعمه المنعش، مما يجعله خياراً شائعاً بين الباحثين عن بديل غني بالنكهات عن المشروبات الغازية التقليدية، مثالي للاستمتاع به بمفرده أو كمكون في المشروبات اللاكحولية.
+     ' ,'product_id' => '48','language_id' => '2']);
 
       
-      productTranslations::create(['name' =>'Turkish Coffee', 'description' =>'Turkish Coffee is a traditional method of brewing coffee where finely ground coffee beans are simmered with water and sugar in a special pot called a cezve, resulting in a strong, aromatic brew served unfiltered in small cups, offering a rich and intense coffee experience with a thick, foamy layer on top known as "kaimaki".
+      productTranslations::create(['name' =>'قهوة تركية', 'description' =>'قهوة تركية هي طريقة تقليدية لتحضير القهوة حيث يُطهى البن المطحون بدقة مع الماء والسكر في وعاء خاص يُسمى "الجذوع"، مما ينتج عنه مشروب قهوة قوي وعطري يُقدم غير مُصفى في أكواب صغيرة، مما يوفر تجربة قهوة غنية ومكثفة مع طبقة كثيفة ورغوية على السطح تُعرف باسم القيماقي. '
+      ,'product_id' => '49','language_id' => '2']);
 
-      ','product_id' => '49','language_id' => '2']);
-
-
-      productTranslations::create(['name' =>'Soft Drinks', 'description' =>'Soft drinks are carbonated beverages typically flavored with sweeteners and natural or artificial flavors, offering a refreshing and fizzy option for quenching thirst and enjoying a variety of flavors, making them popular choices for casual refreshment or pairing with meals
-
+      productTranslations::create(['name' =>'المشروبات الغازية', 'description' =>'لمشروبات الغازية هي المشروبات المعبأة بالغازات والتي غالباً ما تحتوي على مواد حلاوة ونكهات طبيعية أو اصطناعية، تقدم خيارًا منعشًا وفوارًا لرفع العطش والاستمتاع بمجموعة من النكهات، مما يجعلها خيارات شهيرة للاسترخاء أو لتناول الطعام.
       ','product_id' => '50','language_id' => '2']);
 
 
-      productTranslations::create(['name' =>'Water', 'description' =>'Water is a clear, odorless, and tasteless liquid essential for life, hydrating the body and aiding in various bodily functions, making it the most basic and vital beverage for maintaining health and well-being.
+      productTranslations::create(['name' =>'ماء', 'description' =>'الماء هو سائل واضح ولا رائحة له ولا طعم له أساسي للحياة، يرطب الجسم ويساعد في عدة وظائف جسدية مختلفة، مما يجعله أساسيًا وحيويًا للحفاظ على الصحة والرفاهية.
 
       ','product_id' => '51','language_id' => '2']);
 

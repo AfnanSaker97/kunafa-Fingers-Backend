@@ -16,6 +16,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CalorieController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -31,12 +32,22 @@ Route::controller(RegisterController::class)->group(function(){
 
 Route::post('loginAdmin', [AdminController::class, 'loginAdmin']); 
 Route::post('forgetPassword', [AdminController::class, 'forgetPassword']); 
-Route::controller(AdminController::class)->group(function(){
+Route::middleware(['auth:sanctum','isAdmin'])->controller(AdminController::class)->group(function(){
     Route::post('registerAdmin', 'registerAdmin');
 });
 
+
+
+
+Route::middleware(['auth:sanctum','isAdmin'])->group(function() {
+    Route::post('Calorie', [CalorieController::class, 'store']); 
+    Route::post('update-Calorie', [CalorieController::class, 'update']);
+    Route::delete('delete-Calorie', [CalorieController::class, 'destroy']);  
+});
+
+
 Route::controller(CategoryController::class)->group(function(){
-    Route::post('Category', 'store');
+    Route::post('Category', 'store');  
     Route::get('Categories', 'index');
     Route::post('Update-Category', 'update');
 });
