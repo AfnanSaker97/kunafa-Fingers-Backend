@@ -299,7 +299,7 @@ class productTranslationsSeeder extends Seeder
 
        ','product_id' => '51','language_id' => '1']);*/
 
-
+/*
        productTranslations::create(['name' =>'كنافة الجبن الأصلية' ,'description' =>'كنافة الجبن الأصلية هي حلوى تقليدية من الشرق الأوسط تتكون من عجينة الفيلو المبشورة المكونة من طبقات مملوءة بحشوة الجبن الحلوة، تُخبز حتى تصبح ذهبية اللون، وتنقع في شراب، مما يوفر علاجًا غنيًا وفاخرًا بتوازن مثالي بين القوام المقرمش والكريمي
 
  ','product_id' => '1','language_id' => '2']);
@@ -558,7 +558,7 @@ class productTranslationsSeeder extends Seeder
       productTranslations::create(['name' =>'ماء', 'description' =>'الماء هو سائل واضح ولا رائحة له ولا طعم له أساسي للحياة، يرطب الجسم ويساعد في عدة وظائف جسدية مختلفة، مما يجعله أساسيًا وحيويًا للحفاظ على الصحة والرفاهية.
 
       ','product_id' => '51','language_id' => '2']);
-
+*/
     }
 
 

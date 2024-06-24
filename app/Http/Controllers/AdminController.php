@@ -14,6 +14,16 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 class AdminController extends BaseController
 {
+
+
+    
+   public function index()
+   {  
+   $users= User::all();
+   return $this->sendResponse($users, 'Users fetched successfully.');
+    }
+
+    
     public function registerAdmin(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -97,6 +107,8 @@ class AdminController extends BaseController
                  ], 500);
              }
          }
+
+
          
 }
 

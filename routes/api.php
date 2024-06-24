@@ -43,6 +43,10 @@ Route::middleware(['auth:sanctum','isAdmin'])->group(function() {
     Route::post('Calorie', [CalorieController::class, 'store']); 
     Route::post('update-Calorie', [CalorieController::class, 'update']);
     Route::delete('delete-Calorie', [CalorieController::class, 'destroy']);  
+
+
+    //users
+    Route::get('users', [AdminController::class, 'index']); 
 });
 
 
