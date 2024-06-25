@@ -127,4 +127,21 @@ class CategoryController extends BaseController
     }
 
     
+
+    
+    public function destroy(Request $request)
+    {
+           // Validate the request data
+           $validator = Validator::make($request->all(), [
+            'category_id' => 'required|exists:categories,id',
+        ]);
+    
+         // If validation fails, return error response
+         if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());
+        }
+        $category = Category::find($request->product_id);
+        $category ->delete();
+        return $this->sendResponse($product, 'category deleted successfully.');
+    }
 }

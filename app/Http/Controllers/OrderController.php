@@ -13,6 +13,8 @@ use Validator;
 use Auth;
 use Carbon\Carbon;
 use App\Http\Controllers\DiscountCodeController;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrdersExport;
 class OrderController extends BaseController
 {
     /**
@@ -216,6 +218,11 @@ class OrderController extends BaseController
         ->get();
 
         return $this->sendResponse($orders, 'order fetched successfully.');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new OrdersExport, 'orders.xlsx');
     }
 
 }

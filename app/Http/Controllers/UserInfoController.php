@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\DB;
 use Stevebauman\Location\Facades\Location;
-
+use Carbon\Carbon;
 use Validator;
 use Auth;
 use Jenssegers\Agent\Facades\Agent;
@@ -36,6 +36,15 @@ class UserInfoController extends BaseController
     public function store(Request $request)
     {
         try {
+            $utcTimestamp =now();
+        
+            // Convert the UTC timestamp to a Carbon instance
+            $utcTime = Carbon::parse($utcTimestamp);
+            
+            // Convert the UTC time to your local time zone (UTC+3)
+            $localTime = $utcTime->copy()->setTimezone('Etc/GMT-3');
+            $time =$localTime->toDateTimeString();
+    
           // Get IP information
       $IpInfo = $request->ip();
       $currentUserInfo = Location::get($IpInfo);
@@ -151,7 +160,7 @@ class UserInfoController extends BaseController
     ];
 
     $language = $countryLanguageMap[$currentUserInfo->countryCode] ?? 'English';
-
+  
        // Gather device info from request headers
        $deviceInfoData = [
            'ip_address' => $IpInfo,
@@ -159,7 +168,7 @@ class UserInfoController extends BaseController
            'browser' => $browser . '  ' . $version,
            'platform' => $platform . '  ' . $platformVersion,
            'device' => $device,
-           'request_time' => now(),
+           'request_time' => $time ,
            'countryName' => $currentUserInfo->countryName ?? '0',
            'regionName' => $currentUserInfo->regionName ?? '0',
            'cityName' => $currentUserInfo->cityName ?? '0',
@@ -182,13 +191,17 @@ class UserInfoController extends BaseController
             if ($existingDeviceInfo) {
                 // Increment the count field if the record exists
                 $existingDeviceInfo->count += 1;
-                $existingDeviceInfo->request_time = $deviceInfoData['request_time']; // Update the request time
+                $existingDeviceInfo->request_time = $time; // Update the request time
+                $existingDeviceInfo->updated_at =  $time;
                 $existingDeviceInfo->save();
                 $deviceInfo = $existingDeviceInfo;
             } else {
                 // Create a new record if it doesn't exist
                 $deviceInfoData['count'] = 1;
                 $deviceInfo = UserInfo::create($deviceInfoData);
+                $deviceInfo->updated_at =  $time;
+                $deviceInfo->created_at =  $time;
+                $deviceInfo->save();
             }
             return $this->sendResponse($deviceInfo,'created successfully.');
             
