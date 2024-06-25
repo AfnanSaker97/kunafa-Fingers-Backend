@@ -47,14 +47,15 @@ Route::middleware(['auth:sanctum','isAdmin'])->group(function() {
 
     //users
     Route::get('users', [AdminController::class, 'index']); 
-    
- //report
- Route::get('orders-export', [OrderController::class, 'export']); 
+
+
 
      
 });
 
 
+ //report
+ Route::get('orders-export', [OrderController::class, 'export']); 
 Route::controller(CategoryController::class)->group(function(){
     Route::post('Category', 'store');  
     Route::get('Categories', 'index');
