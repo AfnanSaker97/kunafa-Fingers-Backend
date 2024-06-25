@@ -32,6 +32,7 @@ Route::controller(RegisterController::class)->group(function(){
 
 Route::post('loginAdmin', [AdminController::class, 'loginAdmin']); 
 Route::post('forgetPassword', [AdminController::class, 'forgetPassword']); 
+
 Route::middleware(['auth:sanctum','isAdmin'])->controller(AdminController::class)->group(function(){
     Route::post('registerAdmin', 'registerAdmin');
 });
@@ -48,22 +49,43 @@ Route::middleware(['auth:sanctum','isAdmin'])->group(function() {
     //users
     Route::get('users', [AdminController::class, 'index']); 
 
+    //Category
+    Route::post('Update-Category',[CategoryController::class, 'update']);
+    Route::delete('delete-Category',[CategoryController::class, 'destroy']);
+    Route::post('Category',[CategoryController::class,'store']);  
+
+//Product
+    Route::post('Product', [ProductController::class, 'store']); 
+    Route::post('update-Product', [ProductController::class, 'update']); 
+    Route::delete('delete-Product', [ProductController::class, 'destroy']); 
+
+//ProductMedia
+    Route::post('ProductMedia',[ProductMediaController::class,'store']);
+    Route::post('update-productMedia',[ProductMediaController::class,'update']);
+    Route::delete('delete-productMedia', [ProductMediaController::class,'destroy']);
+
+//Slider
+    Route::post('addSlider', [SliderController::class,'store']);
+    Route::post('update-Slider', [SliderController::class,'update']);
+    Route::delete('delete-Slider',[SliderController::class, 'destroy']);
+
+//logs
+    Route::get('logs', [ProductLogController::class,'index']);
 
 
-     
+    Route::get('userInfo', [UserInfoController::class, 'index']);
 });
 
 
  //report
  Route::get('orders-export', [OrderController::class, 'export']); 
-Route::controller(CategoryController::class)->group(function(){
-    Route::post('Category', 'store');  
-    Route::get('Categories', 'index');
-    Route::post('Update-Category', 'update');
-    Route::delete('delete-Category', 'destroy');
-});
+
+ Route::get('Categories',[CategoryController::class, 'index']);
+  
+ Route::get('Slider', [SliderController::class,'index']);
+
 //
-Route::controller(ProductController::class)->group(function(){
+   Route::controller(ProductController::class)->group(function(){
  
     Route::get('Products', 'index');
     Route::get('ProductsByCategory', 'show');
@@ -85,19 +107,6 @@ Route::middleware('auth:sanctum')->group(function() {
 
 
 
-Route::middleware('auth:sanctum')->group(function() {
-    Route::post('Product', [ProductController::class, 'store']); 
-    Route::post('update-Product', [ProductController::class, 'update']); 
-    Route::delete('delete-Product', [ProductController::class, 'destroy']); 
-});
-
-
-Route::controller(ProductMediaController::class)->group(function(){
-    Route::post('ProductMedia', 'store');
-    Route::post('update-productMedia', 'update');
-    Route::delete('delete-productMedia', 'destroy');
-});
-
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('favorite-products', [FavoriteProductController::class, 'store']);
@@ -107,12 +116,8 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 
 
-Route::controller(SliderController::class)->group(function(){
-    Route::post('update-Slider', 'update');
-    Route::delete('delete-Slider', 'destroy');
-});
 
-Route::get('userInfo', [UserInfoController::class, 'index']);
+
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('addCartItem', [CartItemController::class, 'store']);
@@ -132,7 +137,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
 
 
-Route::middleware('auth:sanctum')->group(function() {
+    Route::middleware('auth:sanctum')->group(function() {
     Route::post('addDiscountCode', [DiscountCodeController::class, 'store']);
     Route::post('verifyCode', [DiscountCodeController::class, 'verfiyCode']);
  
@@ -146,24 +151,11 @@ Route::middleware('auth:sanctum')->group(function() {
     
 });
 
-Route::controller(ProductLogController::class)->group(function(){
-    Route::get('logs', 'index');
+
+ Route::get('info', [UserInfoController::class,'store']);
   
-});
 
-
-Route::controller(UserInfoController::class)->group(function(){
-    Route::get('info', 'store');
-  
-});
-
-Route::controller(SliderController::class)->group(function(){
-    Route::post('addSlider', 'store');
-    Route::get('Slider', 'index');
-});
-
-
-Route::controller(ContactUsController::class)->group(function(){
+    Route::controller(ContactUsController::class)->group(function(){
     Route::post('ContactUs', 'store');
 });
 

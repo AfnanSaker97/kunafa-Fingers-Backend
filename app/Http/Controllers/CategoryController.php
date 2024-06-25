@@ -140,7 +140,7 @@ class CategoryController extends BaseController
          if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors()->all());
         }
-        $category = Category::find($request->product_id);
+        $category = Category::find($request->category_id);
         $category ->delete();
         return $this->sendResponse($product, 'category deleted successfully.');
     }

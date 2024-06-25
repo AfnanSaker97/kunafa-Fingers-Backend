@@ -62,8 +62,7 @@ class OrderController extends BaseController
              $cartItemsTotal = CartItem::where('isChecked', 0)->where('user_id', $user->id)
             ->sum('sub_total_price');
 
-             
-          
+
             $discount = null;
             $price_discount = $cartItemsTotal; // default to the total price
         
