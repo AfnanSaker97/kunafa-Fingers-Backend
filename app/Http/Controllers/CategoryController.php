@@ -142,6 +142,6 @@ class CategoryController extends BaseController
         }
         $category = Category::find($request->category_id);
         $category ->delete();
-        return $this->sendResponse($product, 'category deleted successfully.');
+        return $this->sendResponse($category, 'category deleted successfully.');
     }
 }
