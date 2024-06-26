@@ -507,20 +507,44 @@ class ProductController extends BaseController
         'description_ms' => 'nullable|string',
         'price' => 'nullable|string',
         'new_price' => 'nullable|string',
-     
+        'url_media' => 'nullable|image',
     ]);
 
      // If validation fails, return error response
      if ($validator->fails()) {
         return $this->sendError('Validation Error.', $validator->errors()->all());
     }
+
+
     $product = Product::find($request->product_id);
+    $productMedia=ProductMedia::where('product_id',$product->id)->first();
+
+    
+       // Handle the file upload
+       if ($request->hasFile('url_media')) {
+        // Delete the old photo
+        $oldPhotoPath = public_path(parse_url($productMedia->url_media, PHP_URL_PATH));
+        if (file_exists($oldPhotoPath)) {
+            unlink($oldPhotoPath);
+        }
+
+        // Upload the new photo
+        $imageName = time() . '.' . $request->url_media->extension();
+        $request->url_media->move(public_path('ProductMedia'), $imageName);
+        $url = url('ProductMedia/' . $imageName);
+    }
        // Update the product details
        $product->update([
         'price' => $request->price,
         'new_price' => $request->new_price ?? $product->new_price,
 
     ]);
+
+    // Update the media record
+    $productMedia->update([
+        'url_media' => $url,
+    ]);
+
       // Update the product translations
       $translations = [
         ['language_id' => 1, 'name' => $request->name_en, 'description' => $request->description_en],
