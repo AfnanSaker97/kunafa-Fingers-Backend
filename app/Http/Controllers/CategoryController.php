@@ -92,6 +92,7 @@ class CategoryController extends BaseController
         foreach ($translations as $translation) {
             $Category->translations()->create($translation);
         }
+        Cache::forget('categories');
         // Return success response
         return $this->sendResponse($Category,'Category created successfully.');
     }
@@ -122,6 +123,7 @@ class CategoryController extends BaseController
         $category->update([
             'url_media' => $url,
         ]);
+        Cache::forget('categories');
         // Return success response
         return $this->sendResponse($category,'Category updated  successfully.');
     }
@@ -142,6 +144,7 @@ class CategoryController extends BaseController
         }
         $category = Category::find($request->category_id);
         $category ->delete();
+        Cache::forget('categories');
         return $this->sendResponse($category, 'category deleted successfully.');
     }
 }

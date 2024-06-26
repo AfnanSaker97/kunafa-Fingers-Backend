@@ -186,7 +186,7 @@ class ProductController extends BaseController
 
       Cache::forget('productsUser');
       Cache::forget('products');
-
+      Cache::forget('product');
         // Return success response
         return $this->sendResponse($product,'Product created successfully.');
 
@@ -519,7 +519,9 @@ class ProductController extends BaseController
             ['name' => $translation['name'], 'description' => $translation['description']]
         );
     }
-
+    Cache::forget('products');
+    Cache::forget('productsUser');
+    Cache::forget('product');
     return $this->sendResponse($product, 'Product updated successfully.');
 
     }
@@ -540,6 +542,9 @@ class ProductController extends BaseController
         }
         $product = Product::find($request->product_id);
         $product ->delete();
+        Cache::forget('products');
+        Cache::forget('productsUser');
+        Cache::forget('product');
         return $this->sendResponse($product, 'Product deleted successfully.');
     }
 

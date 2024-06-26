@@ -41,10 +41,11 @@ class CategorySeeder extends Seeder
         CategoryTranslations::create(['category_id'=>'8','name' => 'Ice Cream' , 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'9','name' => 'Milkshake' , 'language_id' => '1']);
         CategoryTranslations::create(['category_id'=>'10','name' => 'Beverage' , 'language_id' => '1']);
-   */
+   
+        */
 
   
-   
+   /*
 
    CategoryTranslations::create(['category_id'=>'1','name' => 'شائع', 'language_id' => '2']);
    CategoryTranslations::create(['category_id'=>'2','name' => 'أطباق كنافة', 'language_id' => '2']);
@@ -56,6 +57,30 @@ class CategorySeeder extends Seeder
    CategoryTranslations::create(['category_id'=>'8','name' => 'بوظة' , 'language_id' => '2']);
    CategoryTranslations::create(['category_id'=>'9','name' => 'مخفوق الحليب' , 'language_id' => '2']);
    CategoryTranslations::create(['category_id'=>'10','name' => 'المشروبات' , 'language_id' => '2']);
+*/
 
+
+CategoryTranslations::create(['category_id'=>'1','name' => '受欢迎的', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'2','name' => '卡纳法盘', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'3','name' => '卡纳法皇冠', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'4','name' => '卡纳法手指', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'5','name' => '果仁蜜饼', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'6','name' => '蛋糕', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'7','name' => '土耳其软糖', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'8','name' => '冰淇淋', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'9','name' => '奶昔', 'language_id' => '3']);
+CategoryTranslations::create(['category_id'=>'10','name' => '饮料', 'language_id' => '3']);
+
+
+CategoryTranslations::create(['category_id'=>'1','name' => 'Popular', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'2','name' => 'Pinggan Kunafa', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'3','name' => 'Mahkota Kunafa', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'4','name' => 'Jari Kunafa', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'5','name' => 'Baklava', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'6','name' => 'Kek', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'7','name' => 'Manisan Turki', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'8','name' => 'Ais Krim', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'9','name' => 'Milkshake', 'language_id' => '4']);
+CategoryTranslations::create(['category_id'=>'10','name' => 'Minuman', 'language_id' => '4']);
  }
 }

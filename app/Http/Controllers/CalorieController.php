@@ -6,6 +6,7 @@ use App\Models\Calorie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
 use Validator;
+use Illuminate\Support\Facades\Cache;
 class CalorieController extends BaseController
 {
     /**
@@ -48,7 +49,8 @@ class CalorieController extends BaseController
           'product_id' => $request->product_id,
           'language_id' => $request->language_id,
         ]);
-    
+        Cache::forget('productsUser');
+        Cache::forget('products');
         // Return success response
         return $this->sendResponse($Calorie,'Calorie created successfully.');
     }
@@ -92,6 +94,8 @@ class CalorieController extends BaseController
                 'key' => $request->key,
                 'value' => $request->value,
             ]);
+            Cache::forget('productsUser');
+            Cache::forget('products');
             // Return success response
             return $this->sendResponse($Calorie,'Calorie updated  successfully.');
         }
@@ -113,6 +117,8 @@ class CalorieController extends BaseController
         }
         $calorie = calorie::find($request->calorie_id);
         $calorie ->delete();
+        Cache::forget('productsUser');
+        Cache::forget('products');
         return $this->sendResponse($calorie, 'calorie deleted successfully.');
     }
 }

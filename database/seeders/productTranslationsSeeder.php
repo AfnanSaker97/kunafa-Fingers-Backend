@@ -559,6 +559,185 @@ class productTranslationsSeeder extends Seeder
 
       ','product_id' => '51','language_id' => '2']);
 */
+
+
+
+productTranslations::create(['name' =>'库纳法芝士原味', 'description' =>'库纳法芝士原味是一种传统的中东甜点，由细碎的酥皮面团层叠甜芝士馅，烤至金黄，再浸泡在糖浆中，提供丰富而奢华的享受，完美平衡了脆和奶油质地。', 'product_id' => '1', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'脆皮芝士片', 'description' =>'脆皮芝士片库纳法，将传统库纳法的味道与独特的脆皮质感和丰富的芝士馅相结合。', 'product_id' => '2', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法混合', 'description' =>'库纳法混合是一种甜点，由细碎的酥皮面团层叠甜的开心果混合物，烤至金黄，再浸泡在糖浆中，提供美妙的脆皮质感和丰富的风味组合。', 'product_id' => '3', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法 Nutella', 'description' =>'库纳法 Nutella 是传统库纳法的变种，包含细碎的酥皮面团和 Nutella 夹心，烤至金黄和脆皮，提供中东和巧克力风味的美妙融合。', 'product_id' => '4', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法奶油片', 'description' =>'库纳法奶油片是一种甜点，由细碎的酥皮面团层叠奶油蛋羹或奶油夹心，提供奢华和放纵的享受，脆皮和奶油质地形成鲜明对比。', 'product_id' => '5', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'开心果库纳法手指', 'description' =>'开心果库纳法手指是一种甜点，将开心果夹心包裹在细碎的酥皮面团中，烤至脆皮，切成手指大小的部分，每一口都提供美妙的脆皮质感和坚果风味。', 'product_id' => '6', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法芝士原味', 'description' =>'这些产品由经验丰富的面包师用高质量的原料精心制作。', 'product_id' => '7', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'芝士库纳法手指', 'description' =>'这些产品由经验丰富的面包师用高质量的原料精心制作。', 'product_id' => '8', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法芝士原味', 'description' =>'库纳法芝士原味是一种传统的中东甜点，由细碎的酥皮面团层叠甜芝士馅，烤至金黄，再浸泡在糖浆中，提供丰富而奢华的享受，完美平衡了脆和奶油质地。', 'product_id' => '7', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法混合巧克力', 'description' =>'库纳法混合巧克力是传统库纳法的变种，包含细碎的酥皮面团和巧克力夹心，烤至金黄和脆皮，每一口都提供中东和巧克力风味的美妙融合。', 'product_id' => '8', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法 Nutella', 'description' =>'库纳法 Nutella 是传统中东甜点库纳法的现代变种，包含细碎的酥皮面团和 Nutella 夹心，烤至金黄和脆皮，提供中东和巧克力风味的美妙融合。', 'product_id' => '9', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法 Biscoff', 'description' =>'库纳法 Biscoff 是传统中东甜点库纳法的美味变种，包含细碎的酥皮面团和 Biscoff 夹心，烤至金黄和脆皮，提供脆皮质地和焦糖饼干风味的美妙结合。', 'product_id' => '10', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法混合', 'description' =>'库纳法混合是一种多功能甜点，包含细碎的酥皮面团和各种夹心，如巧克力、Nutella 或开心果，烤至金黄和脆皮，每一口都提供中东风味和脆皮质地的美妙结合。', 'product_id' => '11', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法芝士冰淇淋', 'description' =>'库纳法芝士冰淇淋是一种独特的甜点，将传统库纳法芝士的奶油浓郁与冰淇淋的甜美相结合，每一口都提供美妙的质地和风味融合。', 'product_id' => '12', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法开心果', 'description' =>'库纳法开心果是一种美味的甜点，包含细碎的酥皮面团和甜的开心果混合物，烤至金黄和脆皮，每一口都提供完美的坚果风味和脆皮质地。', 'product_id' => '13', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'库纳法奶油片', 'description' =>'库纳法奶油片是一种美味的甜点，由细碎的酥皮面团层叠奶油蛋羹或奶油夹心，提供丰富和奢华的享受，完美平衡了脆皮和光滑质地。', 'product_id' => '14', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'脆皮芝士片', 'description' =>'脆皮芝士片是一种咸甜结合的美味，由细碎的酥皮面团层叠丰富的芝士夹心，烤至金黄和脆皮，每一口都提供美妙的脆皮质地和奶油芝士风味。', 'product_id' => '15', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'开心果库纳法皇冠', 'description' =>'开心果库纳法皇冠是一种奢华的甜点，由细碎的酥皮面团包裹开心果夹心，烤至金黄和脆皮，呈现出皇家般的美味，结合脆皮质地和开心果风味。', 'product_id' => '16', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'Nutella 库纳法皇冠', 'description' =>'Nutella 库纳法皇冠是一种奢华的甜点，由细碎的酥皮面团包裹丰富的 Nutella 夹心，烤至金黄和脆皮，每一口都提供中东和巧克力风味的美妙结合。', 'product_id' => '17', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'枣库纳法皇冠', 'description' =>'枣库纳法皇冠是一种奢华的甜点，由细碎的酥皮面团包裹甜枣夹心，烤至金黄和脆皮，每一口都提供中东风味和自然甜味的美妙融合。', 'product_id' => '18', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'藏红花库纳法皇冠', 'description' =>'藏红花库纳法皇冠是一种奢华的甜点，由细碎的酥皮面团包裹藏红花混合物，烤至金黄和脆皮，每一口都提供异域风味和丰富质地的美妙结合。', 'product_id' => '19', 'language_id' => '3']);
+
+productTranslations::create(['name' =>'牛奶巧克力库纳法皇冠', 'description' =>'牛奶巧克力库纳法皇冠是一款奢华的甜点，采用细碎的千层面包皮包裹着浓郁的牛奶巧克力混合物，烘烤至金黄酥脆，每一口都能品尝到中东与巧克力风味的美妙融合。', 'product_id' => '20','language_id' => '3']);
+
+productTranslations::create(['name' =>'白巧克力库纳法皇冠','description' =>'白巧克力库纳法皇冠是一款豪华的甜点，细碎的千层面包皮包裹着丰富的白巧克力馅料，烘烤至金黄酥脆，每一片都能享受到中东风情与奶油甜味的完美结合。', 'product_id' => '21','language_id' => '3']);
+
+productTranslations::create(['name' =>'莲花饼干库纳法皇冠','description' =>'莲花饼干库纳法皇冠是一款美味的甜点，细碎的千层面包皮包裹着浓郁的莲花饼干酱馅料，烘烤至金黄酥脆，每一口都能品尝到中东传统与饼干风味的和谐融合。', 'product_id' => '22','language_id' => '3']);
+
+productTranslations::create(['name' =>'奶酪库纳法手指','description' =>'奶酪库纳法手指是一款美味的甜点，采用细碎的千层面包皮包裹着奶油奶酪混合物，烘烤至金黄酥脆，每一小口都能享受到咸香的奶酪与酥脆质地的完美结合。', 'product_id' => '23','language_id' => '3']);
+
+productTranslations::create(['name' =>'奶酪牛奶巧克力库纳法手指','description' =>'奶酪牛奶巧克力库纳法手指是一款奢华的甜点，采用细碎的千层面包皮包裹着奶油奶酪与牛奶巧克力混合物，烘烤至金黄酥脆，每一口都能享受到咸香奶酪与浓郁巧克力的完美融合。', 'product_id' => '24','language_id' => '3']);
+
+productTranslations::create(['name' =>'开心果库纳法手指','description' =>'开心果库纳法手指是一款美味的甜点，细碎的千层面包皮包裹着甜美的开心果馅料，烘烤至金黄酥脆，每一小口都能享受到坚果风味与酥脆质地的完美结合。', 'product_id' => '25','language_id' => '3']);
+
+productTranslations::create(['name' =>'开心果牛奶巧克力库纳法手指','description' =>'开心果牛奶巧克力库纳法手指是一款美味的甜点，细碎的千层面包皮包裹着甜美的开心果馅料和奶油牛奶巧克力，烘烤至金黄酥脆，每一小口都能享受到坚果与巧克力的完美融合。', 'product_id' => '26','language_id' => '3']);
+
+productTranslations::create(['name' =>'奶油库纳法手指', 'description' =>'奶油库纳法手指是一款美味的甜点，细碎的千层面包皮包裹着奶油或鲜奶油馅料，烘烤至金黄酥脆，每一小口都能享受到酥脆与奶油的完美结合。', 'product_id' => '27','language_id' => '3']);
+
+productTranslations::create(['name' =>'Nutella库纳法手指', 'description' =>'Nutella库纳法手指是一款美味的甜点，细碎的千层面包皮包裹着丰富的Nutella巧克力酱，烘烤至金黄酥脆，每一小口都能享受到中东传统与巧克力的完美结合。', 'product_id' => '28','language_id' => '3']);
+
+productTranslations::create(['name' =>'混合果仁蜜饼', 'description' =>'混合果仁蜜饼是一款美味的中东传统糕点，由多层千层面包皮、坚果和甜糖浆制成，每一口都能享受到丰富的风味和质地。', 'product_id' => '29','language_id' => '3']);
+
+productTranslations::create(['name' =>'开心果蜜饼', 'description' =>'开心果蜜饼是一款经典的中东甜点，多层千层面包皮包裹着甜美的开心果混合物，烘烤至金黄，每一小口都能享受到坚果风味与酥脆质地的完美结合。', 'product_id' => '30','language_id' => '3']);
+
+productTranslations::create(['name' =>'蜜饼皇冠', 'description' =>'蜜饼皇冠是一款经典中东甜点的优雅变种，多层黄油千层面包皮包裹着丰富的坚果混合物，烘烤至金黄酥脆，并塑造成皇家皇冠形状，每一片都能享受到酥脆与坚果的完美结合。', 'product_id' => '31','language_id' => '3']);
+
+productTranslations::create(['name' =>'三角形冰淇淋蜜饼', 'description' =>'三角形冰淇淋蜜饼是一款美味的融合甜点，将传统蜜饼层与奶油冰淇淋结合，每一口都能享受到酥脆的千层面包皮、甜糖浆和清凉冰淇淋的完美结合。', 'product_id' => '32','language_id' => '3']);
+
+productTranslations::create(['name' =>'三角形蜜饼', 'description' =>'三角形蜜饼是一款经典的中东糕点，由多层千层面包皮、坚果和甜糖浆制成，折成三角形，每一小口都能享受到酥脆与坚果的完美结合。', 'product_id' => '33','language_id' => '3']);
+
+productTranslations::create(['name' =>'巧克力三角形冰淇淋蜜饼', 'description' =>'巧克力三角形冰淇淋蜜饼是一款美味的融合甜点，将传统蜜饼层与巧克力馅料和一勺奶油冰淇淋结合，每一口都能享受到浓郁巧克力、酥脆千层面包皮和清凉冰淇淋的完美融合。', 'product_id' => '34','language_id' => '3']);
+
+productTranslations::create(['name' =>'巧克力三角形蜜饼', 'description' =>'巧克力三角形蜜饼是经典中东糕点的一种美味变化，千层面包皮包裹着浓郁的巧克力，每一口都能享受到酥脆层与巧克力甜味的完美结合。', 'product_id' => '35','language_id' => '3']);
+
+productTranslations::create(['name' =>'一块开心果蜜饼', 'description' =>'一块开心果蜜饼是一份单独的经典中东蜜饼，包裹着美味的开心果混合物，每一口都能享受到酥脆层、甜糖浆和坚果的完美结合。', 'product_id' => '36','language_id' => '3']);
+
+productTranslations::create(['name' =>'一块蜜饼', 'description' =>'一块蜜饼是一份单独的经典中东蜜饼，由多层千层面包皮、坚果和甜糖浆制成，每一小口都能享受到酥脆层与坚果的完美结合。', 'product_id' => '37','language_id' => '3']);
+
+productTranslations::create(['name' =>'野莓熔岩蛋糕', 'description' =>'野莓熔岩蛋糕是一款美味的甜点，中心有温热的野莓馅料，外层是松软的蛋糕，每一口都能享受到爆炸性的莓果风味和丝滑的质感。', 'product_id' => '38','language_id' => '3']);
+
+productTranslations::create(['name' =>'草莓熔岩蛋糕', 'description' =>'草莓熔岩蛋糕是一款美味的甜点，中心有温热的草莓馅料，外层是松软的蛋糕，每一口都能享受到爆炸性的草莓风味和丝滑的质感。', 'product_id' => '39','language_id' => '3']);
+
+productTranslations::create(['name' =>'焦糖熔岩蛋糕', 'description' =>'焦糖熔岩蛋糕是一款美味的甜点，中心有温热的焦糖馅料，外层是松软的蛋糕，每一口都能享受到浓郁的焦糖风味和丝滑的质感。', 'product_id' => '40','language_id' => '3']);
+
+productTranslations::create(['name' =>'土耳其软糖', 'description' =>'土耳其软糖是一种由淀粉和糖制成的甜点，通常带有玫瑰水、柑橘或坚果的风味，每一小口都能享受到浓郁的风味和柔软的果冻质地。', 'product_id' => '41','language_id' => '3']);
+
+productTranslations::create(['name' =>'开心果冰淇淋', 'description' =>'开心果冰淇淋是一款奶油冷冻甜点，带有研磨开心果的风味，每一勺都能享受到坚果的浓郁和丝滑的质感，是一款清爽和奢华的美味。', 'product_id' => '42','language_id' => '3']);
+
+productTranslations::create(['name' =>'酸奶冰淇淋', 'description' =>'酸奶冰淇淋是一款清爽的冷冻甜点，由奶油酸奶制成，带有酸甜的风味和丝滑的质感，是一款轻盈和令人满意的美味。', 'product_id' => '43','language_id' => '3']);
+
+productTranslations::create(['name' =>'巧克力奶昔', 'description' =>'巧克力奶昔是一款美味的饮品，由牛奶与浓郁的巧克力糖浆或可可粉混合而成，带有奶油般的质感和浓郁的巧克力风味，是满足甜食欲望的完美选择。', 'product_id' => '44','language_id' => '3']);
+
+productTranslations::create(['name' =>'草莓奶昔', 'description' =>'草莓奶昔是一款清爽的饮品，由牛奶与新鲜草莓或草莓糖浆混合而成，带有奶油般的质感和甜美酸爽的风味，是在温暖的日子里享受或作为甜点的理想选择。', 'product_id' => '45','language_id' => '3']);
+
+productTranslations::create(['name' =>'开心果奶昔', 'description' =>'开心果奶昔是一款奶油饮品，由牛奶与开心果或开心果味糖浆混合而成，带有坚果的浓郁风味和丝滑的质感，是一种独特和令人满意的美味。', 'product_id' => '46','language_id' => '3']);
+
+productTranslations::create(['name' =>'矿泉水', 'description' =>'矿泉水是一种清爽的饮品，取自天然泉水或富含矿物质的地下水，带有钙和镁等矿物质，是解渴和维持整体健康的理想选择。', 'product_id' => '47','language_id' => '3']);
+
+productTranslations::create(['name' =>'巴比肯', 'description' =>'巴比肯是一种无酒精麦芽饮品，以其水果风味和清爽口感而闻名，是那些寻求传统软饮料替代品的人的流行选择，适合单独饮用或在无酒精鸡尾酒中作为混合饮品。', 'product_id' => '48','language_id' => '3']);
+
+productTranslations::create(['name' =>'土耳其咖啡', 'description' =>'土耳其咖啡是一种传统的咖啡冲泡方法，将细磨咖啡豆与水和糖在特殊的壶中慢煮，形成浓烈、香浓的咖啡，未经过滤，倒入小杯中享用，顶部有厚厚的泡沫层，带来浓郁的咖啡体验。', 'product_id' => '49','language_id' => '3']);
+
+productTranslations::create(['name' =>'软饮料', 'description' =>'软饮料是碳酸饮料，通常带有甜味剂和天然或人工香料，是解渴和享受各种风味的清爽选择，使其成为休闲饮品或搭配餐点的流行选择。', 'product_id' => '50','language_id' => '3']);
+
+productTranslations::create(['name' =>'水', 'description' =>'水是一种清澈、无味的液体，是生命必需品，能够为身体提供水分并有助于各种身体功能，是维持健康和福祉最基本和重要的饮品。', 'product_id' => '51','language_id' => '3']);
+
+
+
+
+//
+
+productTranslations::create(['name' =>'Kunafa Keju Asli', 'description' =>'Kunafa Keju Asli adalah pencuci mulut tradisional Timur Tengah yang terdiri daripada adunan phyllo yang diserak berlapis dengan isian keju manis, dibakar sehingga keemasan, dan direndam dalam sirap, memberikan hidangan yang kaya dan mewah dengan keseimbangan tekstur rangup dan krim yang sempurna.', 'product_id' => '1', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Keju Ranggup', 'description' =>'Kunafa Keju Ranggup menggabungkan rasa tradisional kunafa dengan sentuhan tekstur ranggup dan isian keju yang kaya.', 'product_id' => '2', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Campuran Kunafa', 'description' =>'Campuran Kunafa adalah pencuci mulut yang terdiri daripada lapisan adunan phyllo yang diserak dengan isian kacang pistachio manis, dibakar sehingga keemasan, dan direndam dalam sirap, menawarkan gabungan tekstur rangup dan rasa yang kaya.', 'product_id' => '3', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Nutella', 'description' =>'Kunafa Nutella adalah variasi pencuci mulut kunafa tradisional, menampilkan lapisan adunan phyllo yang diserak dengan isian Nutella, dibakar sehingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan coklat yang menggembirakan.', 'product_id' => '4', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Krim Potongan', 'description' =>'Kunafa Krim Potongan adalah pencuci mulut yang terdiri daripada lapisan adunan phyllo yang diserak dengan isian krim kastard atau krim putar yang lembut, memberikan hidangan yang mewah dan enak dengan kontras tekstur rangup dan halus.', 'product_id' => '5', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Jari Kunafa Pistachio', 'description' =>'Jari Kunafa Pistachio adalah pencuci mulut di mana isian kacang pistachio dibalut dalam adunan phyllo yang diserak, dibakar sehingga rangup, dan disajikan dalam saiz jari, menawarkan gabungan tekstur rangup dan rasa kacang dalam setiap gigitan.', 'product_id' => '6', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Keju Jari', 'description' =>'Kunafa Keju Jari adalah pencuci mulut yang enak yang menampilkan adunan phyllo yang diserak dengan isian keju yang berkrim, dibakar sehingga keemasan dan rangup, menawarkan gabungan rasa keju yang enak dan tekstur rangup dalam setiap saiz jari.', 'product_id' => '23', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Jari Kunafa Keju dan Coklat Susu', 'description' =>'Jari Kunafa Keju dan Coklat Susu adalah pencuci mulut mewah yang menggabungkan adunan phyllo yang diserak dengan isian keju dan coklat susu yang berkrim, dibakar sehingga keemasan dan rangup, menawarkan gabungan rasa keju dan coklat yang enak dalam setiap gigitan.', 'product_id' => '24', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Jari Kunafa Krim', 'description' =>'Jari Kunafa Krim adalah pencuci mulut yang menampilkan adunan phyllo yang diserak dengan isian krim kastard atau krim putar yang lembut, dibakar sehingga keemasan dan rangup, menawarkan gabungan tekstur rangup dan kelicinan krim dalam setiap saiz jari.', 'product_id' => '27', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Jari Kunafa Nutella', 'description' =>'Jari Kunafa Nutella adalah pencuci mulut di mana adunan phyllo yang diserak membalut isian Nutella yang kaya, dibakar sehingga keemasan dan rangup, menawarkan gabungan rasa tradisional Timur Tengah dan coklat dalam setiap saiz jari.', 'product_id' => '28', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Campuran Baklava', 'description' =>'Campuran Baklava adalah gabungan pencuci mulut Timur Tengah yang terdiri daripada lapisan adunan phyllo, kacang, dan sirap manis, menawarkan pelbagai rasa dan tekstur yang kaya dan mewah dalam setiap saiz gigitan.', 'product_id' => '29', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Baklava Pistachio', 'description' =>'Baklava Pistachio adalah pencuci mulut klasik Timur Tengah yang menampilkan lapisan adunan phyllo yang diserak dengan isian kacang pistachio manis, dibakar sehingga keemasan, menawarkan gabungan rasa kacang dan tekstur rangup dalam setiap saiz gigitan.', 'product_id' => '30', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Mahkota Baklava', 'description' =>'Mahkota Baklava adalah variasi elegan pencuci mulut Timur Tengah klasik, Baklava, menampilkan lapisan adunan phyllo bermentega dengan isian kacang yang kaya, dibakar sehingga keemasan dan rangup, dan dibentuk menjadi mahkota mewah, menawarkan gabungan tekstur rangup dan rasa kacang yang manis dalam setiap kepingan diraja.', 'product_id' => '31', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Aiskrim Baklava Segitiga', 'description' =>'Aiskrim Baklava Segitiga adalah pencuci mulut gabungan yang menyatukan lapisan baklava tradisional dengan isian aiskrim yang berkrim, menawarkan gabungan tekstur phyllo yang rangup, sirap manis, dan aiskrim yang sejuk dan menyegarkan dalam setiap gigitan segitiga.', 'product_id' => '32', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Baklava Segitiga', 'description' =>'Baklava Segitiga adalah pastri klasik Timur Tengah yang dibuat dengan lapisan adunan phyllo, kacang, dan sirap manis, dilipat menjadi bentuk segitiga, menawarkan kombinasi lapisan rangup dan isian kacang yang manis dalam setiap kepingan gigitan.', 'product_id' => '33', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Baklava Segitiga Coklat dengan Aiskrim', 'description' =>'Baklava Segitiga Coklat dengan Aiskrim adalah pencuci mulut gabungan yang menggabungkan lapisan baklava tradisional dengan isian coklat, dipadankan dengan sejuknya aiskrim, menawarkan gabungan yang kaya antara coklat, adunan phyllo yang rangup, dan aiskrim yang menyegarkan dalam setiap gigitan segitiga.', 'product_id' => '34', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Baklava Segitiga Coklat', 'description' =>'Baklava Segitiga Coklat adalah variasi pencuci mulut klasik Timur Tengah yang enak, menampilkan lapisan adunan phyllo yang diserak dengan isian coklat yang kaya, menawarkan hidangan yang mewah dengan keseimbangan tekstur rangup dan manis dalam setiap kepingan segitiga.', 'product_id' => '35', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Baklava Pistachio Sepotong', 'description' =>'Baklava Pistachio Sepotong adalah satu hidangan pencuci mulut klasik Timur Tengah, Baklava, yang diisi dengan campuran kacang pistachio yang enak, menawarkan gabungan tekstur rangup, sirap manis, dan kacang pistachio dalam setiap gigitan yang mewah.', 'product_id' => '36', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Baklava Sepotong', 'description' =>'Baklava Sepotong adalah satu hidangan pencuci mulut klasik Timur Tengah, Baklava, yang dibuat dengan lapisan adunan phyllo, kacang, dan sirap manis, menawarkan gabungan lapisan rangup dan isian kacang yang manis dalam setiap kepingan gigitan.', 'product_id' => '37', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kek Cair Beri Liar', 'description' =>'Kek Cair Beri Liar adalah pencuci mulut yang lazat menampilkan tengah berisi beri liar yang panas dan cair, dikelilingi oleh kek yang lembut dan gebu, menawarkan letupan rasa beri dan tekstur yang lembut dalam setiap gigitan mewah.', 'product_id' => '38', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kek Cair Strawberi', 'description' =>'Kek Cair Strawberi adalah pencuci mulut yang lazat menampilkan tengah berisi strawberi yang panas dan cair, dikelilingi oleh kek yang lembut dan gebu, menawarkan letupan rasa strawberi dan tekstur yang lembut dalam setiap gigitan mewah.', 'product_id' => '39', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kek Cair Coklat', 'description' =>'Kek Cair Coklat adalah pencuci mulut yang lazat menampilkan tengah berisi coklat yang panas dan cair, dikelilingi oleh kek yang lembut dan gebu, menawarkan letupan rasa coklat yang kaya dan tekstur yang lembut dalam setiap gigitan mewah.', 'product_id' => '40', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kek Keju Strawberi', 'description' =>'Kek Keju Strawberi adalah pencuci mulut klasik yang menampilkan asas biskut rangup dengan lapisan keju berkrim yang lembut dan topping strawberi manis, menawarkan gabungan rasa yang kaya dan tekstur yang menyegarkan dalam setiap gigitan.', 'product_id' => '41', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kek Keju Beri Liar', 'description' =>'Kek Keju Beri Liar adalah pencuci mulut klasik yang menampilkan asas biskut rangup dengan lapisan keju berkrim yang lembut dan topping beri liar manis, menawarkan gabungan rasa yang kaya dan tekstur yang menyegarkan dalam setiap gigitan.', 'product_id' => '42', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kek Keju dengan Nutella', 'description' =>'Kek Keju dengan Nutella adalah pencuci mulut yang menampilkan asas biskut rangup dengan lapisan keju berkrim yang lembut dan topping Nutella yang kaya, menawarkan gabungan rasa yang manis dan tekstur yang menyegarkan dalam setiap gigitan.', 'product_id' => '43', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Kek Keju Oreo', 'description' =>'Kek Keju Oreo adalah pencuci mulut yang menampilkan asas biskut Oreo rangup dengan lapisan keju berkrim yang lembut dan topping kepingan Oreo, menawarkan gabungan rasa yang manis dan tekstur yang menyegarkan dalam setiap gigitan.', 'product_id' => '44', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Bolu Coklat dan Vanila', 'description' =>'Bolu Coklat dan Vanila adalah kek lapis yang menampilkan lapisan bolu coklat dan vanila yang lembut dan gebu, menawarkan gabungan rasa klasik dan tekstur yang lembut dalam setiap kepingan.', 'product_id' => '45', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Bolu Coklat', 'description' =>'Bolu Coklat adalah kek lapis yang menampilkan lapisan bolu coklat yang lembut dan gebu, menawarkan rasa coklat yang kaya dan tekstur yang lembut dalam setiap kepingan.', 'product_id' => '46', 'language_id' => '4']);
+
+productTranslations::create(['name' =>'Air Mineral', 'description' =>'Air Mineral adalah minuman menyegarkan yang diperoleh dari mata air semula jadi atau takungan bawah tanah yang kaya dengan mineral, menawarkan hidrasi dengan tambahan mineral seperti kalsium dan magnesium, sempurna untuk menghilangkan dahaga dan menjaga kesihatan keseluruhan.', 'product_id' => '47','language_id' => '4']);
+
+productTranslations::create(['name' =>'Barbican', 'description' =>'Barbican adalah minuman malt tanpa alkohol yang terkenal dengan rasa buah dan rasa menyegarkan, menjadikannya pilihan popular bagi mereka yang mencari alternatif berperisa kepada minuman ringan tradisional, sempurna dinikmati sendiri atau sebagai campuran dalam mocktail.', 'product_id' => '48','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kopi Turki', 'description' =>'Kopi Turki adalah kaedah tradisional menyeduh kopi di mana biji kopi yang digiling halus direbus bersama air dan gula dalam periuk khas yang disebut cezve, menghasilkan minuman yang kuat dan aromatik yang disajikan tanpa ditapis dalam cawan kecil, menawarkan pengalaman kopi yang kaya dan intens dengan lapisan buih tebal di atas yang dikenali sebagai "kaimaki".', 'product_id' => '49','language_id' => '4']);
+
+productTranslations::create(['name' =>'Minuman Ringan', 'description' =>'Minuman ringan adalah minuman berkarbonat yang biasanya berperisa dengan pemanis dan perasa semula jadi atau tiruan, menawarkan pilihan yang menyegarkan dan bergelembung untuk menghilangkan dahaga dan menikmati pelbagai rasa, menjadikannya pilihan popular untuk penyegaran santai atau dipadankan dengan makanan.', 'product_id' => '50','language_id' => '4']);
+
+productTranslations::create(['name' =>'Air', 'description' =>'Air adalah cairan jernih, tidak berbau, dan tidak berasa yang penting untuk kehidupan, menghidrasi tubuh dan membantu dalam pelbagai fungsi tubuh, menjadikannya minuman yang paling asas dan penting untuk menjaga kesihatan dan kesejahteraan.', 'product_id' => '51','language_id' => '4']);
     }
 
 

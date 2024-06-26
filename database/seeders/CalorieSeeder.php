@@ -337,7 +337,7 @@ class CalorieSeeder extends Seeder
 */
 
 
-
+/*
 Calorie::create(['key'=>'عجينة الفيلو','value' => '180', 'language_id' => '2','product_id' => '1']);
 Calorie::create(['key'=>'.زبدة','value' => '108', 'language_id' => '2','product_id' => '1']);
 Calorie::create(['key'=>'جبنة','value' => '75', 'language_id' => '2','product_id' => '1']);
@@ -659,6 +659,6 @@ Calorie::create(['key'=>'إجمالي السعرات الحرارية في 100 �
 
 
 Calorie::create(['key'=>'إجمالي السعرات الحرارية في 100 جرام','value' => '40', 'language_id' => '2','product_id' => '50']);
-
+*/
     }
 }

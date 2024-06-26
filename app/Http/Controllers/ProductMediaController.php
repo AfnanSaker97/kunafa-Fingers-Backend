@@ -57,6 +57,9 @@ class ProductMediaController extends BaseController
             'product_id' => $request->product_id,
             'url_media' => $url,
         ]);
+        Cache::forget('productsUser');
+        Cache::forget('products');
+        Cache::forget('product');
           // Commit the transaction
           DB::commit();
         return $this->sendResponse($productMedia, 'Photo uploaded successfully.');
@@ -158,6 +161,9 @@ class ProductMediaController extends BaseController
                 unlink($oldPhotoPath);
             }
             $productMedia->delete();
+            Cache::forget('productsUser');
+            Cache::forget('products');
+            Cache::forget('product');
             return $this->sendResponse($productMedia, 'Photo deleted successfully.');
     }
 }
