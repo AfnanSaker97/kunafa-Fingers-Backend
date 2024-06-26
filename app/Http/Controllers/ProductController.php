@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductLog;
 use App\Models\FavoriteProduct;
+use App\Models\ProductMedia;
 use App\Models\productTranslations;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BaseController as BaseController;
@@ -156,13 +157,21 @@ class ProductController extends BaseController
             'tags' => 'required|string',
             'code' => 'required|string',
             'category_id' => 'required|exists:categories,id',
-           
+            'url_media' => 'required|image',
         ]);
 
         // If validation fails, return error response
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors()->all());       
         }
+
+        if ($request->hasFile('url_media')) {
+            $imageName = time() . '.' . $request->url_media->extension();
+            $request->url_media->move(public_path('ProductMedia'), $imageName);
+            $url = url('ProductMedia/' . $imageName);
+         
+        }
+
       // Save the image URL to the database
     $product = Product::create([
       //   // or any other relevant data
@@ -171,6 +180,12 @@ class ProductController extends BaseController
         'tags' => $request->tags,
         'code' => $request->code,
         'category_id' => $request->category_id,
+    ]);
+
+   
+        $productMedia =ProductMedia::create([
+        'product_id' => $product->id,
+        'url_media' => $url,
     ]);
 
       // Create the product translations
@@ -492,7 +507,7 @@ class ProductController extends BaseController
         'description_ms' => 'nullable|string',
         'price' => 'nullable|string',
         'new_price' => 'nullable|string',
-
+     
     ]);
 
      // If validation fails, return error response
