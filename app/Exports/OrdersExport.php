@@ -11,6 +11,15 @@ class OrdersExport implements FromCollection ,WithHeadings
     /**
     * @return \Illuminate\Support\Collection
     */
+
+    protected $startDate;
+    protected $endDate;
+
+    public function __construct($startDate, $endDate)
+    {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
     public function collection()
     {
        
@@ -27,7 +36,8 @@ class OrdersExport implements FromCollection ,WithHeadings
         'addresses.city', 
         'addresses.address_line_1', 
         'addresses.address_line_2'
-    )
+    ) ->whereBetween('orders.created_at', [$this->startDate, $this->endDate])
+    ->orderByDesc('orders.order_date')
     ->get();
       }
 

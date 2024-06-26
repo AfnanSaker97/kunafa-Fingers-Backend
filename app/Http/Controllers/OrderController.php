@@ -196,12 +196,11 @@ class OrderController extends BaseController
 
     public function filterOrder(Request $request)
     {
-        $validated = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'status_id' => 'required|in:1,2,3,4,5,6', // Add validation for allowed status_id values
         ]);
-        
-        if ($validated->fails()) {
-            return ApiResponseClass::validateResponse($validated->errors()->all());
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());       
         }
         
         $status = [
@@ -219,9 +218,19 @@ class OrderController extends BaseController
         return $this->sendResponse($orders, 'order fetched successfully.');
     }
 
-    public function export() 
+    public function export(Request $request) 
     {
-        return Excel::download(new OrdersExport, 'orders.xlsx');
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'required|date', // Assuming you want the start date to be a required date
+            'start_date' => 'required|date',
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors()->all());       
+        }
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        return Excel::download(new OrdersExport($startDate, $endDate), 'orders.xlsx');
     }
 
 }
