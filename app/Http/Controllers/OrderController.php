@@ -22,7 +22,12 @@ class OrderController extends BaseController
      */
     public function index()
     {
-        //
+      
+        // Adjust the pagination size as needed      
+        $Orders= Order::with(['user','CartItems','address'])
+       ->orderByDesc('created_at')->get();
+       
+       return $this->sendResponse($Orders, 'order fetched successfully.');
     }
 
     /**

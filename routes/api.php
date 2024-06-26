@@ -74,6 +74,9 @@ Route::middleware(['auth:sanctum','isAdmin'])->group(function() {
 
 
     Route::get('userInfo', [UserInfoController::class, 'index']);
+
+    //order
+    Route::get('orders', [OrderController::class, 'index']); 
 });
 
 
