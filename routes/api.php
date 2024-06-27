@@ -157,7 +157,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
  Route::get('info', [UserInfoController::class,'store']);
   
-
+ Route::get('language', [UserController::class, 'getDeviceLanguage']);
     Route::controller(ContactUsController::class)->group(function(){
     Route::post('ContactUs', 'store');
 });

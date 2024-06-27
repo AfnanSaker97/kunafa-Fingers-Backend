@@ -245,4 +245,64 @@ class UserInfoController extends BaseController
     {
         //
     }
+
+
+
+    public function getDeviceLanguage(Request $request)
+{
+    $IpInfo = $request->ip();
+       $currentUserInfo = Location::get($IpInfo);
+      
+      // Define a mapping of country codes to languages
+      $countryLanguageMap = [
+        'SY' => 'Arabic',
+        'US' => 'English',
+        'DE' => 'German',
+        'CA' => 'English',
+        'GB' => 'English',
+        'AU' => 'English',
+        'ZA' => 'English',
+        'EG' => 'Arabic',
+        'SA' => 'Arabic',
+        'BE' => 'German',
+        'CH' => 'German', 
+        'AT' => 'German',
+        'IE' => 'English',
+        'SG' => 'English', 
+        'NG' => 'English',
+        'KE' => 'English',
+        'GH' => 'English',
+        'KE' => 'English',
+        'AE' => 'Arabic',
+        'QA' => 'Arabic',
+        'KW' => 'Arabic',
+        'OM' => 'Arabic',
+        'JO' => 'Arabic',
+        'LB' => 'Arabic',
+        'TN' => 'Arabic',
+        'MA' => 'Arabic',
+        'DZ' => 'Arabic',
+        'LY' => 'Arabic',
+        'IQ' => 'Arabic',
+        'SD' => 'Arabic',
+        'YE' => 'Arabic',
+        'UG' => 'English',
+        'ZM' => 'English',
+        'ZW' => 'English',
+        'MW' => 'English',
+        'LS' => 'English',
+        'BW' => 'English',
+        'NA' => 'English',
+        'SZ' => 'English',
+        'SL' => 'English',
+        'LR' => 'English',
+        'GM' => 'English',
+        'SS' => 'English',
+    ];
+    $language = $countryLanguageMap[$currentUserInfo->countryCode] ?? 'English';
+
+
+    return response()->json(['language' => $language]);
+}
+
 }
