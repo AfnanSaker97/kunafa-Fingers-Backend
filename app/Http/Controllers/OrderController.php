@@ -163,7 +163,7 @@ class OrderController extends BaseController
             if ($validator->fails()) {
                 return $this->sendError('Validation Error.', $validator->errors()->all());       
             }
-            $order = Order::with(['user','address','CartItems'])->findOrFail($request->order_id);
+            $order = Order::with(['user','address','CartItems','CartItems.product','CartItems.product.productsMedia'])->findOrFail($request->order_id);
             return $this->sendResponse($order, 'order fetched successfully.');
         }
 
