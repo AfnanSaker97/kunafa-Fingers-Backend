@@ -392,7 +392,7 @@ class productTranslationsSeeder extends Seeder
        ','product_id' => '18','language_id' => '2']);
    
 
-       productTranslations::create(['name' =>'تاج كنافة الزعفران','description' =>'تاج كنافة الزعفران هو حلوى فاخرة حيث تُحشى طبقات من عجينة الفيلو المبشورة بخليط مشبع بالزعفران، وتُخبز حتى تصبح ذهبية ومقرمشة، مما يقدم مزيجًا رائعًا من النكهات الشرقية الغريبة والقوام الغني تليق بالترف والاستمتاع الملكي. ','product_id' => '19','language_id' => '1']);
+       productTranslations::create(['name' =>'تاج كنافة الزعفران','description' =>'تاج كنافة الزعفران هو حلوى فاخرة حيث تُحشى طبقات من عجينة الفيلو المبشورة بخليط مشبع بالزعفران، وتُخبز حتى تصبح ذهبية ومقرمشة، مما يقدم مزيجًا رائعًا من النكهات الشرقية الغريبة والقوام الغني تليق بالترف والاستمتاع الملكي. ','product_id' => '19','language_id' => '2']);
    
     
       
@@ -684,10 +684,61 @@ productTranslations::create(['name' =>'Kunafa Nutella', 'description' =>'Kunafa 
 productTranslations::create(['name' =>'Kunafa Krim Potongan', 'description' =>'Kunafa Krim Potongan adalah pencuci mulut yang terdiri daripada lapisan adunan phyllo yang diserak dengan isian krim kastard atau krim putar yang lembut, memberikan hidangan yang mewah dan enak dengan kontras tekstur rangup dan halus.', 'product_id' => '5', 'language_id' => '4']);
 
 productTranslations::create(['name' =>'Jari Kunafa Pistachio', 'description' =>'Jari Kunafa Pistachio adalah pencuci mulut di mana isian kacang pistachio dibalut dalam adunan phyllo yang diserak, dibakar sehingga rangup, dan disajikan dalam saiz jari, menawarkan gabungan tekstur rangup dan rasa kacang dalam setiap gigitan.', 'product_id' => '6', 'language_id' => '4']);
+ 
+productTranslations::create(['name' =>'Kunafa Cheese Original','description' =>'Kunafa Cheese Original adalah pencuci mulut tradisional Timur Tengah yang terdiri daripada doh phyllo yang dicincang dan dilapisi dengan isian keju manis, dibakar sehingga keemasan, dan direndam dalam sirap, menyediakan hidangan yang kaya dan memanjakan dengan keseimbangan tekstur yang rangup dan berkrim.
+','product_id' => '7','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Mix Chocolate','description' =>'Kunafa Mix Chocolate adalah variasi pencuci mulut kunafa tradisional, yang menampilkan lapisan doh phyllo yang dicincang yang diisi dengan sapuan coklat, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan coklat yang menggembirakan dalam setiap gigitan.
+','product_id' => '8','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Nutella','description' =>'Kunafa Nutella adalah twist moden pada pencuci mulut Timur Tengah tradisional, Kunafa, yang menampilkan lapisan doh phyllo yang dicincang yang diisi dengan sapuan Nutella, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan coklat yang menggembirakan.
+','product_id' => '9','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Biscoff','description' =>'Kunafa Biscoff adalah variasi pencuci mulut Timur Tengah tradisional yang lazat, Kunafa, di mana lapisan doh phyllo yang dicincang diisi dengan sapuan Biscoff, dibakar hingga keemasan dan rangup, menawarkan gabungan tekstur rangup dan rasa biskut karamel yang menggembirakan.
+','product_id' => '10','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Mix','description' =>'Kunafa Mix adalah pencuci mulut serba boleh yang menampilkan doh phyllo yang dicincang dilapisi dengan pelbagai isian seperti coklat, Nutella, atau pistachio, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan tekstur rangup dalam setiap gigitan.
+','product_id' => '11','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Cheese Ice Cream','description' =>'Kunafa Cheese Ice Cream adalah pencuci mulut unik yang menggabungkan kekayaan krim Kunafa Cheese tradisional dengan kemanisan ais krim, menawarkan gabungan tekstur dan rasa yang menggembirakan dalam setiap sudu.
+','product_id' => '12','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Pistachio','description' =>'Kunafa Pistachio adalah pencuci mulut yang menggembirakan yang menampilkan doh phyllo yang dicincang diisi dengan campuran pistachio manis, dibakar hingga keemasan dan rangup, menawarkan gabungan sempurna rasa kacang dan tekstur rangup dalam setiap gigitan.
+','product_id' => '13','language_id' => '4']);
+
+productTranslations::create(['name' =>'Kunafa Cream Slice','description' =>'Kunafa Cream Slice adalah pencuci mulut yang enak terdiri daripada doh phyllo yang dicincang dilapisi dengan isian kastard berkrim atau krim disebat, menyediakan hidangan yang kaya dan memanjakan dengan kontras sempurna tekstur yang rangup dan licin.
+','product_id' => '14','language_id' => '4']);
+
+productTranslations::create(['name' =>'Crunchy Cheese Slice','description' =>'Crunchy Cheese Slice adalah hidangan manis-asin yang menampilkan doh phyllo yang dicincang dilapisi dengan isian keju kaya, dibakar hingga keemasan dan rangup, menawarkan gabungan tekstur rangup dan keju krim yang menggembirakan dalam setiap gigitan.
+','product_id' => '15','language_id' => '4']);
+
+productTranslations::create(['name' =>'Pistachio Kunafa Crown','description' =>'Pistachio Kunafa Crown adalah pencuci mulut yang mewah di mana doh phyllo yang dicincang dibalut di sekitar isian pistachio, dibakar hingga rangup dan keemasan, menyajikan hidangan raja dan rasa kacang yang menggembirakan dengan gabungan tekstur rangup dan rasa pistachio.
+','product_id' => '16','language_id' => '4']);
+
+productTranslations::create(['name' =>'Nutella Kunafa Crown','description' =>'Nutella Kunafa Crown adalah pencuci mulut mewah yang menampilkan doh phyllo yang dicincang yang mengandung isian Nutella kaya, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan coklat yang menggembirakan yang sesuai untuk raja.
+','product_id' => '17','language_id' => '4']);
+
+productTranslations::create(['name' =>'Dates Kunafa Crown','description' =>'Dates Kunafa Crown adalah pencuci mulut yang mewah di mana doh phyllo yang dicincang dibalut di sekitar isian kurma manis, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan kemanisan semula jadi dalam setiap gigitan.
+','product_id' => '18','language_id' => '4']);
+
+productTranslations::create(['name' =>'Saffron Kunafa Crown','description' =>'Saffron Kunafa Crown adalah pencuci mulut mewah di mana doh phyllo yang dicincang diisi dengan campuran berperisa saffron, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa eksotik dan tekstur kaya yang sesuai untuk hidangan raja.
+','product_id' => '19','language_id' => '4']);
+
+productTranslations::create(['name' =>'Milk Chocolate Kunafa Crown','description' =>'Milk Chocolate Kunafa Crown adalah pencuci mulut mewah yang menampilkan doh phyllo yang dicincang diisi dengan campuran coklat susu krim, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan coklat yang menggembirakan dalam setiap gigitan raja.
+','product_id' => '20','language_id' => '4']);
+
+productTranslations::create(['name' =>'White Chocolate Kunafa Crown','description' =>'White Chocolate Kunafa Crown adalah pencuci mulut mewah di mana doh phyllo yang dicincang mengandung isian coklat putih kaya, dibakar hingga keemasan dan rangup, menawarkan gabungan rasa Timur Tengah dan kemanisan berkrim dalam setiap hirisan raja.
+','product_id' => '21','language_id' => '4']);
+
+productTranslations::create(['name' =>'Biscoff Kunafa Crown','description' =>'Biscoff Kunafa Crown adalah pencuci mulut yang menggembirakan di mana doh phyllo yang dicincang mengandung isian sapuan Biscoff, dibakar hingga keemasan dan rangup, menyajikan gabungan tradisi Timur Tengah dan rasa biskut yang memanjakan dalam setiap gigitan raja.
+','product_id' => '22','language_id' => '4']);
+
 
 productTranslations::create(['name' =>'Kunafa Keju Jari', 'description' =>'Kunafa Keju Jari adalah pencuci mulut yang enak yang menampilkan adunan phyllo yang diserak dengan isian keju yang berkrim, dibakar sehingga keemasan dan rangup, menawarkan gabungan rasa keju yang enak dan tekstur rangup dalam setiap saiz jari.', 'product_id' => '23', 'language_id' => '4']);
 
 productTranslations::create(['name' =>'Jari Kunafa Keju dan Coklat Susu', 'description' =>'Jari Kunafa Keju dan Coklat Susu adalah pencuci mulut mewah yang menggabungkan adunan phyllo yang diserak dengan isian keju dan coklat susu yang berkrim, dibakar sehingga keemasan dan rangup, menawarkan gabungan rasa keju dan coklat yang enak dalam setiap gigitan.', 'product_id' => '24', 'language_id' => '4']);
+
+
 
 productTranslations::create(['name' =>'Jari Kunafa Krim', 'description' =>'Jari Kunafa Krim adalah pencuci mulut yang menampilkan adunan phyllo yang diserak dengan isian krim kastard atau krim putar yang lembut, dibakar sehingga keemasan dan rangup, menawarkan gabungan tekstur rangup dan kelicinan krim dalam setiap saiz jari.', 'product_id' => '27', 'language_id' => '4']);
 
@@ -738,7 +789,7 @@ productTranslations::create(['name' =>'Kopi Turki', 'description' =>'Kopi Turki 
 productTranslations::create(['name' =>'Minuman Ringan', 'description' =>'Minuman ringan adalah minuman berkarbonat yang biasanya berperisa dengan pemanis dan perasa semula jadi atau tiruan, menawarkan pilihan yang menyegarkan dan bergelembung untuk menghilangkan dahaga dan menikmati pelbagai rasa, menjadikannya pilihan popular untuk penyegaran santai atau dipadankan dengan makanan.', 'product_id' => '50','language_id' => '4']);
 
 productTranslations::create(['name' =>'Air', 'description' =>'Air adalah cairan jernih, tidak berbau, dan tidak berasa yang penting untuk kehidupan, menghidrasi tubuh dan membantu dalam pelbagai fungsi tubuh, menjadikannya minuman yang paling asas dan penting untuk menjaga kesihatan dan kesejahteraan.', 'product_id' => '51','language_id' => '4']);
-    }
+   }
 
 
 }
